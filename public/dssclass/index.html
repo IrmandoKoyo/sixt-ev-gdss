@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Sixt SE EV Fleet GDSS — Linear BWM (2016) &amp; CoCoSo (2019) | Kelompok Konoha</title>
+  <meta name="description" content="Group Decision Support System (GDSS) Pengadaan Armada Kendaraan Listrik (EV) Sixt SE Jerman menggunakan Metode Linear BWM (Rezaei, 2016), CoCoSo (Yazdani et al., 2019), Borda Count, dan Copeland.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./assets/css/styles.css">
+</head>
+<body>
+  <header class="top-shell">
+    <div class="top-bar">
+      <div class="brand-cluster">
+        <div class="brand-mark" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+            <path d="M2 17l10 5 10-5"/>
+            <path d="M2 12l10 5 10-5"/>
+          </svg>
+        </div>
+        <div>
+          <div class="brand-title-row">
+            <h1 class="brand-title">Sixt SE Fleet Decision Suite</h1>
+            <span class="apple-pill pill-accent">Linear BWM (2016) &middot; CoCoSo (2019) &middot; Borda GDSS</span>
+          </div>
+          <p class="brand-sub">Kelompok Konoha &mdash; Komite Elektrifikasi Armada Korporat Sixt SE Pullach, Jerman (360 EV Kaggle Dataset)</p>
+        </div>
+      </div>
+
+      <div class="top-controls">
+        <button type="button" id="cloud-sync-pill" class="sync-pill" data-mode="local" data-action="open-cloud-modal" title="Konfigurasi Cloud Firestore Realtime Sync">
+          <span class="sync-dot"></span>
+          <span id="cloud-sync-text">Local + Multi-Tab Sync</span>
+        </button>
+
+        <div id="role-switcher" class="segmented-bar" role="group" aria-label="Pemilih Peran Decision Maker"></div>
+
+        <button type="button" id="full-mode-toggle-btn" class="btn btn-sm btn-subtle" data-action="toggle-full-mode" title="Beralih antara Mode Standar (Fokus Penilaian 6) dan Mode Lengkap (+ Audit, Sensitivitas & Panduan Tim)">
+          <svg class="ui-ico" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/></svg>
+          <span id="full-mode-label">Mode Lengkap</span>
+        </button>
+        <button type="button" class="btn btn-sm btn-subtle" data-action="export-json" title="Ekspor State JSON">
+          <svg class="ui-ico" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          <span>JSON</span>
+        </button>
+        <button type="button" class="btn btn-sm btn-subtle" data-action="toggle-theme" title="Ganti Mode Tampilan Terang / Gelap">
+          <svg class="ui-ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+          <span>Appearance</span>
+        </button>
+      </div>
+    </div>
+
+    <nav class="pipeline-bar" aria-label="Tahapan Alur Lengkap GDSS">
+      <div id="pipeline-tabs" class="pipeline-inner"></div>
+    </nav>
+  </header>
+
+  <main id="main-workspace" class="workspace"></main>
+
+  <div id="modal-backdrop" class="modal-backdrop" hidden>
+    <div id="modal-content" class="modal-card" role="dialog" aria-modal="true"></div>
+  </div>
+
+  <script src="./assets/js/seed.js"></script>
+  <script src="./assets/js/excel-reference.js"></script>
+  <script src="./assets/js/firebase-config.js"></script>
+  <script src="./assets/js/engine.js"></script>
+  <script src="./assets/js/storage.js"></script>
+  <script src="./assets/js/charts.js"></script>
+  <script src="./assets/js/app.js"></script>
+</body>
+</html>

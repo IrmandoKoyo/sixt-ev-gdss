@@ -1,0 +1,12 @@
+{
+  "name": "sixt-ev-gdss",
+  "version": "1.0.0",
+  "description": "Group Decision Support System (GDSS) Pengadaan Armada Kendaraan Listrik (EV) Sixt SE Jerman — Linear BWM (2016) + CoCoSo (2019) + Borda & Copeland",
+  "private": false,
+  "scripts": {
+    "test": "node tests/verify-engine.js",
+    "sync": "node scripts/sync-public.js",
+    "build": "node scripts/sync-public.js && node tests/verify-engine.js",
+    "start": "npx serve public -l 3000"
+  }
+}

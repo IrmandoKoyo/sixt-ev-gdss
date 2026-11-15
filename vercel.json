@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "cleanUrls": true,
+  "rewrites": [
+    { "source": "/dssclass", "destination": "/dssclass/index.html" },
+    { "source": "/dssclass/", "destination": "/dssclass/index.html" },
+    { "source": "/dssclass/assets/:path*", "destination": "/dssclass/assets/:path*" },
+    { "source": "/assets/:path*", "destination": "/assets/:path*" }
+  ]
+}
