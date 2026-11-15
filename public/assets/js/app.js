@@ -178,6 +178,18 @@
         fmLbl.textContent = 'Mode Lengkap';
       }
     }
+    var methodPill = document.getElementById('brand-method-pill');
+    if (methodPill) methodPill.hidden = !ui.fullMode;
+    var cloudPill = document.getElementById('cloud-sync-pill');
+    if (cloudPill) cloudPill.hidden = !ui.fullMode;
+    var jsonBtn = document.getElementById('export-json-btn');
+    if (jsonBtn) jsonBtn.hidden = !ui.fullMode;
+    var brandSub = document.getElementById('brand-sub');
+    if (brandSub) {
+      brandSub.innerHTML = ui.fullMode
+        ? 'Kelompok Konoha &mdash; Komite Evaluasi Armada Korporat Sixt SE Pullach, Jerman (Dataset 360 EV Kaggle)'
+        : 'Sistem Pendukung Keputusan Kelompok &mdash; Komite Evaluasi Armada Korporat Sixt SE, Jerman';
+    }
   }
 
   function renderPipelineTabs() {
@@ -258,7 +270,7 @@
       var wIdx = calcResult.group.winnerIdx;
       var wAlt = alts[wIdx];
       winnerTxt = wAlt.code + ' — ' + wAlt.name;
-      winnerSub = calcResult.group.borda[wIdx] + ' Poin Borda • K̄ = ' + fmt(calcResult.group.avgK[wIdx], 4) + ' • Copeland +' + calcResult.group.copeland[wIdx].net;
+      winnerSub = calcResult.group.borda[wIdx] + ' Poin Borda • K̄ = ' + fmt(calcResult.group.avgK[wIdx], 4) + (ui.fullMode ? (' • Copeland +' + calcResult.group.copeland[wIdx].net) : '');
       if (calcResult.group.order.length > 1) {
         var rIdx = calcResult.group.order[1];
         var rAlt = alts[rIdx];
@@ -269,6 +281,10 @@
     var activeRoleName = session.role === 'facilitator'
       ? 'Komite Eksekutif (Akses Penuh)'
       : ((appState.dms[session.dmId] && (appState.dms[session.dmId].code + ' — ' + appState.dms[session.dmId].short)) || 'DM');
+
+    var paritySub = ui.fullMode
+      ? ('Kendall <em>W</em> = ' + (calcResult.ok ? fmt(calcResult.agreement.kendall.W, 4) : '—') + ' &bull; Stabil ' + (calcResult.ok ? (calcResult.sensitivity.winnerStable + '/' + calcResult.sensitivity.total + ' skenario') : '—'))
+      : 'Sesuai 100% dengan Perhitungan Ms. Excel';
 
     return '<section class="kpi-strip" aria-label="Ringkasan Eksekutif GDSS">' +
       '<div class="kpi-card highlight">' +
@@ -285,7 +301,7 @@
       '</div>' +
       '<div class="kpi-card">' +
         '<div class="kpi-head"><span class="kpi-label">Paritas vs Master Excel</span><span class="kpi-icon-badge">' + ico('shield') + '</span></div>' +
-        '<div class="kpi-val">' + esc(parityBadge) + '</div><div class="kpi-sub">Kendall <em>W</em> = ' + (calcResult.ok ? fmt(calcResult.agreement.kendall.W, 4) : '—') + ' &bull; Stabil ' + (calcResult.ok ? (calcResult.sensitivity.winnerStable + '/' + calcResult.sensitivity.total + ' skenario') : '—') + '</div>' +
+        '<div class="kpi-val">' + esc(parityBadge) + '</div><div class="kpi-sub">' + paritySub + '</div>' +
       '</div>' +
       '</section>';
   }
