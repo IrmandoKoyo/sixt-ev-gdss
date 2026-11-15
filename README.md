@@ -39,7 +39,7 @@ finalproject/
 │   ├── index.html                        # Mirror halaman utama untuk root domain (/)
 │   ├── _redirects                        # Aturan routing Cloudflare Pages (/dssclass/*)
 │   └── dssclass/                         # Direktori utama aplikasi untuk subpath /dssclass
-│       ├── index.html                    # Antarmuka utama 8 Tahap GDSS
+│       ├── index.html                    # Antarmuka utama 6 Tahap (+ Tahap 07–08 Mode Lengkap) GDSS
 │       └── assets/
 │           ├── css/
 │           │   └── styles.css            # Desain Executive Decision Cockpit (Light & Dark)
@@ -50,7 +50,7 @@ finalproject/
 │               ├── firebase-config.js    # Konfigurasi Google Firebase Cloud Firestore
 │               ├── storage.js            # Dual-Engine Persistence (Firestore + LocalStorage + BroadcastChannel)
 │               ├── charts.js             # Generator 4 Grafik Vektor SVG Dinamis
-│               └── app.js                # Controller UI 8 Tahap, Modal CRUD, Validasi & Kolaborasi
+│               └── app.js                # Controller UI 6+2 Tahap, Modal CRUD, Validasi & Kolaborasi
 ├── scripts/
 │   └── sync-public.js                    # Menyinkronkan public/dssclass/* ke public/* untuk multi-host
 ├── tests/

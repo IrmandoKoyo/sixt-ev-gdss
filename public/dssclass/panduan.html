@@ -7698,7 +7698,7 @@ code {
 
   <rect x="34" y="174" width="268" height="48" rx="7" fill="#1D4ED8" fill-opacity="0.09" stroke="#1D4ED8"/>
   <text x="168" y="193" text-anchor="middle" font-size="10.2" font-weight="800" fill="#1D4ED8">Engine Simplex LP + CoCoSo Murni di Browser</text>
-  <text x="168" y="209" text-anchor="middle" font-size="9.5" fill="var(--text-sec)">Tambah A9 Audi Q4 / C7 Garansi → langsung hitung ulang!</text>
+  <text x="168" y="209" text-anchor="middle" font-size="9.5" fill="var(--text-sec)">Tambah A9 Audi Q4 / C7 Baterai (kWh) → langsung hitung ulang!</text>
 
   <rect x="32" y="232" width="272" height="24" rx="6" fill="var(--surface-2)"/>
   <text x="168" y="248" text-anchor="middle" font-size="10" font-weight="700" fill="var(--text-sec)">Bukti: Tahap 01–07 Web App &amp; verify-engine.js</text>
@@ -7827,7 +7827,7 @@ code {
           <div class="rc-sec-label">📊 Jawaban Teknis, Rumus &amp; Bukti Angka Proyek Kita</div>
           
             <ul class="clean-list subtext" style="margin-bottom:0;">
-              <li><strong>Segmented Role Switcher di Header Atas:</strong> Pengguna dapat memilih peran aktif sebagai <code>Komite Eksekutif</code>, <code>DM1 (CFO)</code>, <code>DM2 (Fleet Ops)</code>, atau <code>DM3 (HSE &amp; ESG)</code> (serta menambah responden baru <code>DM4</code> pada Mode Lengkap).</li>
+              <li><strong>Segmented Role Switcher di Header Atas:</strong> Pengguna dapat memilih peran aktif sebagai <code>Komite Eksekutif</code>, <code>DM1 (CFO)</code>, <code>DM2 (Fleet Ops)</code>, atau <code>DM3 (HSE &amp; ESG)</code> (serta menambah responden baru <code>DM4</code> langsung di Tahap 01).</li>
               <li><strong>Form Penilaian Independen di Tahap 02:</strong> Setiap DM memiliki lembar kerja mandiri untuk mengatur orientasi <em>Benefit/Cost</em> per kriteria (termasuk <code>C5 Akselerasi = Benefit</code> khusus DM3!), memilih kriteria <em>Best</em> &amp; <em>Worst</em>, mengisi skala 1–9 <em>A<sub>B</sub></em> &amp; <em>A<sub>W</sub></em>, serta menilai matriks skor 1–5 tanpa menimpa data DM lain.</li>
               <li><strong>Sinkronisasi Multi-Perangkat Real-Time:</strong> Saat 3 anggota kelompok membuka <code>https://upro.web.id/dssclass</code> di laptop/HP masing-masing dan mengirim penilaiannya, status dan hasil konsensus grup langsung tersinkronisasi <em>real-time</em> via <strong>Google Firebase Cloud Firestore (<code>sixt-ev-gdss</code>)</strong>!</li>
             </ul>
@@ -7883,7 +7883,7 @@ code {
           <span class="rc-speech-title">🎙️ Kalimat Siap Ucap Saat Presentasi / Ditanya Dosen (Butir 6.3)</span>
           <button type="button" class="copy-speech-btn" data-copy-target="speech-rubrik-6-3">📋 Salin Kalimat</button>
         </div>
-        <blockquote class="rc-speech-quote" id="speech-rubrik-6-3">“Untuk Butir 6.3, seluruh alternatif dan kriteria di aplikasi kami bersifat dinamis sepenuhnya dan tidak di-hardcode. Di Tahap 01 tersedia fitur Tambah Alternatif EV, Tambah Kriteria, Edit, dan Hapus, lengkap dengan tombol demo satu klik pada Mode Lengkap untuk menambahkan kandidat ke-9 Audi Q4 e-tron atau kriteria ke-7 Garansi Baterai. Begitu ditambahkan atau dihapus, solver Simplex Linear BWM dan mesin CoCoSo otomatis beradaptasi dengan dimensi matriks M kali N yang baru.”</blockquote>
+        <blockquote class="rc-speech-quote" id="speech-rubrik-6-3">“Untuk Butir 6.3, seluruh alternatif dan kriteria di aplikasi kami bersifat dinamis sepenuhnya dan tidak di-hardcode. Di Tahap 01 tersedia fitur Tambah Alternatif EV, Tambah Kriteria, Edit, dan Hapus, lengkap dengan tombol demo satu klik pada Mode Lengkap untuk menambahkan kandidat ke-9 Audi Q4 e-tron atau kriteria ke-7 Kapasitas Baterai Bersih (kWh). Begitu ditambahkan atau dihapus, solver Simplex Linear BWM dan mesin CoCoSo otomatis beradaptasi dengan dimensi matriks M kali N yang baru.”</blockquote>
       </div>
     </article>
     
@@ -8046,7 +8046,7 @@ code {
               <li>Menolak nilai vektor BWM <em>A<sub>B</sub></em> dan <em>A<sub>W</sub></em> di luar bilangan bulat <strong><code>1 s/d 9</code></strong>.</li>
               <li>Menolak jika kriteria <em>Best</em> sama dengan <em>Worst</em>, atau jika <strong><code>a<sub>BB</sub> &ne; 1</code></strong> atau <strong><code>a<sub>WW</sub> &ne; 1</code></strong>.</li>
               <li>Menolak inkonsistensi struktural jika <code>a<sub>B(W)</sub> &ne; a<sub>W(B)</sub></code>.</li>
-              <li>Tersedia tombol <strong><code>Simulasi Uji Validasi (Demo Butir 6.7)</code></strong> di Tahap 02 (Mode Lengkap) untuk mendemonstrasikan penolakan otomatis di depan dosen dalam 1 klik!</li>
+              <li>Penjagaan aktif juga langsung memblokir input kosong atau di luar skala pada tabel Tahap 02 maupun modal Tambah/Edit sebelum tersimpan ke memori/Cloud Firestore, dilengkapi tombol <strong><code>Uji Validasi Input</code></strong> (<strong><code>Simulasi Uji Validasi (Butir 6.7)</code></strong> di Mode Lengkap) untuk mendemonstrasikan penolakan otomatis oleh <code>validateDM()</code> di depan dosen dalam 1 klik!</li>
             </ul>
             
         </div>
@@ -8242,7 +8242,7 @@ code {
       </div>
 
       <div class="rc-meta-bar">
-        <span class="rc-loc">📍 <strong>Lokasi di Excel:</strong> <code>Panduan Pembagian Peran 3 Anggota + 9 FAQ Jebakan Sidang (Bab 18) &amp; Stage 8 Web App • Sheet 0D (Baris 18)</code></span>
+        <span class="rc-loc">📍 <strong>Lokasi di Excel:</strong> <code>Panduan Pembagian Peran 3 Anggota + 9 FAQ Jebakan Sidang (Bab 18) &amp; Tahap 08 Web App (Mode Lengkap) • Sheet 0D (Baris 18)</code></span>
         <a class="rc-jump" href="#bab-18">📖 Pelajari Konsep Utuh di Bab 18 &rarr;</a>
       </div>
 
@@ -8256,7 +8256,7 @@ code {
         <div class="rc-proof-box">
           <div class="rc-sec-label">📊 Jawaban Teknis, Rumus &amp; Bukti Angka Proyek Kita</div>
           
-            <p>Kami menyiapkan <strong>Matriks Pembagian Peran Presentasi &amp; Tanya Jawab 3 Anggota Kelompok Konoha</strong> (tersedia juga di <strong>Tahap 8 Web App</strong> &amp; <strong>Bab 18</strong>):</p>
+            <p>Kami menyiapkan <strong>Matriks Pembagian Peran Presentasi &amp; Tanya Jawab 3 Anggota Kelompok Konoha</strong> (tersedia juga di <strong>Tahap 08 Web App &ndash; Mode Lengkap</strong> &amp; <strong>Bab 18</strong>):</p>
             <ul class="clean-list subtext" style="margin-bottom:0;">
               <li><strong>Anggota 1 (Peran DM1 CFO &amp; Data Preparation):</strong> Menjelaskan kasus pengadaan armada Sixt SE Jerman, penyaringan dataset Kaggle 360 &rarr; 8 EV, alasan 6 kriteria (C1–C6), tabel konversi interval 1–5, serta pembobotan BWM &amp; hasil CoCoSo perspektif Keuangan (mengapa CFO memilih <code>A1 Tesla Model 3</code> dan menghukum <code>A8 BMW i4</code>).</li>
               <li><strong>Anggota 2 (Peran DM2 Fleet Ops &amp; Metodologi BWM + CoCoSo):</strong> Menjelaskan formulasi Linear BWM Rezaei (2016), uji konsistensi <em>CR<sup>I</sup></em> Liang et al. (2020), normalisasi Min-Max, 5 langkah rumus CoCoSo Yazdani et al. (2019), serta hasil perspektif Operasional Autobahn (mengapa Ops memenangkan <code>A8 BMW i4</code>).</li>

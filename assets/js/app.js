@@ -25,6 +25,7 @@
     selectedCocosoRow: 0,
     showSPDetail: false,
     validationDemoMsg: '',
+    rejectMsg: '',
     simAlphas: [1 / 3, 1 / 3, 1 / 3],
     simCritBoostIdx: -1,
     simCritBoostPct: 30,
@@ -363,7 +364,7 @@
           '<button type="button" class="btn btn-subtle" data-action="reset-baseline">' + ico('rotate') + '<span>Reset Data Awal</span></button>' +
         '</div>' +
       '</div>' +
-      '<div class="grid-2">' +
+      '<div style="display:flex;flex-direction:column;gap:16px">' +
         '<div class="subcard">' +
           '<h3>' + ico('layers') + '<span>A. Daftar Alternatif Kendaraan Listrik (' + alts.length + ' Kandidat Aktif)</span></h3>' +
           '<div class="table-wrap"><table class="data-table"><thead><tr><th>Kode</th><th>Model Armada EV &amp; Segmen</th>' + critHeaders + '<th class="center">Aksi CRUD</th></tr></thead><tbody>' + altRows + '</tbody></table></div>' +
@@ -383,6 +384,8 @@
   /* ======================================= STAGE 2: PENILAIAN TIAP DM & VALIDASI */
   function renderStage2DMInput() {
     var dms = Engine.sortedDMs(appState);
+    var lockedDmId = (session.role === 'dm' && appState.dms[session.dmId]) ? session.dmId : null;
+    if (lockedDmId) ui.selectedDM = lockedDmId;
     var dm = appState.dms[ui.selectedDM] || dms[0];
     var crit = appState.criteria, alts = appState.alternatives;
     var val = Engine.validateDM(appState, dm);
@@ -393,9 +396,21 @@
         ? '<span class="badge badge-benefit">' + ico('check') + ' Terkirim</span>'
         : '<span class="badge badge-cost">' + v.errors.length + ' Pelanggaran</span>';
       var active = d.id === dm.id ? 'btn-primary' : '';
-      return '<button type="button" class="btn ' + active + '" data-action="select-dm-tab" data-dm="' + esc(d.id) + '">' +
-        ico('user') + '<span>' + esc(d.code + ' — ' + (d.short || d.name)) + '</span>' + statusBadge + '</button>';
+      var isLocked = lockedDmId && d.id !== lockedDmId;
+      return '<button type="button" class="btn ' + active + '" data-action="select-dm-tab" data-dm="' + esc(d.id) + '"' + (isLocked ? ' disabled title="Terkunci: hanya ' + esc(d.code) + ' yang dapat membuka formulir ini"' : '') + '>' +
+        ico('user') + '<span>' + esc(d.code + ' — ' + (d.short || d.name)) + '</span>' + (isLocked ? '<span class="badge badge-neutral">Terkunci</span>' : statusBadge) + '</button>';
     }).join(' ');
+
+    var roleBanner = lockedDmId
+      ? '<div class="alert-box alert-ok">' + ico('user') + '<div><strong>Masuk sebagai ' + esc(dm.code + ' — ' + dm.name) + '.</strong> Anda hanya dapat mengisi dan mengirim penilaian Anda sendiri; formulir DM lain terkunci. Pilih <strong>Komite Eksekutif</strong> di bar atas untuk memantau seluruh DM.</div></div>'
+      : '<div class="alert-box alert-ok">' + ico('users') + '<div><strong>Mode Komite Eksekutif (Fasilitator):</strong> dapat memantau formulir seluruh DM. Untuk mengisi sebagai responden tertentu, pilih peran <strong>DM1</strong>, <strong>DM2</strong>, atau <strong>DM3</strong> di bar atas.</div></div>';
+    var rejectBanner = ui.rejectMsg
+      ? '<div class="alert-box alert-error" style="align-items:flex-start;justify-content:space-between;flex-wrap:wrap">' +
+          '<div style="display:flex;align-items:flex-start;gap:10px;min-width:0;flex:1">' + ico('shieldAlert') +
+          '<div><strong>Input Ditolak Sistem (Validasi Butir 6.7):</strong> ' + ui.rejectMsg + '</div></div>' +
+          '<button type="button" class="btn btn-sm" data-action="dismiss-reject">Tutup</button>' +
+        '</div>'
+      : '';
 
     var bwmPreviewHtml = '';
     if (val.bwmOk) {
@@ -477,6 +492,8 @@
         '</div>' +
       '</div>' +
       '<div style="margin-bottom:14px;display:flex;gap:8px;flex-wrap:wrap;align-items:center">' + dmTabs + '</div>' +
+      roleBanner +
+      rejectBanner +
       errBanner +
       '<div class="subcard" style="margin-bottom:16px">' +
         '<h3>' + ico('sliders') + '<span>A. Kuesioner Pembobotan Linear BWM (Skala 1–9) &amp; Orientasi Kriteria &mdash; ' + esc(dm.code + ': ' + dm.name) + '</span></h3>' +
@@ -886,10 +903,31 @@
             'Alternatif paling diperdebatkan adalah <strong>' + esc(alts[calcResult.agreement.byControversy[0].idx].code + ' — ' + alts[calcResult.agreement.byControversy[0].idx].name) + '</strong> (&Delta;Rank = ' + calcResult.agreement.byControversy[0].range + '), sedangkan <strong>' + esc(alts[calcResult.group.winnerIdx].code + ' — ' + alts[calcResult.group.winnerIdx].name) + '</strong> terpilih sebagai pemenang konsensus komite.' +
             '</div>' +
           '</div>' +
+          renderExecRecommendationGrid(alts, calcResult.group) +
         '</div>' +
       '</div>' +
       renderGroupSupportWidgets() +
     '</section>';
+  }
+
+  function renderExecRecommendationGrid(alts, g) {
+    var order = g.order || [];
+    if (!order.length) return '';
+    var items = [];
+    if (order.length >= 1) items.push({ cls: 'rec-top', badge: 'Prioritas Utama (#1 &middot; 60%)', idx: order[0], note: 'Porsi pengadaan utama armada' });
+    if (order.length >= 2) items.push({ cls: 'rec-mid', badge: 'Komplemen Armada (#2 &middot; 30%)', idx: order[1], note: 'Diversifikasi & cadangan armada' });
+    if (order.length >= 3) items.push({ cls: 'rec-low', badge: 'Alokasi Terbatas (#3 &middot; 10%)', idx: order[2], note: 'Uji operasional terbatas' });
+    if (order.length >= 4) items.push({ cls: 'rec-drop', badge: 'Eliminasi (#' + order.length + ' &middot; 0%)', idx: order[order.length - 1], note: 'Ditunda — peringkat terendah' });
+    var cards = items.map(function (it) {
+      var alt = alts[it.idx];
+      if (!alt) return '';
+      return '<div class="exec-rec-card ' + it.cls + '">' +
+        '<div class="exec-rec-badge">' + it.badge + '</div>' +
+        '<div class="exec-rec-title">' + esc(alt.code + ' — ' + alt.name) + '</div>' +
+        '<div class="exec-rec-meta">Borda <strong>' + g.borda[it.idx] + ' pt</strong> &middot; <span class="m-var">K&#772;</span> = <strong>' + fmt(g.avgK[it.idx], 4) + '</strong><br>' + it.note + '</div>' +
+      '</div>';
+    }).join('');
+    return '<div style="margin-top:12px"><div style="font-size:0.75rem;font-weight:700;color:var(--ink-secondary);letter-spacing:0.02em;margin-bottom:2px">REKOMENDASI KEPUTUSAN PENGADAAN ARMADA SIXT SE (KONSENSUS BORDA)</div><div class="exec-rec-grid">' + cards + '</div></div>';
   }
 
   function renderGroupSupportWidgets() {
@@ -1223,11 +1261,13 @@
 
       if (act === 'set-stage') {
         ui.activeStage = btn.getAttribute('data-stage');
+        ui.rejectMsg = '';
         recomputeAndRender();
       } else if (act === 'switch-role') {
         var r = btn.getAttribute('data-role');
         var dId = btn.getAttribute('data-dm') || 'dm1';
         session.role = r;
+        ui.rejectMsg = '';
         if (r === 'dm') {
           session.dmId = dId;
           ui.selectedDM = dId;
@@ -1237,8 +1277,17 @@
         Storage.saveSession(session);
         recomputeAndRender();
       } else if (act === 'select-dm-tab') {
-        ui.selectedDM = btn.getAttribute('data-dm');
+        var targetDmId = btn.getAttribute('data-dm');
+        var lockedId = (session.role === 'dm' && appState.dms[session.dmId]) ? session.dmId : null;
+        if (lockedId && targetDmId !== lockedId) {
+          var lockedDm = appState.dms[lockedId];
+          ui.rejectMsg = 'Akses formulir DM lain terkunci saat Anda masuk sebagai <strong>' + esc(lockedDm.code) + '</strong>. Pilih <strong>Komite Eksekutif</strong> di bar atas untuk memantau seluruh DM.';
+          recomputeAndRender();
+          return;
+        }
+        ui.selectedDM = targetDmId;
         ui.validationDemoMsg = '';
+        ui.rejectMsg = '';
         recomputeAndRender();
       } else if (act === 'select-norm-dm') {
         ui.normDM = btn.getAttribute('data-dm');
@@ -1268,6 +1317,7 @@
       } else if (act === 'reset-baseline') {
         appState = Storage.resetToSeed();
         ui.validationDemoMsg = 'Data berhasil dikembalikan ke Baseline Master Excel (8 EV × 6 Kriteria × 3 DM).';
+        ui.rejectMsg = '';
         recomputeAndRender();
       } else if (act === 'open-add-alt') {
         openAltModal(null);
@@ -1319,11 +1369,25 @@
       } else if (act === 'open-add-dm') {
         quickAddNewDM();
       } else if (act === 'demo-invalid-input') {
-        var dmTarget = appState.dms[ui.selectedDM];
-        var firstAlt = appState.alternatives[0].id;
-        var firstCrit = appState.criteria[0].id;
-        dmTarget.scores[firstAlt][firstCrit] = 9; // Di luar skala 1..5
+        var dmTarget = appState.dms[ui.selectedDM] || Engine.sortedDMs(appState)[0];
+        var testState = JSON.parse(JSON.stringify(appState));
+        var testDm = testState.dms[dmTarget.id];
+        var a0 = testState.alternatives[0];
+        var c0 = testState.criteria[0];
+        var c1 = testState.criteria[1] || testState.criteria[0];
+        testDm.scores[a0.id][c0.id] = 9;  // Simulasi di luar skala 1..5
+        testDm.scores[a0.id][c1.id] = ''; // Simulasi nilai kosong
+        testDm.bwm.aB[c0.id] = 12;        // Simulasi BWM di luar skala 1..9
+        var simVal = Engine.validateDM(testState, testDm);
+        ui.rejectMsg = '<div>Simulasi pengujian otomatis menolak payload tidak valid pada <strong>' + esc(dmTarget.code) + '</strong> (' +
+          esc(a0.code) + '/' + esc(c0.code) + ' = <code>9</code>, ' + esc(c1.code) + ' = <code>kosong</code>, BWM = <code>12</code>) sebelum tersimpan ke memori/Cloud Firestore:</div>' +
+          '<ul style="margin:6px 0 0 18px;padding:0">' +
+          simVal.errors.slice(0, 4).map(function (e) { return '<li>' + esc(e.msg) + '</li>'; }).join('') +
+          '</ul>';
         ui.activeStage = '2';
+        recomputeAndRender();
+      } else if (act === 'dismiss-reject') {
+        ui.rejectMsg = '';
         recomputeAndRender();
       } else if (act === 'auto-convert-rules') {
         autoConvertDMRules(btn.getAttribute('data-dm'));
@@ -1421,12 +1485,26 @@
         Storage.saveState(appState);
         recomputeAndRender();
       } else if (act === 'bwm-best') {
+        if (el.value === dm.bwm.worst) {
+          ui.rejectMsg = 'Kriteria Terbaik (C<sub>B</sub>) dan Terlemah (C<sub>W</sub>) tidak boleh sama; pilihan sebelumnya dipertahankan.';
+          el.value = dm.bwm.best;
+          recomputeAndRender();
+          return;
+        }
+        ui.rejectMsg = '';
         dm.bwm.best = el.value;
         dm.bwm.aB[el.value] = 1;
         dm.bwm.aW[el.value] = dm.bwm.aB[dm.bwm.worst] || 7;
         Storage.saveState(appState);
         recomputeAndRender();
       } else if (act === 'bwm-worst') {
+        if (el.value === dm.bwm.best) {
+          ui.rejectMsg = 'Kriteria Terlemah (C<sub>W</sub>) dan Terbaik (C<sub>B</sub>) tidak boleh sama; pilihan sebelumnya dipertahankan.';
+          el.value = dm.bwm.worst;
+          recomputeAndRender();
+          return;
+        }
+        ui.rejectMsg = '';
         dm.bwm.worst = el.value;
         dm.bwm.aW[el.value] = 1;
         dm.bwm.aB[el.value] = dm.bwm.aW[dm.bwm.best] || 7;
@@ -1435,14 +1513,68 @@
       } else if (act === 'bwm-vec') {
         var vec = el.getAttribute('data-vec');
         var cid = el.getAttribute('data-crit');
-        dm.bwm[vec][cid] = el.value === '' ? '' : Number(el.value);
+        var rawBwm = el.value.trim();
+        var numBwm = Number(rawBwm);
+        var prevBwm = dm.bwm[vec] && dm.bwm[vec][cid] !== undefined ? dm.bwm[vec][cid] : '';
+        var critObj = appState.criteria.find(function (c) { return c.id === cid; });
+        var cLbl = critObj ? critObj.code : cid;
+        if (rawBwm === '') {
+          ui.rejectMsg = 'Vektor BWM untuk <strong>' + esc(dm.code + ' / ' + cLbl) + '</strong> tidak boleh kosong (wajib bilangan bulat skala Saaty 1–9). Nilai sebelumnya (<code>' + esc(String(prevBwm)) + '</code>) dipertahankan &amp; tidak disimpan ke Cloud.';
+          el.value = prevBwm;
+          recomputeAndRender();
+          return;
+        }
+        if (!Number.isFinite(numBwm) || Math.floor(numBwm) !== numBwm || numBwm < 1 || numBwm > 9) {
+          ui.rejectMsg = 'Vektor BWM untuk <strong>' + esc(dm.code + ' / ' + cLbl) + '</strong> sebesar <code>' + esc(rawBwm) + '</code> ditolak karena di luar skala Saaty 1–9 (harus bilangan bulat 1–9). Nilai sebelumnya (<code>' + esc(String(prevBwm)) + '</code>) dipertahankan.';
+          el.value = prevBwm;
+          recomputeAndRender();
+          return;
+        }
+        if (vec === 'aB' && cid === dm.bwm.best && numBwm !== 1) {
+          ui.rejectMsg = 'Nilai Best-to-Best (<span class="m-var">a<sub>BB</sub></span> pada <strong>' + esc(cLbl) + '</strong>) wajib bernilai <code>1</code>; input <code>' + esc(rawBwm) + '</code> ditolak.';
+          el.value = prevBwm;
+          recomputeAndRender();
+          return;
+        }
+        if (vec === 'aW' && cid === dm.bwm.worst && numBwm !== 1) {
+          ui.rejectMsg = 'Nilai Worst-to-Worst (<span class="m-var">a<sub>WW</sub></span> pada <strong>' + esc(cLbl) + '</strong>) wajib bernilai <code>1</code>; input <code>' + esc(rawBwm) + '</code> ditolak.';
+          el.value = prevBwm;
+          recomputeAndRender();
+          return;
+        }
+        ui.rejectMsg = '';
+        dm.bwm[vec][cid] = numBwm;
+        if (vec === 'aB' && cid === dm.bwm.worst) {
+          dm.bwm.aW[dm.bwm.best] = numBwm;
+        } else if (vec === 'aW' && cid === dm.bwm.best) {
+          dm.bwm.aB[dm.bwm.worst] = numBwm;
+        }
         Storage.saveState(appState);
         recomputeAndRender();
       } else if (act === 'dm-score') {
         var aid = el.getAttribute('data-alt');
         var cid2 = el.getAttribute('data-crit');
+        var rawScore = el.value.trim();
+        var numScore = Number(rawScore);
         dm.scores[aid] = dm.scores[aid] || {};
-        dm.scores[aid][cid2] = el.value === '' ? '' : Number(el.value);
+        var prevScore = dm.scores[aid][cid2] !== undefined ? dm.scores[aid][cid2] : '';
+        var altObj = appState.alternatives.find(function (a) { return a.id === aid; });
+        var critObj2 = appState.criteria.find(function (c) { return c.id === cid2; });
+        var pairLbl = esc((altObj ? altObj.code : aid) + ' / ' + (critObj2 ? critObj2.code : cid2));
+        if (rawScore === '') {
+          ui.rejectMsg = 'Skor penilaian <strong>' + esc(dm.code) + '</strong> pada <strong>' + pairLbl + '</strong> tidak boleh kosong (wajib skala Likert 1–5). Nilai sebelumnya (<code>' + esc(String(prevScore)) + '</code>) dipertahankan &amp; tidak disimpan ke Cloud.';
+          el.value = prevScore;
+          recomputeAndRender();
+          return;
+        }
+        if (!Number.isFinite(numScore) || Math.floor(numScore) !== numScore || numScore < 1 || numScore > 5) {
+          ui.rejectMsg = 'Skor penilaian <strong>' + esc(dm.code) + '</strong> pada <strong>' + pairLbl + '</strong> sebesar <code>' + esc(rawScore) + '</code> ditolak karena di luar skala Likert 1–5 (harus bilangan bulat 1–5). Nilai sebelumnya (<code>' + esc(String(prevScore)) + '</code>) dipertahankan.';
+          el.value = prevScore;
+          recomputeAndRender();
+          return;
+        }
+        ui.rejectMsg = '';
+        dm.scores[aid][cid2] = numScore;
         Storage.saveState(appState);
         recomputeAndRender();
       }
@@ -1460,28 +1592,88 @@
     });
   }
 
+  function showModalError(errs) {
+    var box = document.getElementById('modal-content');
+    if (!box) return;
+    var old = document.getElementById('modal-err-box');
+    if (old) old.remove();
+    var div = document.createElement('div');
+    div.id = 'modal-err-box';
+    div.className = 'alert-box alert-error';
+    div.style.marginBottom = '14px';
+    div.innerHTML = ico('shieldAlert') + '<div><strong>Input Ditolak Sistem (Validasi Butir 6.7):</strong><ul style="margin:6px 0 0 18px;padding:0">' +
+      errs.map(function (e) { return '<li>' + esc(e) + '</li>'; }).join('') + '</ul></div>';
+    box.insertBefore(div, box.firstChild);
+    box.scrollTop = 0;
+  }
+
   function saveAltFromModal(existingId) {
-    var code = document.getElementById('m-alt-code').value.trim() || ('A' + (appState.alternatives.length + 1));
-    var name = document.getElementById('m-alt-name').value.trim() || ('Kandidat EV ' + code);
-    var seg = document.getElementById('m-alt-seg').value.trim() || 'Armada Korporat EV';
-    var id = existingId || ('a_' + Date.now());
+    var codeEl = document.getElementById('m-alt-code');
+    var nameEl = document.getElementById('m-alt-name');
+    var segEl = document.getElementById('m-alt-seg');
+    var code = codeEl.value.trim();
+    var name = nameEl.value.trim();
+    var seg = segEl.value.trim() || 'Armada Korporat EV';
+    var errs = [];
+
+    codeEl.classList.toggle('invalid', !code);
+    nameEl.classList.toggle('invalid', !name);
+    if (!code) errs.push('Kode Alternatif wajib diisi (tidak boleh kosong).');
+    if (!name) errs.push('Nama Model EV wajib diisi (tidak boleh kosong).');
+
     var raw = {};
     document.querySelectorAll('[data-raw-crit]').forEach(function (inp) {
       var cid = inp.getAttribute('data-raw-crit');
-      raw[cid] = inp.value === '' ? null : Number(inp.value);
+      var txt = inp.value.trim();
+      if (txt === '') {
+        inp.classList.remove('invalid');
+        raw[cid] = null;
+      } else {
+        var valRaw = Number(txt);
+        var badRaw = !Number.isFinite(valRaw);
+        inp.classList.toggle('invalid', badRaw);
+        if (badRaw) errs.push('Data objektif ' + cid.toUpperCase() + ' harus berupa angka valid.');
+        else raw[cid] = valRaw;
+      }
     });
+
+    var initScores = [];
+    document.querySelectorAll('[data-init-dm]').forEach(function (inp) {
+      var dId = inp.getAttribute('data-init-dm');
+      var cId = inp.getAttribute('data-init-crit');
+      var txt = inp.value.trim();
+      var num = Number(txt);
+      var dmObj = appState.dms[dId];
+      var critObj = appState.criteria.find(function (c) { return c.id === cId; });
+      var label = (dmObj ? dmObj.code : dId) + ' / ' + (critObj ? critObj.code : cId);
+      if (txt === '') {
+        inp.classList.add('invalid');
+        errs.push('Skor ' + label + ' tidak boleh kosong (wajib skala 1–5).');
+      } else if (!Number.isFinite(num) || Math.floor(num) !== num || num < 1 || num > 5) {
+        inp.classList.add('invalid');
+        errs.push('Skor ' + label + ' (' + txt + ') di luar skala Likert 1–5.');
+      } else {
+        inp.classList.remove('invalid');
+        initScores.push({ dId: dId, cId: cId, val: num });
+      }
+    });
+
+    if (errs.length) {
+      showModalError(errs);
+      return;
+    }
+
+    var id = existingId || ('a_' + Date.now());
     if (existingId) {
       var target = appState.alternatives.find(function (a) { return a.id === existingId; });
       if (target) { target.code = code; target.name = name; target.segment = seg; target.raw = raw; }
     } else {
       appState.alternatives.push({ id: id, code: code, name: name, segment: seg, raw: raw, source: 'Custom Input' });
     }
-    document.querySelectorAll('[data-init-dm]').forEach(function (inp) {
-      var dId = inp.getAttribute('data-init-dm');
-      var cId = inp.getAttribute('data-init-crit');
-      if (appState.dms[dId]) {
-        appState.dms[dId].scores[id] = appState.dms[dId].scores[id] || {};
-        appState.dms[dId].scores[id][cId] = Math.min(5, Math.max(1, Math.round(Number(inp.value) || 3)));
+    initScores.forEach(function (s) {
+      if (appState.dms[s.dId]) {
+        appState.dms[s.dId].scores[id] = appState.dms[s.dId].scores[id] || {};
+        appState.dms[s.dId].scores[id][s.cId] = s.val;
       }
     });
     closeModal();
@@ -1510,12 +1702,30 @@
   }
 
   function saveCritFromModal(existingId) {
-    var code = document.getElementById('m-crit-code').value.trim() || ('C' + (appState.criteria.length + 1));
-    var short = document.getElementById('m-crit-short').value.trim() || code;
-    var name = document.getElementById('m-crit-name').value.trim() || short;
-    var unit = document.getElementById('m-crit-unit').value.trim() || 'Skala 1–5';
+    var codeEl = document.getElementById('m-crit-code');
+    var shortEl = document.getElementById('m-crit-short');
+    var nameEl = document.getElementById('m-crit-name');
+    var unitEl = document.getElementById('m-crit-unit');
+    var code = codeEl.value.trim();
+    var short = shortEl.value.trim();
+    var name = nameEl.value.trim();
+    var unit = unitEl.value.trim();
     var defType = document.getElementById('m-crit-type').value;
     var desc = document.getElementById('m-crit-desc').value.trim();
+
+    var errs = [];
+    codeEl.classList.toggle('invalid', !code);
+    shortEl.classList.toggle('invalid', !short);
+    nameEl.classList.toggle('invalid', !name);
+    unitEl.classList.toggle('invalid', !unit);
+    if (!code) errs.push('Kode Kriteria wajib diisi (misalnya C7).');
+    if (!short) errs.push('Label Singkat Kriteria wajib diisi.');
+    if (!name) errs.push('Nama Lengkap Kriteria wajib diisi.');
+    if (!unit) errs.push('Satuan Kriteria wajib diisi.');
+    if (errs.length) {
+      showModalError(errs);
+      return;
+    }
 
     if (existingId) {
       var target = appState.criteria.find(function (c) { return c.id === existingId; });

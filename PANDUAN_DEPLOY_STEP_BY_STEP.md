@@ -62,8 +62,9 @@ Agar saat presentasi nanti **3 anggota kelompok bisa membuka `https://upro.web.i
      appId: "1:1234567890:web:abcdef123456"
    };
    ```
-5. **Cara Memasukkan `firebaseConfig` (Pilih Salah Satu):**
-   - **Cara A (Langsung di UI Web Tanpa Koding):** Buka aplikasi web GDSS Anda $\rightarrow$ klik tombol **`☁️ Koneksi Cloud`** di pojok kanan atas $\rightarrow$ *paste* (tempel) blok `firebaseConfig` tersebut ke dalam kotak $\rightarrow$ klik **`Hubungkan ke Cloud Firestore`**. Status di pojok kiri atas langsung berubah menjadi hijau **`🟢 Cloud Firestore Live`**!
+5. **Cara Memasukkan `firebaseConfig` (Catatan: Project `sixt-ev-gdss` Sudah Terpasang Bawaan):**
+   - Konfigurasi Firebase `sixt-ev-gdss` sudah tertanam permanen di `firebase-config.js`, sehingga indikator hijau **`Cloud Firestore Live (sixt-ev-gdss)`** langsung aktif ketika Anda menekan tombol **`Mode Lengkap`** di pojok kanan atas aplikasi.
+   - **Cara A (Jika Ingin Mengganti Project Firebase di UI Web Tanpa Koding):** Buka aplikasi web GDSS Anda $\rightarrow$ aktifkan **`Mode Lengkap`** $\rightarrow$ klik kapsul status **`Cloud Firestore Live`** di bar atas $\rightarrow$ *paste* (tempel) blok `firebaseConfig` baru ke dalam kotak $\rightarrow$ klik **`Hubungkan ke Cloud Firestore`**.
    - **Cara B (Permanen di Kode):** Tempel nilai `apiKey`, `authDomain`, `projectId`, dll. ke dalam file:
      `d:\DSS\finalproject\public\dssclass\assets\js\firebase-config.js`
      lalu jalankan `node scripts/sync-public.js` (atau **cukup kirimkan isi `firebaseConfig` itu ke chat ini, nanti saya yang pasangkan otomatis ke kode Anda!**).
