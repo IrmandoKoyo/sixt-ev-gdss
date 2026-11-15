@@ -1,10 +1,31 @@
 {
-  "version": 2,
-  "cleanUrls": true,
+  "redirects": [
+    {
+      "source": "/",
+      "destination": "/dssclass/",
+      "permanent": false
+    }
+  ],
   "rewrites": [
-    { "source": "/dssclass", "destination": "/dssclass/index.html" },
-    { "source": "/dssclass/", "destination": "/dssclass/index.html" },
-    { "source": "/dssclass/assets/:path*", "destination": "/dssclass/assets/:path*" },
-    { "source": "/assets/:path*", "destination": "/assets/:path*" }
+    {
+      "source": "/dssclass/assets/:path*",
+      "destination": "/dssclass/assets/:path*"
+    },
+    {
+      "source": "/assets/:path*",
+      "destination": "/dssclass/assets/:path*"
+    },
+    {
+      "source": "/dssclass/:path*",
+      "destination": "/dssclass/index.html"
+    },
+    {
+      "source": "/dssclass",
+      "destination": "/dssclass/index.html"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/dssclass/index.html"
+    }
   ]
 }

@@ -14,12 +14,12 @@
   'use strict';
 
   root.GDSS_FIREBASE_CONFIG = {
-    apiKey: "",
-    authDomain: "",
-    projectId: "",
-    storageBucket: "",
-    messagingSenderId: "",
-    appId: "",
+    apiKey: "AIzaSyBj2bbywGPRgcYpWuHxlcJkvBpxOeRFHF4",
+    authDomain: "sixt-ev-gdss.firebaseapp.com",
+    projectId: "sixt-ev-gdss",
+    storageBucket: "sixt-ev-gdss.firebasestorage.app",
+    messagingSenderId: "612754599062",
+    appId: "1:612754599062:web:d35f6b6d61d59dd62ce6b7",
     collectionName: "gdss_sixt_sessions",
     documentId: "master_room_konoha"
   };

@@ -1,0 +1,2 @@
+/dssclass /dssclass/index.html 200
+/dssclass/* /dssclass/:splat 200
