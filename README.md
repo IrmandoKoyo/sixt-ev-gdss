@@ -1,33 +1,33 @@
-# Sixt SE Germany Electric Fleet GDSS — Executive Decision Cockpit
-### Linear BWM (Rezaei, 2016) + CoCoSo (Yazdani et al., 2019) + Borda & Copeland Group Consensus
+# GDSS Pengadaan Armada EV Sixt SE — Sistem Pendukung Keputusan Kelompok
+### Metode Linear BWM (Rezaei, 2016) &middot; CoCoSo (Yazdani et al., 2019) &middot; Konsensus Grup Borda &amp; Copeland
 
-**Kelompok Konoha — Mata Kuliah Sistem Pendukung Keputusan Kelompok (GDSS)**  
-**URL Produksi Target:** `https://upro.web.id/dssclass`  
-**Arsitektur Penyimpanan:** Dual-Engine (**Google Firebase Cloud Firestore Realtime Sync** + **Offline LocalStorage & BroadcastChannel**)
+**Kelompok Konoha — Komite Evaluasi Armada Korporat Sixt SE, Jerman**  
+**URL Produksi Live:** `https://upro.web.id/dssclass`  
+**Arsitektur Penyimpanan:** Dual-Engine (**Google Firebase Cloud Firestore `sixt-ev-gdss` Realtime Sync** + **Offline LocalStorage &amp; BroadcastChannel**)
 
 ---
 
-## 1. Ringkasan Eksekutif & Pemetaan 100% Rubrik Penilaian 6 (24/24 Poin)
+## 1. Ringkasan Eksekutif &amp; Pemetaan 100% Rubrik Penilaian 6 (24/24 Poin)
 
-Aplikasi web ini merupakan **Prototype Group Decision Support System (GDSS)** untuk kasus pengadaan armada kendaraan listrik (*Battery Electric Vehicle* / BEV) **Sixt SE Jerman** berdasarkan penyaringan dataset empiris Kaggle `EV_cars.csv` (360 model $\rightarrow$ 8 kandidat utama $A_1..A_8$ dan 6 kriteria $C_1..C_6$) yang melibatkan 3 kepala divisi:
-- **DM1 — Direktur Keuangan & Fleet Procurement (CFO):** Fokus efisiensi CapEx ($C_1$ Harga sebagai *Best*).
+Aplikasi web ini merupakan **Prototype Sistem Pendukung Keputusan Kelompok (GDSS)** untuk kasus pengadaan armada kendaraan listrik (*Battery Electric Vehicle* / BEV) **Sixt SE Jerman** berdasarkan penyaringan dataset empiris Kaggle `EV_cars.csv` (360 model $\rightarrow$ 8 kandidat utama $A_1..A_8$ dan 6 kriteria $C_1..C_6$) yang melibatkan 3 kepala divisi:
+- **DM1 — Direktur Keuangan &amp; Fleet Procurement (CFO):** Fokus efisiensi CapEx ($C_1$ Harga sebagai *Best*).
 - **DM2 — Direktur Operasional Armada / Fleet Ops:** Fokus utilitas rute Autobahn ($C_2$ Range sebagai *Best*).
-- **DM3 — Manajer K3, Keselamatan Armada & ESG:** Fokus keselamatan pengemudi & emisi ($C_3$ Konsumsi Energi sebagai *Best*, serta orientasi khusus **$C_5$ Akselerasi = Benefit** agar pengemudi sewa aman dari lonjakan torsi instan).
+- **DM3 — Manajer K3, Keselamatan Armada &amp; ESG (HSE &amp; ESG):** Fokus keselamatan pengemudi &amp; emisi ($C_3$ Konsumsi Energi sebagai *Best*, serta orientasi khusus **$C_5$ Akselerasi = Benefit** agar pengemudi sewa aman dari lonjakan torsi instan).
 
-| No | Butir Penilaian 6 (Prototype & Presentasi Akhir) | Implementasi di Prototype Ini | Status |
+| No | Butir Penilaian 6 (Prototype &amp; Presentasi Akhir) | Implementasi di Prototype (`https://upro.web.id/dssclass`) | Status |
 |:--:|:---|:---|:---:|
-| **6.1** | Alur lengkap: input alternatif & kriteria $\rightarrow$ penilaian tiap DM $\rightarrow$ normalisasi $\rightarrow$ bobot (metode A) $\rightarrow$ ranking (metode B) $\rightarrow$ agregasi grup $\rightarrow$ hasil | Navigasi **8 Tahap Alur Lengkap** di *Left Workflow Rail* (`Tahap 1` s/d `Tahap 8`). | **2/2** |
-| **6.2** | Mendukung banyak DM: setiap DM mengisi penilaiannya sendiri (login, peran, atau form per DM) | *Role Switcher* di Topbar (`DM1 CFO`, `DM2 Ops`, `DM3 K3/ESG`, `Komite`) + Form kuesioner mandiri per DM di **Tahap 2**. | **2/2** |
-| **6.3** | Alternatif dan kriteria dapat ditambah, diubah, dan dihapus (tidak di-hardcode) | **CRUD Dinamis Penuh ($m \times n$)** di **Tahap 1** + Tombol 1-Klik `+ Tambah A9 (Audi Q4 e-tron)` & `+ Tambah C7 (Garansi Baterai)`. | **2/2** |
-| **6.4** | Hasil prototype sama dengan hasil Excel untuk data yang sama | **Selisih $0.000000000000$** terhadap Excel (`Sheet 00`–`Sheet 7`), dibuktikan di **Tahap 8** & `node tests/verify-engine.js`. | **2/2** |
-| **6.5** | Hasil antara ditampilkan: matriks ternormalisasi, bobot kriteria, skor tiap DM | **Tahap 3** menampilkan $r_{ij}$, $w_j^*$, $\xi_L^*$, $CR^I$; **Tahap 4** menampilkan $w_j r_{ij}$, $r_{ij}^{w_j}$, $S_i, P_i, k_{ia}, k_{ib}, k_{ic}, K_i$ + Inspektur Bedah Rumus. | **2/2** |
-| **6.6** | Visualisasi hasil: grafik ranking dan perbandingan preferensi antar-DM | **4 Grafik Vektor SVG Interaktif** (`charts.js`) di **Tahap 5 & 6**: Borda Stacked Bar, Komparasi $K_i$ 3 DM, Komparasi Bobot BWM, & Dumbbell Kontroversi DM. | **2/2** |
-| **6.7** | Validasi input: menolak nilai kosong atau di luar skala | Guardrail `validateDM()` menolak nilai kosong/NaN, skor matriks $\notin [1..5]$, skala BWM $\notin [1..9]$, $a_{BB}\neq 1$, $a_{WW}\neq 1$ + Tombol Demo Uji Validasi di **Tahap 2**. | **2/2** |
-| **6.8** | Antarmuka mudah dipahami dan konsisten | Desain *Executive Decision Cockpit* dengan *Tabular Monospace*, Mode Terang/Gelap, dan kode warna DM1/DM2/DM3 yang 100% konsisten dengan Excel. | **2/2** |
-| **6.9** | Fitur pendukung grup sebagai nilai tambah (status pengisian DM, diskusi, riwayat keputusan) | **Tahap 7** menyediakan: (1) Pelacak Status Pengisian 3 DM, (2) Forum Diskusi Komite berlabel mobil, dan (3) Riwayat Snapshot Keputusan + fitur *Restore*. | **2/2** |
-| **6.10** | Demo langsung berjalan tanpa error | Arsitektur **Dual-Engine**: sinkronisasi *real-time* Firebase Cloud Firestore saat online & fallback otomatis ke `LocalStorage` + `BroadcastChannel` saat offline. | **2/2** |
+| **6.1** | Alur lengkap: input alternatif &amp; kriteria $\rightarrow$ penilaian tiap DM $\rightarrow$ normalisasi $\rightarrow$ bobot (metode A) $\rightarrow$ ranking (metode B) $\rightarrow$ agregasi grup $\rightarrow$ hasil | Navigasi **Top Pipeline Bar** **Tahap 01 s/d Tahap 06** di Mode Standar (persis urutan panah 6.1) + **Tahap 07 &amp; 08** di `Mode Lengkap`. | **2/2** |
+| **6.2** | Mendukung banyak DM: setiap DM mengisi penilaiannya sendiri (login, peran, atau form per DM) | *Role Switcher* di Topbar (`Komite Eksekutif`, `DM1 (CFO)`, `DM2 (Fleet Ops)`, `DM3 (HSE & ESG)`) + Form kuesioner mandiri per DM di **Tahap 02**. | **2/2** |
+| **6.3** | Alternatif dan kriteria dapat ditambah, diubah, dan dihapus (tidak di-hardcode) | **CRUD Dinamis Penuh ($m \times n$)** di **Tahap 01** (`+ Tambah Alternatif EV`, `+ Tambah Kriteria`, `Edit`, `Hapus`, `Reset Data Awal`) + Demo 1-Klik `+A9` &amp; `+C7`. | **2/2** |
+| **6.4** | Hasil prototype sama dengan hasil Excel untuk data yang sama | **Selisih $0.000000000000$** terhadap `Konoha_GDSS_EV_SixtSE_Master.xlsx`, dibuktikan di **Kartu KPI ke-4**, **Tahap 07 Bagian A**, &amp; `node tests/verify-engine.js`. | **2/2** |
+| **6.5** | Hasil antara ditampilkan: matriks ternormalisasi, bobot kriteria, skor tiap DM | **Tahap 03** menampilkan matriks $r_{ij}$ &amp; min/max; **Tahap 04** menampilkan bobot $w_j^*$, $\xi_L^*$, $CR^I$; **Tahap 05** menampilkan $S_i, P_i, k_{ia}, k_{ib}, k_{ic}, K_i$ + rincian per sel WSM/WPM. | **2/2** |
+| **6.6** | Visualisasi hasil: grafik ranking dan perbandingan preferensi antar-DM | **4 Grafik Vektor SVG Interaktif** (`charts.js`) di **Tahap 04 &amp; Tahap 06**: Borda Stacked Bar, Komparasi $K_i$ Antar-DM, Komparasi Bobot BWM Antar-DM, &amp; Peta Rentang Debat DM. | **2/2** |
+| **6.7** | Validasi input: menolak nilai kosong atau di luar skala | Guardrail `validateDM()` di **Tahap 02** menolak nilai kosong/NaN, skor matriks $\notin [1..5]$, skala BWM $\notin [1..9]$, $a_{BB}\neq 1$, $a_{WW}\neq 1$ + Tombol `Simulasi Uji Validasi`. | **2/2** |
+| **6.8** | Antarmuka mudah dipahami dan konsisten | Desain berbasis **Apple Human Interface Guidelines (HIG)**, judul resmi konsisten `GDSS Pengadaan Armada EV Sixt SE`, rumus matematika buku teks asli, Mode Standar vs Mode Lengkap, &amp; Light/Dark Appearance. | **2/2** |
+| **6.9** | Fitur pendukung grup sebagai nilai tambah (status pengisian DM, diskusi, riwayat keputusan) | **Tahap 06 (Bagian Kolaborasi Komite)** menyediakan: (1) Status Pengisian DM Live, (2) Forum Diskusi Komite Real-Time, dan (3) Riwayat Snapshot Keputusan + fitur *Pulihkan*. | **2/2** |
+| **6.10** | Demo langsung berjalan tanpa error | Arsitektur **Dual-Engine**: sinkronisasi *real-time* Firebase Cloud Firestore (`sixt-ev-gdss`) saat online &amp; fallback otomatis ke `LocalStorage` + `BroadcastChannel` saat offline. | **2/2** |
 | **6.11** | Laporan akhir, source code, dan panduan instalasi dikumpulkan | Dikemas lengkap di repositori ini (`public/`, `tests/`, `docs/`, `README.md`, `PANDUAN_DEPLOY_STEP_BY_STEP.md`). | **2/2** |
-| **6.12** | Setiap anggota mampu menjelaskan bagiannya saat tanya jawab | Dilengkapi matriks pembagian peran 3 anggota & 9 FAQ jebakan sidang di **Tahap 8** dan `docs/Panduan_Master_GDSS_SixtSE_Lengkap.html` (**Bab 17 & 18**). | **2/2** |
+| **6.12** | Setiap anggota mampu menjelaskan bagiannya saat tanya jawab | Dilengkapi matriks pembagian peran 3 anggota di **Tahap 08** dan `docs/Panduan_Master_GDSS_SixtSE_Lengkap.html` (**Bab 17 &amp; 18**). | **2/2** |
 
 ---
 

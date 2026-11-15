@@ -1065,16 +1065,16 @@
   /* ======================================= STAGE 8: RUBRIK 6.1–6.12 & TANYA JAWAB TIM */
   function renderStage8RubricDefense() {
     var rubrics = [
-      ['6.1', 'Alur lengkap: input alternatif & kriteria → penilaian tiap DM → normalisasi → bobot (metode A) → ranking (metode B) → agregasi grup → hasil', 'Tahap 01 s/d Tahap 07 di bar navigasi atas menampilkan seluruh alur secara berurutan tanpa ada langkah yang terlewat.', '1'],
-      ['6.2', 'Mendukung banyak DM: setiap DM mengisi penilaiannya sendiri (login, peran, atau form per DM)', 'Segmented Role Switcher di header atas + Form independen per DM di Tahap 02 + dukungan tambah DM baru.', '2'],
-      ['6.3', 'Alternatif dan kriteria dapat ditambah, diubah, dan dihapus (tidak di-hardcode)', 'Di Tahap 01 tersedia tombol Tambah Alternatif, Edit, Hapus, Tambah Kriteria, serta tombol Demo 1-Klik tambah A9 & C7.', '1'],
-      ['6.4', 'Hasil prototype sama dengan hasil Excel untuk data yang sama', 'Tabel Verifikasi Paritas Excel di Tahap 07 membuktikan max |Δ| = 0,00e+00 antara Prototype dan Konoha_GDSS_EV_SixtSE_Master.xlsx.', '7'],
-      ['6.5', 'Hasil antara ditampilkan: matriks ternormalisasi, bobot kriteria, skor tiap DM', 'Tahap 03 menampilkan r_ij, Tahap 04 menampilkan bobot w_j* & ξL*, Tahap 05 menampilkan S_i, P_i, k_ia, k_ib, k_ic, dan K_i tiap DM.', '3'],
+      ['6.1', 'Alur lengkap: input alternatif & kriteria → penilaian tiap DM → normalisasi → bobot (metode A) → ranking (metode B) → agregasi grup → hasil', 'Tahap 01 s/d Tahap 06 di bar navigasi atas menampilkan seluruh alur secara berurutan persis sesuai rubrik (ditambah Tahap 07 & 08 pada Mode Lengkap).', '1'],
+      ['6.2', 'Mendukung banyak DM: setiap DM mengisi penilaiannya sendiri (login, peran, atau form per DM)', 'Segmented Role Switcher di header atas (Komite Eksekutif, DM1 CFO, DM2 Fleet Ops, DM3 HSE & ESG) + Form independen per DM di Tahap 02.', '2'],
+      ['6.3', 'Alternatif dan kriteria dapat ditambah, diubah, dan dihapus (tidak di-hardcode)', 'Di Tahap 01 tersedia tombol + Tambah Alternatif EV, Edit, Hapus, + Tambah Kriteria, serta tombol Demo 1-Klik tambah A9 & C7.', '1'],
+      ['6.4', 'Hasil prototype sama dengan hasil Excel untuk data yang sama', 'Kartu KPI ke-4 & Tabel Verifikasi Paritas Excel di Tahap 07 membuktikan max |Δ| = 0,0000 antara Prototype dan Konoha_GDSS_EV_SixtSE_Master.xlsx.', '7'],
+      ['6.5', 'Hasil antara ditampilkan: matriks ternormalisasi, bobot kriteria, skor tiap DM', 'Tahap 03 menampilkan matriks ternormalisasi r_ij, Tahap 04 menampilkan bobot w_j* & ξL*, Tahap 05 menampilkan S_i, P_i, k_ia, k_ib, k_ic, dan K_i tiap DM.', '3'],
       ['6.6', 'Visualisasi hasil: grafik ranking dan perbandingan preferensi antar-DM', 'Tahap 04 & Tahap 06 menampilkan 4 grafik vektor SVG interaktif: Poin Borda Bertumpuk, Skor K_i Antar-DM, Bobot w_j* Antar-DM, dan Peta Rentang Debat.', '6'],
-      ['6.7', 'Validasi input: menolak nilai kosong atau di luar skala', 'Tahap 02 otomatis memblokir nilai kosong atau angka di luar 1–5 (matriks) & 1–9 (BWM), dilengkapi tombol Simulasi Uji Validasi.', '2'],
-      ['6.8', 'Antarmuka mudah dipahami dan konsisten', 'Desain berbasis Apple Human Interface Guidelines (HIG), ikonografi vektor SF-Symbols, rumus matematika buku teks, serta Light/Dark Appearance.', 'all'],
-      ['6.9', 'Fitur pendukung grup sebagai nilai tambah (status pengisian DM, diskusi, riwayat keputusan)', 'Tahap 07 bagian D memuat Live Status Pengisian DM, Forum Diskusi Komite per kandidat EV, dan Riwayat Snapshot Keputusan.', '7'],
-      ['6.10', 'Demo langsung berjalan tanpa error', 'Berjalan dengan arsitektur Dual-Engine (Cloud Firestore + LocalStorage Fallback) dan lulus automated test suite tanpa error.', 'all'],
+      ['6.7', 'Validasi input: menolak nilai kosong atau di luar skala', 'Tahap 02 otomatis menolak nilai kosong atau angka di luar skala 1–5 (matriks) & 1–9 (BWM), dilengkapi tombol Simulasi Uji Validasi.', '2'],
+      ['6.8', 'Antarmuka mudah dipahami dan konsisten', 'Desain berbasis Apple Human Interface Guidelines (HIG), judul konsisten GDSS Pengadaan Armada EV Sixt SE, rumus matematika asli, serta Light/Dark Appearance.', 'all'],
+      ['6.9', 'Fitur pendukung grup sebagai nilai tambah (status pengisian DM, diskusi, riwayat keputusan)', 'Tahap 06 bagian bawah memuat Status Pengisian DM Live, Forum Diskusi Komite Real-Time per kandidat EV, dan Riwayat Snapshot Keputusan.', '6'],
+      ['6.10', 'Demo langsung berjalan tanpa error', 'Berjalan dengan arsitektur Dual-Engine (Cloud Firestore sixt-ev-gdss + LocalStorage Fallback) dan lulus automated test suite tanpa error.', 'all'],
       ['6.11', 'Laporan akhir, source code, dan panduan instalasi dikumpulkan', 'Tersedia lengkap di folder d:/DSS/finalproject beserta README.md, panduan deploy, laporan HTML, dan workbook Excel.', '8'],
       ['6.12', 'Setiap anggota mampu menjelaskan bagiannya saat tanya jawab', 'Naskah pembagian bicara 3 anggota komite (DM1 CFO, DM2 Fleet Ops, DM3 HSE/ESG) tersedia di bawah ini untuk sesi tanya jawab.', '8']
     ];
