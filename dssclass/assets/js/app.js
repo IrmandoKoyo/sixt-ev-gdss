@@ -179,11 +179,20 @@
       }
     }
     var methodPill = document.getElementById('brand-method-pill');
-    if (methodPill) methodPill.hidden = !ui.fullMode;
+    if (methodPill) {
+      methodPill.hidden = !ui.fullMode;
+      methodPill.style.display = ui.fullMode ? '' : 'none';
+    }
     var cloudPill = document.getElementById('cloud-sync-pill');
-    if (cloudPill) cloudPill.hidden = !ui.fullMode;
+    if (cloudPill) {
+      cloudPill.hidden = !ui.fullMode;
+      cloudPill.style.display = ui.fullMode ? '' : 'none';
+    }
     var jsonBtn = document.getElementById('export-json-btn');
-    if (jsonBtn) jsonBtn.hidden = !ui.fullMode;
+    if (jsonBtn) {
+      jsonBtn.hidden = !ui.fullMode;
+      jsonBtn.style.display = ui.fullMode ? '' : 'none';
+    }
     var brandSub = document.getElementById('brand-sub');
     if (brandSub) {
       brandSub.innerHTML = ui.fullMode
