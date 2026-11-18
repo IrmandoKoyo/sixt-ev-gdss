@@ -1113,8 +1113,8 @@
       ['6.8', 'Antarmuka mudah dipahami dan konsisten', 'Desain berbasis Apple Human Interface Guidelines (HIG), judul konsisten GDSS Pengadaan Armada EV Sixt SE, rumus matematika asli, serta Light/Dark Appearance.', 'all'],
       ['6.9', 'Fitur pendukung grup sebagai nilai tambah (status pengisian DM, diskusi, riwayat keputusan)', 'Tahap 06 bagian bawah memuat Status Pengisian DM Live, Forum Diskusi Komite Real-Time per kandidat EV, dan Riwayat Snapshot Keputusan.', '6'],
       ['6.10', 'Demo langsung berjalan tanpa error', 'Berjalan dengan arsitektur Dual-Engine (Cloud Firestore sixt-ev-gdss + LocalStorage Fallback) dan lulus automated test suite tanpa error.', 'all'],
-      ['6.11', 'Laporan akhir, source code, dan panduan instalasi dikumpulkan', 'Tersedia lengkap di folder d:/DSS/finalproject beserta README.md, panduan deploy, laporan HTML, dan workbook Excel.', '8'],
-      ['6.12', 'Setiap anggota mampu menjelaskan bagiannya saat tanya jawab', 'Naskah pembagian bicara 3 anggota komite (DM1 CFO, DM2 Fleet Ops, DM3 HSE/ESG) tersedia di bawah ini untuk sesi tanya jawab.', '8']
+      ['6.11', 'Laporan akhir, source code, dan panduan instalasi dikumpulkan', 'Tersedia lengkap di folder d:/DSS/finalproject & d:/DSS/report_ppt beserta Laporan Word (.docx), Slide PPT (.pptx), Naskah 5 Orang, & Workbook Excel.', '8'],
+      ['6.12', 'Setiap anggota mampu menjelaskan bagiannya saat tanya jawab', 'Matriks pembagian peran & tanggung jawab 5 anggota Kelompok Konoha (Rivan, Irmando, Arya, Marcello, Clifford) tersedia di bawah ini.', '8']
     ];
 
     var rRows = rubrics.map(function (r) {
@@ -1125,22 +1125,30 @@
     return '<section class="stage-section" id="stage-8">' +
       '<div class="stage-header">' +
         '<div><span class="stage-eyebrow">Panduan Presentasi &amp; Sidang Akhir &middot; Butir 6.1 s/d 6.12 (Target 24/24 Poin)</span>' +
-        '<h2 class="stage-title">Peta Bukti Pemenuhan Rubrik Penilaian 6 &amp; Pembagian Peran Tanya-Jawab Anggota Tim</h2>' +
+        '<h2 class="stage-title">Peta Bukti Pemenuhan Rubrik Penilaian 6 &amp; Pembagian Peran 5 Anggota Kelompok Konoha</h2>' +
         '<p class="stage-desc">Gunakan tabel pintasan ini saat dosen memeriksa satu per satu butir penilaian 6.1 hingga 6.12 di layar proyektor.</p></div>' +
       '</div>' +
       '<div class="table-wrap" style="margin-bottom:18px"><table class="data-table"><thead><tr><th>No</th><th>Butir Penilaian 6 yang Dicek Dosen</th><th>Implementasi &amp; Bukti di Prototype Ini</th><th class="center">Pintasan Demo</th></tr></thead><tbody>' + rRows + '</tbody></table></div>' +
       '<div class="grid-3">' +
         '<div class="subcard">' +
-          '<h3>' + ico('user') + '<span>Anggota 1 &mdash; Peran DM1 (CFO Keuangan) &amp; Arsitektur Data</span></h3>' +
-          '<p style="font-size:0.82rem;color:var(--ink-secondary);margin:0"><strong>Bagian Presentasi (Butir 6.1, 6.3, 6.7):</strong> Menjelaskan struktur masalah Sixt SE, dataset 360 EV Kaggle, demo CRUD tambah alternatif/kriteria di Tahap 01, validasi skala 1–5 &amp; 1–9 di Tahap 02, serta mengapa CFO memilih <strong>C1 Harga</strong> sebagai Best (bobot 38,39%) dan memenangkan <strong>A1 Tesla Model 3</strong>.</p>' +
+          '<h3>' + ico('user') + '<span>1. Manopo, Rivan &mdash; Koordinator &amp; Analis Kasus (Slide 1–4)</span></h3>' +
+          '<p style="font-size:0.82rem;color:var(--ink-secondary);margin:0"><strong>Bab 1 &amp; 2 Laporan &middot; Sheet 0A:</strong> Menjelaskan konteks bisnis Sixt SE Pullach Jerman, masalah elektrifikasi armada B2B, konflik 3 kepala divisi (CFO, Fleet Ops, K3/ESG), fenomena dualitas orientasi C5, serta sintesis 7 jurnal Q1.</p>' +
         '</div>' +
         '<div class="subcard">' +
-          '<h3>' + ico('user') + '<span>Anggota 2 &mdash; Peran DM2 (Fleet Ops) &amp; Mesin Linear BWM + CoCoSo</span></h3>' +
-          '<p style="font-size:0.82rem;color:var(--ink-secondary);margin:0"><strong>Bagian Presentasi (Butir 6.2, 6.4, 6.5):</strong> Menjelaskan normalisasi Min-Max di Tahap 03, model LP Linear BWM Rezaei (2016) di Tahap 04, tahapan CoCoSo (<span class="m-var">S<sub>i</sub>, P<sub>i</sub>, k<sub>ia</sub>, k<sub>ib</sub>, k<sub>ic</sub>, K<sub>i</sub></span>) di Tahap 05, bukti paritas 100% dengan Excel di Tahap 07, serta mengapa Fleet Ops memilih <strong>C2 Range</strong> sebagai Best (38,48%) dan menjagokan <strong>A8 BMW i4</strong>.</p>' +
+          '<h3>' + ico('user') + '<span>2. Arya Richard &mdash; Kriteria &amp; Pengumpulan Data (Slide 5–6)</span></h3>' +
+          '<p style="font-size:0.82rem;color:var(--ink-secondary);margin:0"><strong>Bab 3 Laporan &middot; Sheet 2 &amp; Sheet 5:</strong> Menjelaskan penyaringan 360 mobil listrik Kaggle menjadi 8 kandidat (A1–A8), definisi 6 kriteria (C1–C6), aturan konversi interval 1–5 per DM, matriks 3 DM, serta alasan pemilihan strategi Agregasi di Akhir.</p>' +
         '</div>' +
         '<div class="subcard">' +
-          '<h3>' + ico('user') + '<span>Anggota 3 &mdash; Peran DM3 (Manajer K3 &amp; ESG) &amp; Konsensus Grup</span></h3>' +
-          '<p style="font-size:0.82rem;color:var(--ink-secondary);margin:0"><strong>Bagian Presentasi (Butir 6.6, 6.8, 6.9, 6.10):</strong> Menjelaskan dualitas orientasi <strong>C5 Akselerasi</strong> (Benefit bagi K3 karena tarikan kalem &gt;7,5 detik aman bagi staf, sedangkan Cost bagi DM1/DM2), agregasi Borda &amp; Copeland di Tahap 06, grafik perbandingan antar-DM, sensitivitas, serta fitur kolaborasi Cloud Firestore + LocalStorage.</p>' +
+          '<h3>' + ico('user') + '<span>3. Sijadi, Marcello &mdash; Perhitungan Metode A Linear BWM (Slide 7–8)</span></h3>' +
+          '<p style="font-size:0.82rem;color:var(--ink-secondary);margin:0"><strong>Bab 4 Laporan &middot; Sheet 0B &amp; Sheet 3:</strong> Menjelaskan normalisasi kompromi Min-Max CoCoSo, 5 langkah optimasi LP Linear BWM Rezaei (2016), bobot optimal per DM &amp; grup (<span class="m-var">C<sub>3</sub> = 0,2214</span> tertinggi), serta uji konsistensi <span class="m-var">CR<sup>I</sup></span> Liang et al. (2020).</p>' +
+        '</div>' +
+        '<div class="subcard">' +
+          '<h3>' + ico('user') + '<span>4. Noya, Clifford &mdash; Perhitungan Metode B, Agregasi &amp; Excel (Slide 9–11)</span></h3>' +
+          '<p style="font-size:0.82rem;color:var(--ink-secondary);margin:0"><strong>Bab 5 &amp; 6 Laporan &middot; Sheet 1, 4, 6, 7:</strong> Menjelaskan perhitungan CoCoSo (<span class="m-var">S<sub>i</sub>, P<sub>i</sub>, k<sub>ia</sub>, k<sub>ib</sub>, k<sub>ic</sub>, K<sub>i</sub></span>), konsensus Borda + Tie-Breaker <span class="m-var">K&#772;<sub>i</sub></span> + Copeland, korelasi Spearman (<span class="m-var">&rho; = 0,8333</span>), 14 skenario sensitivitas (14/14 stabil A1 #1), &amp; 4.347 rumus Excel.</p>' +
+        '</div>' +
+        '<div class="subcard">' +
+          '<h3>' + ico('user') + '<span>5. Koyo, Irmando &mdash; Pengembang Prototype &amp; Integrasi (Slide 12–14)</span></h3>' +
+          '<p style="font-size:0.82rem;color:var(--ink-secondary);margin:0"><strong>Bab 7 &amp; 8 Laporan &middot; Sheet 0D &amp; Web App:</strong> Mendemonstrasikan aplikasi live <code>upro.web.id/dssclass</code> (CRUD dinamis Tahap 01, penguncian peran &amp; validasi skala Tahap 02, solver Simplex JS, Cloud Firestore Live, 4 grafik SVG, kolaborasi grup, &amp; bukti paritas Excel <span class="m-var">|&Delta;| = 0,0000</span>).</p>' +
         '</div>' +
       '</div>' +
     '</section>';
