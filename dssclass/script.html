@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Script Presentasi Lengkap 14 Slide (5 Orang) — Kelompok Konoha GDSS Sixt SE</title>
+    <title>Script Presentasi & Live Demo Lengkap (5 Orang) — Kelompok Konoha GDSS Sixt SE</title>
     <script>
         window.MathJax = {
             tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$']] },
@@ -25,9 +25,6 @@
             --indigo: #6366f1;
             --gold: #f59e0b;
             --emerald: #10b981;
-            --cyan: #06b6d4;
-            --rose: #f43f5e;
-            --purple: #a855f7;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
@@ -49,7 +46,7 @@
             padding: 12px 24px;
         }
         .bar-inner {
-            max-width: 1120px;
+            max-width: 1160px;
             margin: 0 auto;
             display: flex;
             flex-wrap: wrap;
@@ -66,12 +63,13 @@
             background: var(--surface-2);
             color: var(--text);
             border: 1px solid var(--border);
-            padding: 7px 13px;
+            padding: 7px 12px;
             border-radius: 8px;
-            font-size: 13px;
+            font-size: 12.5px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.15s ease;
+            text-decoration: none;
         }
         .filter-btn:hover, .filter-btn.active {
             background: var(--indigo);
@@ -99,7 +97,7 @@
             margin-bottom: 8px;
         }
         .hero h1 {
-            font-size: 26px;
+            font-size: 25px;
             font-weight: 800;
             margin-bottom: 10px;
             line-height: 1.25;
@@ -165,7 +163,7 @@
             font-size: 12px;
         }
         .slide-title {
-            font-size: 21px;
+            font-size: 20px;
             font-weight: 800;
             margin-bottom: 10px;
             color: #fff;
@@ -205,7 +203,7 @@
         }
         .box-speech .box-title { color: #34d399; }
         .speech-body p {
-            font-size: 16.5px;
+            font-size: 16.2px;
             line-height: 1.82;
             margin-bottom: 12px;
             color: #f8fafc;
@@ -232,9 +230,7 @@
             border-radius: 4px;
             font-size: 0.9em;
         }
-        .qa-section {
-            margin-top: 36px;
-        }
+        .qa-section { margin-top: 36px; }
         .qa-card {
             background: var(--surface);
             border: 1px solid var(--border);
@@ -242,11 +238,7 @@
             padding: 20px 24px;
             margin-bottom: 16px;
         }
-        .qa-card h3 {
-            font-size: 17px;
-            color: var(--gold);
-            margin-bottom: 12px;
-        }
+        .qa-card h3 { font-size: 17px; color: var(--gold); margin-bottom: 12px; }
         .qa-pair {
             background: var(--surface-2);
             border-radius: 10px;
@@ -262,20 +254,21 @@
         <div class="bar-inner">
             <div class="filter-group">
                 <button class="filter-btn active" onclick="filterSpeaker('all', this)">Semua Slide (1–14)</button>
-                <button class="filter-btn" onclick="filterSpeaker('rivan', this)">1. Manopo, Rivan (Slide 1–4)</button>
-                <button class="filter-btn" onclick="filterSpeaker('arya', this)">2. Arya Richard (Slide 5–6)</button>
-                <button class="filter-btn" onclick="filterSpeaker('marcello', this)">3. Sijadi, Marcello (Slide 7–8)</button>
-                <button class="filter-btn" onclick="filterSpeaker('clifford', this)">4. Noya, Clifford (Slide 9–11)</button>
-                <button class="filter-btn" onclick="filterSpeaker('irmando', this)">5. Koyo, Irmando (Slide 12–14)</button>
-                <a href="#qa-bank" class="filter-btn" style="text-decoration:none;">🛡️ Bank Tanya-Jawab (5 Orang)</a>
+                <button class="filter-btn" onclick="filterSpeaker('rivan', this)">1. Manopo, Rivan (1–4)</button>
+                <button class="filter-btn" onclick="filterSpeaker('arya', this)">2. Arya Richard (5–6)</button>
+                <button class="filter-btn" onclick="filterSpeaker('marcello', this)">3. Sijadi, Marcello (7–8)</button>
+                <button class="filter-btn" onclick="filterSpeaker('clifford', this)">4. Noya, Clifford (9–11)</button>
+                <button class="filter-btn" onclick="filterSpeaker('irmando', this)">5. Koyo, Irmando (12–14)</button>
+                <a href="#live-demo-section" class="filter-btn" style="border-color:#10b981;color:#6ee7b7;">🎬 Script Live Demo (Klik & Kalimat)</a>
+                <a href="#qa-bank" class="filter-btn">🛡️ Bank Tanya-Jawab</a>
             </div>
         </div>
     </header>
 
     <main class="container">
         <section class="hero">
-            <div class="hero-eyebrow">Naskah Resmi Presentasi & Sidang Akhir · Sistem Pendukung Keputusan (SIDI438)</div>
-            <h1>Script Presentasi Lengkap Per Slide (Slide 1 s/d 14) — Kelompok Konoha</h1>
+            <div class="hero-eyebrow">Naskah Resmi Presentasi, Live Demo & Sidang Akhir · Sistem Pendukung Keputusan (SIDI438)</div>
+            <h1>Script Presentasi Lengkap Per Slide (Slide 1–14) & Script Live Demo — Kelompok Konoha</h1>
             <p>Disusun selaras 100% dengan <code>Presentasi_Final_Project_GDSS_Kelompok_Konoha_SixtSE.pptx</code>, <code>Laporan_Final_Project_GDSS_Kelompok_Konoha_SixtSE.docx</code>, buku kerja Excel <code>Konoha_GDSS_EV_SixtSE_Master.xlsx</code>, dan Prototype Web <code>https://upro.web.id/dssclass</code>.</p>
             <div class="roster-grid">
                 <div class="roster-item"><strong>1. Manopo, Rivan</strong><span>Slide 1–4 · Koordinator & Kasus</span></div>
@@ -373,7 +366,7 @@
             </div>
 
             <div class="box-tip">
-                <strong>💡 Catatan Antisipasi Pertanyaan Dosen (Slide 03):</strong> Pembagian ini 100% konsisten antara Slide 3 PPT, Tabel Kontribusi di Laporan Word halaman 10, Sheet 0D di Excel, dan Tahap 08 di Prototype Web.
+                <strong>💡 Catatan Antisipasi Pertanyaan Dosen (Slide 03):</strong> Pembagian ini 100% konsisten antara Slide 3 PPT, Tabel Kontribusi di Laporan Word halaman 26, Sheet 0D di Excel, dan Tahap 08 di Prototype Web.
             </div>
         </section>
         
@@ -458,7 +451,7 @@
             <div class="box-speech">
                 <div class="box-title">🗣️ Kalimat Lengkap yang Diucapkan (Arya Richard)</div>
                 <div class="speech-body">
-                    <p>“Pada Slide 6, keenam kandidat tersebut dievaluasi menggunakan <strong>6 kriteria yang tidak tumpang tindih</strong> berdasarkan rujukan jurnal Q1 seperti Ecer (2021) dan Ziemba (2020):”</p><p>“<strong>C1 Harga Pengadaan Unit</strong> dalam Euro (<em>Cost</em>), <strong>C2 Jarak Tempuh Sekali Cas</strong> dalam kilometer (<em>Benefit</em>), <strong>C3 Konsumsi Energi Listrik</strong> dalam Wh/km (<em>Cost</em>), <strong>C4 Kecepatan Fast Charging DC</strong> dalam km/jam (<em>Benefit</em>), <strong>C5 Akselerasi 0–100 km/jam</strong> dalam detik (<em>Cost</em> bagi DM1 dan DM2, namun <em>Benefit</em> bagi DM3 K3), serta <strong>C6 Jaringan Purnajual dan Garansi</strong> dalam skala Likert 1 sampai 5 (<em>Benefit</em>).”</p><p>“Agar perbedaan satuan tersebut dapat diolah sesuai standar masing-masing divisi, di <code>Sheet 2_Data_Prep_3_Responden</code> setiap DM memiliki tabel batas interval konversi 1 sampai 5 masing-masing yang dihitung otomatis dengan rumus <code>=IF</code> bertingkat. Misalnya untuk harga Tesla €46.220, di tabel CFO yang ketat masuk skor 4 (cukup mahal), sedangkan di tabel Operasional dan ESG masuk skor 2 (terjangkau).”</p><p>“Dengan demikian, terbentuk <strong>3 matriks keputusan independen berukuran 8 alternatif kali 6 kriteria</strong>. Selanjutnya, metodologi dan perhitungan bobot Metode A akan dijelaskan oleh rekan saya <strong>Marcello Sijadi</strong>.”</p>
+                    <p>“Pada Slide 6, kedelapan kandidat tersebut dievaluasi menggunakan <strong>6 kriteria yang tidak tumpang tindih</strong> berdasarkan rujukan jurnal Q1 seperti Ecer (2021) dan Ziemba (2020):”</p><p>“<strong>C1 Harga Pengadaan Unit</strong> dalam Euro (<em>Cost</em>), <strong>C2 Jarak Tempuh Sekali Cas</strong> dalam kilometer (<em>Benefit</em>), <strong>C3 Konsumsi Energi Listrik</strong> dalam Wh/km (<em>Cost</em>), <strong>C4 Kecepatan Fast Charging DC</strong> dalam km/jam (<em>Benefit</em>), <strong>C5 Akselerasi 0–100 km/jam</strong> dalam detik (<em>Cost</em> bagi DM1 dan DM2, namun <em>Benefit</em> bagi DM3 K3), serta <strong>C6 Jaringan Purnajual dan Garansi</strong> dalam skala Likert 1 sampai 5 (<em>Benefit</em>).”</p><p>“Agar perbedaan satuan tersebut dapat diolah sesuai standar masing-masing divisi, di <code>Sheet 2_Data_Prep_3_Responden</code> setiap DM memiliki tabel batas interval konversi 1 sampai 5 masing-masing yang dihitung otomatis dengan rumus <code>=IF</code> bertingkat. Misalnya untuk harga Tesla €46.220, di tabel CFO yang ketat masuk skor 4 (cukup mahal), sedangkan di tabel Operasional dan ESG masuk skor 2 (terjangkau).”</p><p>“Dengan demikian, terbentuk <strong>3 matriks keputusan independen berukuran 8 alternatif kali 6 kriteria</strong>. Selanjutnya, metodologi dan perhitungan bobot Metode A akan dijelaskan oleh rekan saya <strong>Marcello Sijadi</strong>.”</p>
                 </div>
             </div>
 
@@ -592,7 +585,7 @@
                 <div class="badge-group">
                     <span class="badge-slide">SLIDE 11 · IMPLEMENTASI EXCEL</span>
                     <span class="badge-speaker spk-clifford">🎙️ Noya, Clifford (Perhitungan Metode B, Agregasi & Excel)</span>
-                    <span class="badge-time">⏱️ ~1 Menit</span>
+                    <span class="badge-time">⏱️ ~1,5 Menit (Termasuk Demo Singkat Excel)</span>
                 </div>
                 <h2 class="slide-title">Seluruh Perhitungan Dihitung dengan 4.347 Rumus Excel Aktif</h2>
                 <div class="ppt-preview-box">
@@ -602,7 +595,7 @@
 
             <div class="box-cues">
                 <div class="box-title">🎭 Petunjuk Sikap, Fokus & Klik Layar</div>
-                <ul><li>Tekankan bahwa seluruh 4.347 sel hasil di Excel memakai rumus murni (=IF, =GEOMEAN, =SUMPRODUCT, =RANK, =COUNTIFS, =CORREL) dan bebas angka ketikan manual.</li></ul>
+                <ul><li>Setelah menjelaskan Slide 11 selama 30 detik, bisa langsung tunjukkan file Excel Konoha_GDSS_EV_SixtSE_Master.xlsx (lihat Script Demo Excel di bawah).</li></ul>
             </div>
 
             <div class="box-speech">
@@ -613,16 +606,16 @@
             </div>
 
             <div class="box-tip">
-                <strong>💡 Catatan Antisipasi Pertanyaan Dosen (Slide 11):</strong> Jika saat sidang dosen meminta mengubah 1 angka di Excel: buka Sheet 2, ubah harga A8 BMW i4 di sel C13 dari 59200 menjadi 36000, tunjukkan bahwa skor C1 BMW berubah otomatis dari 5 menjadi 1 dan Poin Borda BMW di Sheet 1 langsung melonjak menjadi Juara #1, lalu tekan Ctrl+Z.
+                <strong>💡 Catatan Antisipasi Pertanyaan Dosen (Slide 11):</strong> Lihat bagian khusus 'SCRIPT LIVE DEMO' di bawah untuk urutan klik dan kalimat saat mendemonstrasikan Excel & Prototype Web.
             </div>
         </section>
         
         <section class="slide-card" id="slide-12" data-speaker="irmando">
             <div class="slide-card-head">
                 <div class="badge-group">
-                    <span class="badge-slide">SLIDE 12 · PROTOTYPE SISTEM</span>
+                    <span class="badge-slide">SLIDE 12 · PROTOTYPE SISTEM & LIVE DEMO</span>
                     <span class="badge-speaker spk-irmando">🎙️ Koyo, Irmando (Pengembang Prototype Sistem)</span>
-                    <span class="badge-time">⏱️ ~2,5 Menit (Termasuk Live Demo)</span>
+                    <span class="badge-time">⏱️ ~3 Menit (Termasuk Live Demo Web)</span>
                 </div>
                 <h2 class="slide-title">Demo: GDSS Pengadaan Armada EV Sixt SE (upro.web.id/dssclass)</h2>
                 <div class="ppt-preview-box">
@@ -632,18 +625,18 @@
 
             <div class="box-cues">
                 <div class="box-title">🎭 Petunjuk Sikap, Fokus & Klik Layar</div>
-                <ul><li>Setelah menjelaskan poin di Slide 12 selama 30 detik, langsung beralih (Alt+Tab) ke browser yang membuka https://upro.web.id/dssclass untuk mendemonstrasikan 5 langkah secara live.</li></ul>
+                <ul><li>Setelah mengucapkan paragraf pengantar Slide 12 di bawah (20 detik), tekan Alt+Tab ke browser yang membuka https://upro.web.id/dssclass lalu ikuti 7 Langkah Script Live Demo Web secara berurutan!</li></ul>
             </div>
 
             <div class="box-speech">
                 <div class="box-title">🗣️ Kalimat Lengkap yang Diucapkan (Koyo, Irmando)</div>
                 <div class="speech-body">
-                    <p>“Terima kasih Clifford. Saya <strong>Irmando Koyo</strong> akan menjelaskan arsitektur prototype sistem pada Slide 12 sekaligus mendemonstrasikan aplikasinya secara langsung di <code>https://upro.web.id/dssclass</code>.”</p><p>“Prototype web kami dibangun menggunakan arsitektur <em>Dual-Engine</em>: secara <em>online</em> terhubung <em>real-time</em> ke database <strong>Google Firebase Cloud Firestore</strong> (project <code>sixt-ev-gdss</code>), dan secara lokal memiliki <em>fallback</em> otomatis ke <code>LocalStorage</code> serta <code>BroadcastChannel</code> antar-tab sehingga dijamin berjalan 100% tanpa error.”</p><p>“Mari kita lihat langsung pada aplikasinya sesuai 5 langkah di Slide 12:”</p><p>“<strong>Pertama (Tahap 01 — Input & CRUD Dinamis):</strong> Seluruh 8 alternatif EV dan 6 kriteria tidak di-<em>hardcode</em>. Kita dapat menambah alternatif baru, mengedit, atau menghapus. Jika kita aktifkan tombol <code>Mode Lengkap</code> di kanan atas dan klik <code>Demo Tambah EV Kaggle (A9)</code>, sistem otomatis menambahkan kandidat ke-9 <em>Audi Q4 e-tron 45</em> dan menghitung ulang matriks $9 \times 6$ secara instan. Klik <code>Reset Data Awal</code> untuk kembali ke baseline 8 EV.”</p><p>“<strong>Kedua & Ketiga (Tahap 02 — Multi-DM, Penguncian Peran, & Validasi Skala):</strong> Di bar atas, kita bisa berpindah peran antara <code>Komite Eksekutif</code>, <code>DM1 (CFO)</code>, <code>DM2 (Fleet Ops)</code>, dan <code>DM3 (HSE & ESG)</code>. Saat masuk sebagai <strong>DM1</strong>, tab formulir DM2 dan DM3 otomatis terkunci. Jika kita klik <code>Uji Validasi Input</code> atau mencoba mengetik angka <code>9</code> maupun mengosongkan sel skor 1–5, sistem langsung menolak input tersebut dengan pesan error spesifik tanpa merusak data di Cloud Firestore.”</p><p>“<strong>Keempat (Tahap 03 s/d Tahap 06 — Hasil Antara, Grafik SVG, & Kolaborasi Grup):</strong> Di Tahap 03 tampil matriks ternormalisasi $r_{ij}$; di Tahap 04 solver <em>Two-Phase Simplex LP</em> di browser menghitung bobot Linear BWM $w_j^*$ dan $CR^I$; di Tahap 05 tampil tabel antara CoCoSo ($S_i, P_i, k_{ia}, k_{ib}, k_{ic}, K_i$) lengkap dengan <em>Inspektur Bedah Substitusi Rumus</em> saat baris mobil diklik; dan di Tahap 06 tampil konsensus Borda, 4 kartu rekomendasi kuota, 4 grafik vektor SVG, status pengisian DM, forum diskusi komite, serta riwayat <em>snapshot</em> keputusan.”</p><p>“<strong>Kelima (Kartu KPI & Tahap 07 — Paritas 100% vs Excel):</strong> Pada kartu indikator atas dan tabel audit di Tahap 07 terbukti seluruh angka di prototype identik 100% dengan Microsoft Excel dengan selisih mutlak <strong>0,0000</strong>.”</p>
+                    <p>“Terima kasih Clifford. Saya <strong>Irmando Koyo</strong> akan menjelaskan arsitektur prototype sistem pada Slide 12 sekaligus mendemonstrasikan aplikasinya secara langsung di <code>https://upro.web.id/dssclass</code>.”</p><p>“Prototype web kami dibangun menggunakan arsitektur <em>Dual-Engine</em>: secara <em>online</em> terhubung <em>real-time</em> ke database <strong>Google Firebase Cloud Firestore</strong> (project <code>sixt-ev-gdss</code>), dan secara lokal memiliki <em>fallback</em> otomatis ke <code>LocalStorage</code> serta <code>BroadcastChannel</code> antar-tab sehingga dijamin berjalan 100% tanpa error.”</p><p>“[PINDAH LAYAR KE BROWSER <code>https://upro.web.id/dssclass</code> — IKUTI KALIMAT DI BAGIAN 'SCRIPT LIVE DEMO' DI BAWAH]”</p>
                 </div>
             </div>
 
             <div class="box-tip">
-                <strong>💡 Catatan Antisipasi Pertanyaan Dosen (Slide 12):</strong> Urutan klik saat Live Demo agar memukau dosen dalam 90 detik: (1) Tunjukkan Tahap 01 & klik +Tambah Alternatif EV (coba klik Simpan saat kosong -> tunjukkan ditolak, lalu tutup), (2) Klik peran DM1 di atas -> tunjukkan tab DM2/DM3 terkunci & klik Uji Validasi Input -> klik Tutup & kembali ke Komite Eksekutif, (3) Scroll ke Tahap 03, 04, 05 (klik baris A6 VW ID.7 untuk melihat rumus berubah), (4) Tunjukkan Tahap 06 (4 kartu kuota, 4 grafik, diskusi & snapshot), (5) Klik Mode Lengkap -> tunjukkan kapsul hijau Cloud Firestore Live & Tahap 07 tabel paritas 0,0000.
+                <strong>💡 Catatan Antisipasi Pertanyaan Dosen (Slide 12):</strong> Seluruh kata-kata per klik untuk Live Demo (Langkah 1 s/d Langkah 7) tersedia lengkap pada bagian khusus 'SCRIPT LIVE DEMO' tepat di bawah Slide 14.
             </div>
         </section>
         
@@ -662,13 +655,13 @@
 
             <div class="box-cues">
                 <div class="box-title">🎭 Petunjuk Sikap, Fokus & Klik Layar</div>
-                <ul><li>Kembali ke layar slide PPT (Slide 13) untuk menyampaikan rangkuman akhir dengan intonasi tegas.</li></ul>
+                <ul><li>Setelah selesai Live Demo di browser, kembali ke layar Slide 13 PPT untuk menyampaikan kesimpulan.</li></ul>
             </div>
 
             <div class="box-speech">
                 <div class="box-title">🗣️ Kalimat Lengkap yang Diucapkan (Koyo, Irmando)</div>
                 <div class="speech-body">
-                    <p>“Sebagai penutup pada Slide 13, kami merangkum tiga poin utama:”</p><p>“Pertama, <strong>Keputusan Grup:</strong> Komite Pengadaan Armada Sixt SE direkomendasikan menetapkan <strong>A1 — Tesla Model 3</strong> sebagai prioritas utama dengan alokasi <strong>60% kuota pengadaan</strong> (18 Poin Borda, $\bar{K}_1 = 3,5976$, Copeland $+7$), didampingi <strong>A6 — Volkswagen ID.7 Pro sebesar 30%</strong> untuk perjalanan bisnis jarak jauh, dan <strong>A8 — BMW i4 eDrive40 sebesar 10%</strong> untuk segmen eksekutif VIP, serta mengeliminasi A2 — BYD Dolphin.”</p><p>“Kedua, <strong>Keterbatasan:</strong> Data harga C1 masih menggunakan harga katalog ritel Jerman sebelum diskon negosiasi kontrak volume B2B, dan penilaian masih menggunakan angka tegas (<em>crisp</em>) dari 3 kepala divisi.”</p><p>“Ketiga, <strong>Pembelajaran Tim:</strong> Melalui proyek ini kami memahami secara nyata bagaimana kombinasi <strong>Linear BWM (2016)</strong>, <strong>CoCoSo (2019)</strong>, dan strategi <strong>Agregasi Borda di Akhir</strong> mampu mendamaikan konflik kepentingan antar-divisi—termasuk dualitas orientasi kriteria C5—secara transparan dan teruji.”</p>
+                    <p>“Kembali ke slide presentasi kami pada Slide 13, sebagai kesimpulan akhir terdapat tiga poin utama:”</p><p>“Pertama, <strong>Keputusan Grup:</strong> Komite Pengadaan Armada Sixt SE direkomendasikan menetapkan <strong>A1 — Tesla Model 3</strong> sebagai prioritas utama dengan alokasi <strong>60% kuota pengadaan</strong> (18 Poin Borda, $\bar{K}_1 = 3,5976$, Copeland $+7$), didampingi <strong>A6 — Volkswagen ID.7 Pro sebesar 30%</strong> untuk perjalanan bisnis jarak jauh, dan <strong>A8 — BMW i4 eDrive40 sebesar 10%</strong> untuk segmen eksekutif VIP, serta mengeliminasi A2 — BYD Dolphin.”</p><p>“Kedua, <strong>Keterbatasan:</strong> Data harga C1 masih menggunakan harga katalog ritel Jerman sebelum diskon negosiasi kontrak volume B2B, dan penilaian masih menggunakan angka tegas (<em>crisp</em>) dari 3 kepala divisi.”</p><p>“Ketiga, <strong>Pembelajaran Tim:</strong> Melalui proyek ini kami memahami secara nyata bagaimana kombinasi <strong>Linear BWM (2016)</strong>, <strong>CoCoSo (2019)</strong>, dan strategi <strong>Agregasi Borda di Akhir</strong> mampu mendamaikan konflik kepentingan antar-divisi—termasuk dualitas orientasi kriteria C5—secara transparan dan teruji.”</p>
                 </div>
             </div>
 
@@ -698,7 +691,7 @@
             <div class="box-speech">
                 <div class="box-title">🗣️ Kalimat Lengkap yang Diucapkan (Koyo, Irmando (Bersama Seluruh Tim))</div>
                 <div class="speech-body">
-                    <p>“Demikian presentasi dan demonstrasi sistem <em>Group Decision Support System</em> dari <strong>Kelompok Konoha</strong>.”</p><p>“Selanjutnya kami membuka sesi tanya jawab dan siap melakukan simulasi langsung baik pada aplikasi web maupun buku kerja Microsoft Excel. Terima kasih banyak Pak George dan rekan-rekan sekalian.”</p>
+                    <p>“Demikian presentasi dan demonstrasi sistem <em>Group Decision Support System</em> dari <strong>Kelompok Konoha</strong>.”</p><p>“Selanjutnya kami membuka sesi tanya jawab. Terima kasih banyak Pak George dan rekan-rekan sekalian.”</p>
                 </div>
             </div>
 
@@ -708,15 +701,150 @@
         </section>
         
 
+        <section class="qa-section" id="live-demo-section">
+            <div class="hero" style="margin-bottom:18px;border-color:#10b981;">
+                <div class="hero-eyebrow" style="color:#6ee7b7;">Panduan Langkah demi Langkah Saat Demo Langsung (Butir 6.1 s/d 6.10)</div>
+                <h1>🎬 Script Live Demo: Klik Apa, Tunjuk Apa, & Kata-Kata Persis yang Diucapkan</h1>
+                <p style="margin-bottom:0;">Gunakan urutan di bawah ini saat berpindah dari Slide 11 ke Microsoft Excel dan dari Slide 12 ke browser <code>https://upro.web.id/dssclass</code>.</p>
+            </div>
+            
+        <div class="slide-card" style="border-color:#10b981;">
+            <div class="badge-group">
+                <span class="badge-slide" style="background:rgba(16,185,129,0.2);color:#6ee7b7;border-color:#10b981;">🎬 PANDUAN & KATA-KATA LIVE DEMO</span>
+                <span class="badge-speaker spk-irmando">Butir 5.1 s/d 5.10 (Implementasi 4.347 Rumus Excel & Uji Ubah Input)</span>
+            </div>
+            <h2 class="slide-title">DEMO EXCEL (OPSIONAL / SAAT SLIDE 11) — Dibawakan oleh Clifford Noya</h2>
+            <div class="box-cues">
+                <div class="box-title">🖱️ Urutan Klik di Layar (Action)</div>
+                <p style="margin-top:4px;color:#fde68a;font-weight:600;">Buka file Konoha_GDSS_EV_SixtSE_Master.xlsx -> klik tab '1_Executive_Consensus' -> lalu klik tab '2_Data_Prep_3_Responden' -> klik sel C13 (Harga A8 BMW i4 = 59200) -> ubah jadi 36000 -> tekan Enter -> lihat perubahan di '1_Executive_Consensus' -> tekan Ctrl+Z untuk mengembalikan ke 59200.</p>
+            </div>
+            <div class="box-speech">
+                <div class="box-title">🗣️ Kata-Kata Persis yang Diucapkan Saat Klik</div>
+                <div class="speech-body">
+                    <p>“Pak George, izin kami tunjukkan sebentar bukti rumus dinamis di buku kerja Excel kami.”</p><p>“Di <code>Sheet 1_Executive_Consensus</code> ini, seluruh skor CoCoSo tiap DM, Poin Borda, matriks turnamen Copeland 8 kali 8, hingga grafik batang di kanan terhubung 100% dengan rumus Excel aktif. Saat ini Juara 1 adalah <strong>A1 Tesla Model 3 (18 Poin Borda)</strong> dan <strong>A8 BMW i4</strong> berada di peringkat 3 (12 Poin Borda) karena harganya paling mahal yaitu €59.200.”</p><p>“Sekarang kalau kita buka <code>Sheet 2_Data_Prep_3_Responden</code>, lalu pada sel input harga <strong>A8 BMW i4 (Sel C13)</strong> kita ubah dari <code>59200</code> menjadi <code>36000</code> dan tekan Enter: terlihat skor kategori C1 BMW pada ketiga DM di bawah langsung turun otomatis dari 5 menjadi 1. Dan ketika kita kembali ke <code>Sheet 1_Executive_Consensus</code>, Poin Borda BMW i4 langsung melonjak otomatis menjadi Peringkat 1, diikuti perubahan grafik secara <em>real-time</em>. Kita tekan <code>Ctrl + Z</code> untuk mengembalikan ke data asli €59.200.”</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slide-card" style="border-color:#10b981;">
+            <div class="badge-group">
+                <span class="badge-slide" style="background:rgba(16,185,129,0.2);color:#6ee7b7;border-color:#10b981;">🎬 PANDUAN & KATA-KATA LIVE DEMO</span>
+                <span class="badge-speaker spk-irmando">Dibawakan oleh Irmando Koyo di https://upro.web.id/dssclass</span>
+            </div>
+            <h2 class="slide-title">LANGKAH 1 DEMO WEB: Pembukaan Dashboard, Kartu KPI, & Alur 6 Tahap (Butir 6.1 & 6.8)</h2>
+            <div class="box-cues">
+                <div class="box-title">🖱️ Urutan Klik di Layar (Action)</div>
+                <p style="margin-top:4px;color:#fde68a;font-weight:600;">Buka browser di https://upro.web.id/dssclass (pastikan dalam Mode Standar awal). Tunjuk 4 Kartu KPI di atas dan bar navigasi 6 Tahap (01 s/d 06).</p>
+            </div>
+            <div class="box-speech">
+                <div class="box-title">🗣️ Kata-Kata Persis yang Diucapkan Saat Klik</div>
+                <div class="speech-body">
+                    <p>“Sekarang kita masuk ke demo langsung prototype web kami di <code>https://upro.web.id/dssclass</code>.”</p><p>“Pada bagian atas, aplikasi menampilkan <strong>4 Kartu Ringkasan Eksekutif (KPI)</strong>: Pemenang Konsensus #1 yaitu <strong>A1 — Tesla Model 3</strong> (18 Poin Borda, $\bar{K} = 3,5976$, Copeland $+7$), Runner-Up #2 yaitu <strong>A6 — Volkswagen ID.7 Pro</strong> (15 Poin Borda), dimensi aktif <strong>8 EV × 6 Kriteria</strong> dengan status <strong>3/3 DM Valid</strong>, serta indikator paritas <strong>100% Identik ($\Delta = 0,0000$)</strong> terhadap Microsoft Excel.”</p><p>“Sesuai <strong>Butir 6.1</strong>, bar navigasi atas menjalankan seluruh alur keputusan secara berurutan dari <strong>Tahap 01 (Input Alternatif & Kriteria)</strong>, <strong>Tahap 02 (Penilaian Tiap DM)</strong>, <strong>Tahap 03 (Normalisasi)</strong>, <strong>Tahap 04 (Bobot Metode A: BWM)</strong>, <strong>Tahap 05 (Ranking Metode B: CoCoSo)</strong>, hingga <strong>Tahap 06 (Agregasi Grup & Hasil)</strong>.”</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slide-card" style="border-color:#10b981;">
+            <div class="badge-group">
+                <span class="badge-slide" style="background:rgba(16,185,129,0.2);color:#6ee7b7;border-color:#10b981;">🎬 PANDUAN & KATA-KATA LIVE DEMO</span>
+                <span class="badge-speaker spk-irmando">Dibawakan oleh Irmando Koyo pada Tahap 01</span>
+            </div>
+            <h2 class="slide-title">LANGKAH 2 DEMO WEB: Uji CRUD Dinamis — Tambah, Ubah, Hapus Alternatif & Kriteria (Butir 6.3)</h2>
+            <div class="box-cues">
+                <div class="box-title">🖱️ Urutan Klik di Layar (Action)</div>
+                <p style="margin-top:4px;color:#fde68a;font-weight:600;">Di Tahap 01, tunjuk tabel Alternatif (A1–A8) dan tabel Kriteria (C1–C6). Klik tombol 'Mode Lengkap' di pojok kanan atas -> klik tombol 'Demo Tambah EV Kaggle (A9)' -> tunjuk kartu KPI berubah menjadi '9 EV × 6 Kriteria' dan tabel otomatis bertambah A9 Audi Q4 e-tron 45 -> lalu klik 'Reset Data Awal' untuk kembali ke 8 EV.</p>
+            </div>
+            <div class="box-speech">
+                <div class="box-title">🗣️ Kata-Kata Persis yang Diucapkan Saat Klik</div>
+                <div class="speech-body">
+                    <p>“Kita mulai dari <strong>Tahap 01 (Input Alternatif & Kriteria)</strong> untuk membuktikan <strong>Butir 6.3</strong> bahwa aplikasi tidak di-<em>hardcode</em>.”</p><p>“Di sini pengguna dapat menambah alternatif baru lewat tombol <code>+ Tambah Alternatif EV</code>, menambah kriteria lewat <code>+ Tambah Kriteria</code>, menambah responden ke-4 (<code>DM4</code>), ataupun mengedit dan menghapus baris yang ada.”</p><p>“Untuk mempercepat demo, mari kita klik tombol <code>Mode Lengkap</code> di kanan atas, lalu kita klik tombol <code>Demo Tambah EV Kaggle (A9)</code>. Perhatikan: dalam satu klik, kandidat ke-9 yaitu <strong>A9 — Audi Q4 e-tron 45</strong> dari dataset Kaggle langsung masuk ke tabel, dimensi di kartu KPI atas berubah menjadi <strong>9 EV × 6 Kriteria</strong>, dan seluruh matriks normalisasi, CoCoSo, hingga poin Borda untuk 9 mobil langsung dihitung ulang secara instan.”</p><p>“Kita juga bisa menambahkan kriteria ke-7 (Kapasitas Baterai kWh) lewat tombol <code>Demo Tambah Kriteria (C7)</code> yang langsung memicu <em>solver Simplex LP</em> menghitung ulang bobot 7 kriteria. Sekarang kita klik <code>Reset Data Awal</code> agar data kembali ke kondisi baseline laporan 8 EV kali 6 kriteria.”</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slide-card" style="border-color:#10b981;">
+            <div class="badge-group">
+                <span class="badge-slide" style="background:rgba(16,185,129,0.2);color:#6ee7b7;border-color:#10b981;">🎬 PANDUAN & KATA-KATA LIVE DEMO</span>
+                <span class="badge-speaker spk-irmando">Dibawakan oleh Irmando Koyo (bisa dibantu Rivan/Arya/Marcello) pada Tahap 02</span>
+            </div>
+            <h2 class="slide-title">LANGKAH 3 DEMO WEB: Multi-DM, Penguncian Peran, & Validasi Input Ketat (Butir 6.2 & 6.7)</h2>
+            <div class="box-cues">
+                <div class="box-title">🖱️ Urutan Klik di Layar (Action)</div>
+                <p style="margin-top:4px;color:#fde68a;font-weight:600;">Scroll ke Tahap 02. Di bar paling atas, klik peran 'DM1 (CFO)'. Tunjuk banner hijau 'Masuk sebagai DM1' dan tunjuk tab DM2 & DM3 yang terkunci (disabled). Lalu klik tombol 'Simulasi Uji Validasi (Butir 6.7)' -> tunjuk kotak merah 'Input Ditolak Sistem' -> klik 'Tutup'. Coba ketik angka '9' di salah satu sel skor 1–5 DM1 lalu klik di luar sel -> tunjuk sistem langsung menolak angka 9 dan mengembalikan angka valid semula. Setelah itu klik kembali peran 'Komite Eksekutif' di bar atas.</p>
+            </div>
+            <div class="box-speech">
+                <div class="box-title">🗣️ Kata-Kata Persis yang Diucapkan Saat Klik</div>
+                <div class="speech-body">
+                    <p>“Berikutnya kita masuk ke <strong>Tahap 02 (Penilaian Tiap DM & Validasi)</strong> untuk membuktikan <strong>Butir 6.2</strong> dan <strong>Butir 6.7</strong>.”</p><p>“Untuk <strong>Butir 6.2 (Mendukung Banyak DM)</strong>, di bar atas terdapat pemilih peran untuk <code>Komite Eksekutif</code>, <code>DM1 (CFO)</code>, <code>DM2 (Fleet Ops)</code>, dan <code>DM3 (HSE & ESG)</code>. Apabila saya klik peran <strong>DM1 (CFO)</strong>, muncul informasi bahwa kita sedang masuk sebagai DM1, dan perhatikan: tab formulir milik <strong>DM2</strong> dan <strong>DM3</strong> otomatis menyandang status <strong>Terkunci</strong> sehingga DM1 hanya dapat mengisi kuesioner BWM skala 1–9 dan matriks skor 1–5 miliknya sendiri.”</p><p>“Jika kita beralih ke peran <strong>DM3 (HSE & ESG)</strong>, terlihat pula bahwa pada kriteria <strong>C5 (Akselerasi)</strong> orientasinya khusus berstatus <strong>Benefit</strong>, berbeda dari DM1 dan DM2 yang berstatus <strong>Cost</strong>.”</p><p>“Kemudian untuk <strong>Butir 6.7 (Validasi Input Menolak Nilai Kosong atau di Luar Skala)</strong>, mari kita uji dengan dua cara: pertama, kita klik tombol <code>Simulasi Uji Validasi (Butir 6.7)</code>. Sistem langsung memunculkan <em>banner</em> penolakan merah yang merinci bahwa skor <code>9</code> ditolak karena di luar skala Likert 1–5, isian <code>kosong</code> ditolak, dan nilai BWM <code>12</code> ditolak karena di luar skala Saaty 1–9.”</p><p>“Kedua, apabila kita coba mengetik manual angka <code>9</code> atau mengosongkan salah satu kotak skor di tabel ini lalu menekan Enter, sistem langsung menolak input tersebut, mengembalikan nilai valid sebelumnya, dan mencegah data yang salah masuk ke Cloud Firestore. Begitu juga pada modal <code>+ Tambah Alternatif EV</code>, jika nama dikosongkan lalu diklik Simpan, modal akan menolak penyimpanan. Sekarang kita kembali ke mode <strong>Komite Eksekutif</strong>.”</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slide-card" style="border-color:#10b981;">
+            <div class="badge-group">
+                <span class="badge-slide" style="background:rgba(16,185,129,0.2);color:#6ee7b7;border-color:#10b981;">🎬 PANDUAN & KATA-KATA LIVE DEMO</span>
+                <span class="badge-speaker spk-irmando">Dibawakan oleh Irmando Koyo pada Tahap 03, Tahap 04, dan Tahap 05</span>
+            </div>
+            <h2 class="slide-title">LANGKAH 4 DEMO WEB: Transparansi Tabel Hasil Antara — Normalisasi, Bobot BWM, & CoCoSo (Butir 6.5)</h2>
+            <div class="box-cues">
+                <div class="box-title">🖱️ Urutan Klik di Layar (Action)</div>
+                <p style="margin-top:4px;color:#fde68a;font-weight:600;">Scroll ke Tahap 03 (tunjuk rumus Min-Max & tabel r_ij beserta baris min/max), lanjut ke Tahap 04 (tunjuk rumus LP Linear BWM, tabel bobot w_j*, ξ_L*, dan CR^I Liang 2020), lalu lanjut ke Tahap 05 (tunjuk tabel S_i, P_i, k_ia, k_ib, k_ic, K_i, lalu klik baris 'A6 — Volkswagen ID.7 Pro' pada tabel Tahap 05 untuk melihat kotak 'Bedah Substitusi Angka ke Rumus Asli CoCoSo' di bawahnya berubah otomatis).</p>
+            </div>
+            <div class="box-speech">
+                <div class="box-title">🗣️ Kata-Kata Persis yang Diucapkan Saat Klik</div>
+                <div class="speech-body">
+                    <p>“Selanjutnya untuk <strong>Butir 6.5 (Hasil Antara Ditampilkan Lengkap)</strong>, aplikasi kami tidak langsung melompat ke hasil akhir, melainkan membuka seluruh hasil antara di Tahap 03, 04, dan 05:”</p><p>“Di <strong>Tahap 03 (Normalisasi)</strong>, ditampilkan rumus asli normalisasi Min-Max untuk Benefit dan Cost beserta <strong>Matriks Keputusan Ternormalisasi ($r_{ij}$)</strong> lengkap dengan baris nilai minimum dan maksimum tiap kolom untuk DM1, DM2, maupun DM3.”</p><p>“Di <strong>Tahap 04 (Bobot Metode A: Linear BWM)</strong>, ditampilkan model matematis Linear Programming Rezaei (2016) beserta tabel <strong>Bobot Optimal Kriteria ($w_j^*$)</strong>, indeks deviasi $\xi_L^*$, dan rasio konsistensi $CR^I$ Liang et al. (2020) yang seluruhnya berstatus <strong>Konsisten</strong>, lengkap dengan tabel bobot gabungan grup.”</p><p>“Di <strong>Tahap 05 (Ranking Metode B: CoCoSo)</strong>, ditampilkan tabel hasil antara CoCoSo secara utuh mulai dari kolom <strong>$S_i$ (WSM)</strong>, <strong>$P_i$ (WPM)</strong>, strategi <strong>$k_{ia}$</strong>, <strong>$k_{ib}$</strong>, <strong>$k_{ic}$</strong>, hingga <strong>Skor Akhir $K_i$</strong> dan peringkat untuk masing-masing DM. Bahkan jika kita klik salah satu baris mobil—misalnya kita klik baris <strong>A6 Volkswagen ID.7 Pro</strong>—kotak <em>Inspektur Bedah Substitusi Rumus</em> di bawahnya langsung menampilkan substitusi angka pecahan $k_{ia}, k_{ib}, k_{ic}$, dan $K_i$ untuk mobil tersebut secara langsung.”</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slide-card" style="border-color:#10b981;">
+            <div class="badge-group">
+                <span class="badge-slide" style="background:rgba(16,185,129,0.2);color:#6ee7b7;border-color:#10b981;">🎬 PANDUAN & KATA-KATA LIVE DEMO</span>
+                <span class="badge-speaker spk-irmando">Dibawakan oleh Irmando Koyo pada Tahap 06</span>
+            </div>
+            <h2 class="slide-title">LANGKAH 5 DEMO WEB: Konsensus Grup, 4 Grafik Vektor SVG, & 3 Fitur Kolaborasi Grup (Butir 6.6 & 6.9)</h2>
+            <div class="box-cues">
+                <div class="box-title">🖱️ Urutan Klik di Layar (Action)</div>
+                <p style="margin-top:4px;color:#fde68a;font-weight:600;">Scroll ke Tahap 06. Tunjuk Tabel Konsensus Borda & Matriks Copeland, tunjuk 4 Kartu Rekomendasi Pengadaan (60%:30%:10%), tunjuk 3 Grafik Vektor SVG di Tahap 06 (serta 1 Grafik Bobot di Tahap 04 = total 4 grafik). Lalu scroll ke bagian bawah Tahap 06: tunjuk 3 panel Kolaborasi Grup (Status 3 DM 48/48 sel, Forum Diskusi Komite -> ketik komentar singkat & klik Kirim, dan Riwayat Snapshot Keputusan -> klik Simpan Snapshot Saat Ini).</p>
+            </div>
+            <div class="box-speech">
+                <div class="box-title">🗣️ Kata-Kata Persis yang Diucapkan Saat Klik</div>
+                <div class="speech-body">
+                    <p>“Kita masuk ke <strong>Tahap 06 (Agregasi Grup, Visualisasi Grafik, & Kolaborasi Komite)</strong>.”</p><p>“Pada tabel utama terlihat penggabungan peringkat ketiga DM menggunakan <strong>Borda Count</strong>, pemecah seri rata-rata skor $\bar{K}_i$, serta matriks turnamen berpasangan <strong>Copeland</strong>, yang menghasilkan <strong>4 Kartu Rekomendasi Pengadaan</strong>: Prioritas Utama #1 <strong>A1 Tesla Model 3 (60%)</strong>, Komplemen #2 <strong>A6 VW ID.7 Pro (30%)</strong>, Alokasi Terbatas #3 <strong>A8 BMW i4 (10%)</strong>, dan Eliminasi #8 <strong>A2 BYD Dolphin (0%)</strong>.”</p><p>“Sesuai <strong>Butir 6.6 (Visualisasi Hasil)</strong>, aplikasi menampilkan <strong>4 Grafik Vektor SVG Interaktif</strong>: yaitu (1) Grafik Batang Bertumpuk Poin Konsensus Borda & Kontribusi Tiap DM, (2) Grafik Perbandingan Skor CoCoSo $K_i$ Antar-DM, (3) Grafik Perbandingan Bobot Kriteria BWM Antar-DM di Tahap 04, serta (4) Peta Rentang Perdebatan Peringkat Antar-DM yang menyoroti kontroversi <strong>A8 BMW i4</strong> ($\Delta\text{Rank} = 7$).”</p><p>“Dan sesuai <strong>Butir 6.9 (Fitur Pendukung Grup sebagai Nilai Tambah)</strong>, tepat di bagian bawah Tahap 06 tersedia lengkap <strong>3 Fitur Kolaborasi Grup Real-Time</strong>: pertama, panel <strong>Status Pengisian DM Live</strong> yang memantau kelengkapan 48 sel tiap responden; kedua, <strong>Forum Diskusi Komite Real-Time</strong> di mana tiap DM dapat mengirim argumen per alternatif mobil yang langsung tersinkronisasi lewat Cloud Firestore; dan ketiga, fitur <strong>Riwayat Snapshot Keputusan</strong> untuk menyimpan dan memulihkan skenario keputusan rapat kapan saja.”</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slide-card" style="border-color:#10b981;">
+            <div class="badge-group">
+                <span class="badge-slide" style="background:rgba(16,185,129,0.2);color:#6ee7b7;border-color:#10b981;">🎬 PANDUAN & KATA-KATA LIVE DEMO</span>
+                <span class="badge-speaker spk-irmando">Dibawakan oleh Irmando Koyo pada Tahap 07 (Mode Lengkap)</span>
+            </div>
+            <h2 class="slide-title">LANGKAH 6 DEMO WEB: Bukti Paritas 100% vs Excel & Simulator Sensitivitas (Butir 6.4 & 6.10)</h2>
+            <div class="box-cues">
+                <div class="box-title">🖱️ Urutan Klik di Layar (Action)</div>
+                <p style="margin-top:4px;color:#fde68a;font-weight:600;">Scroll ke Tahap 07 (pastikan Mode Lengkap aktif). Tunjuk Tabel 'Bukti Otomatis Paritas Prototype vs Microsoft Excel' yang seluruh barisnya berstatus 'IDENTIK' dengan selisih 0.00e+00. Tunjuk juga Simulator Sensitivitas Interaktif di bawahnya.</p>
+            </div>
+            <div class="box-speech">
+                <div class="box-title">🗣️ Kata-Kata Persis yang Diucapkan Saat Klik</div>
+                <div class="speech-body">
+                    <p>“Terakhir pada prototype web, untuk membuktikan <strong>Butir 6.4 (Hasil Prototype Sama dengan Hasil Excel untuk Data yang Sama)</strong>, di <strong>Tahap 07 Bagian A</strong> kami menyediakan <strong>Tabel Audit Paritas Otomatis Prototype vs Microsoft Excel</strong>.”</p><p>“Tabel ini menyandingkan secara langsung angka yang dihitung oleh mesin JavaScript aplikasi dengan angka rekalkulasi asli dari file <code>Konoha_GDSS_EV_SixtSE_Master.xlsx</code>—mulai dari bobot BWM ketiga DM, skor CoCoSo $K_i$, Poin Borda, rata-rata $\bar{K}_i$, SAW, TOPSIS, korelasi Spearman, hingga Kendall's $W$—di mana seluruh baris menunjukkan selisih mutlak <strong>$0,00 \times 10^0$ (100% Identik)</strong>. Selain itu, di bawahnya juga tersedia simulator interaktif untuk menguji perubahan bobot DM dan bobot kriteria secara langsung.”</p><p>“Dengan demikian, seluruh butir penilaian prototype dari <strong>6.1 sampai 6.12</strong> telah terpenuhi secara utuh dan berjalan lancar tanpa error.”</p>
+                </div>
+            </div>
+        </div>
+        
+        </section>
+
         <section class="qa-section" id="qa-bank">
             <div class="hero" style="margin-bottom:18px;">
                 <div class="hero-eyebrow">Persiapan Penilaian Individu (Butir 6.12)</div>
-                <h1>Bank Pertanyaan & Jawaban Sidang untuk Masing-Masing dari 5 Anggota</h1>
+                <h1>🛡️ Bank Pertanyaan & Jawaban Sidang untuk Masing-Masing dari 5 Anggota</h1>
                 <p style="margin-bottom:0;">Setiap anggota menguasai penuh bagiannya sekaligus memahami benang merah keputusan grup Sixt SE.</p>
             </div>
             
         <div class="qa-card">
-            <h3>🛡️ 1. Manopo, Rivan (Koordinator & Analis Kasus — Bab 1, Bab 2, Sheet 0A)</h3>
+            <h3>🛡️ 1. Manopo, Rivan (Koordinator & Analis Kasus — Bab 1, Bab 2, Sheet 0A, Slide 1–4)</h3>
             <div class="qa-pair">
                 <div class="qa-q">❓ Pertanyaan 1: Mengapa studi kasus Sixt SE ini harus diselesaikan dengan Group DSS, bukan Single-DM MCDM biasa?</div>
                 <div class="qa-a">✅ <strong>Jawaban Lugas:</strong> Karena dalam pengadaan armada korporat Sixt SE terdapat konflik kepentingan struktural antar 3 kepala divisi (CFO menekan biaya modal C1 & listrik C3; Fleet Ops menuntut jarak tempuh C2 & fast charging C4; Manajer K3/ESG menuntut efisiensi karbon C3 & keselamatan akselerasi C5). Bahkan pada kriteria C5 terjadi dualitas orientasi (Cost bagi DM1 & DM2, tetapi Benefit bagi DM3), sehingga mustahil diwakili oleh satu matriks atau satu pengambil keputusan tunggal.</div>
@@ -728,7 +856,7 @@
         </div>
         
         <div class="qa-card">
-            <h3>🛡️ 2. Arya Richard (Kriteria & Pengumpulan Data — Bab 3, Sheet 2, Sheet 5)</h3>
+            <h3>🛡️ 2. Arya Richard (Kriteria & Pengumpulan Data — Bab 3, Sheet 2, Sheet 5, Slide 5–6)</h3>
             <div class="qa-pair">
                 <div class="qa-q">❓ Pertanyaan 1: Dari mana asal data 8 mobil listrik dan mengapa skor matriks tiap DM bisa berbeda padahal mobilnya sama?</div>
                 <div class="qa-a">✅ <strong>Jawaban Lugas:</strong> Data fisik C1–C5 berasal dari dataset empiris Kaggle Electric Vehicle Specifications (EV_cars.csv, 360 mobil pasar Jerman dari EV-Database.org) di Sheet 5. Skor 1–5 tiap DM berbeda karena setiap kepala divisi memiliki tabel batas toleransi interval yang berbeda sesuai jabatannya (dijaga dengan rumus =IF bertingkat di Sheet 2). Contohnya, harga Tesla €46.220 dinilai skor 4 (cukup mahal) oleh CFO yang ketat anggaran, namun dinilai skor 2 (terjangkau) oleh Direktur Operasional.</div>
@@ -740,7 +868,7 @@
         </div>
         
         <div class="qa-card">
-            <h3>🛡️ 3. Sijadi, Marcello (Perhitungan Metode A Linear BWM — Bab 4, Sheet 0B, Sheet 3)</h3>
+            <h3>🛡️ 3. Sijadi, Marcello (Perhitungan Metode A Linear BWM — Bab 4, Sheet 0B, Sheet 3, Slide 7–8)</h3>
             <div class="qa-pair">
                 <div class="qa-q">❓ Pertanyaan 1: Bagaimana cara kerja Linear BWM (2016) dan mengapa tidak memakai rumus normalisasi pada Metode A?</div>
                 <div class="qa-a">✅ <strong>Jawaban Lugas:</strong> Linear BWM adalah metode pembobotan subjektif murni berbasis perbandingan berpasangan skala 1–9 terhadap kriteria Terbaik (Best) dan Terburuk (Worst), sehingga tidak menormalisasi matriks alternatif. Normalisasi matriks alternatif mengikuti syarat resmi Metode B CoCoSo yaitu Min-Max Kompromi pada rentang [0, 1]. Pada Linear BWM, bobot optimal w1*..w6* diperoleh dengan meminimalkan deviasi maksimum ξL* sehingga menghasilkan solusi bobot yang unik/tunggal.</div>
@@ -752,19 +880,19 @@
         </div>
         
         <div class="qa-card">
-            <h3>🛡️ 4. Noya, Clifford (Perhitungan Metode B CoCoSo, Agregasi & Excel — Bab 5, Bab 6, Sheet 1, 4, 6, 7)</h3>
+            <h3>🛡️ 4. Noya, Clifford (Perhitungan Metode B CoCoSo, Agregasi & Excel — Bab 5, Bab 6, Sheet 1, 4, 6, 7, Slide 9–11)</h3>
             <div class="qa-pair">
                 <div class="qa-q">❓ Pertanyaan 1: Mengapa CoCoSo menggabungkan Si dan Pi ke dalam tiga strategi (kia, kib, kic), dan bagaimana menyelesaikan seri Poin Borda?</div>
                 <div class="qa-a">✅ <strong>Jawaban Lugas:</strong> Dalam CoCoSo (Yazdani et al., 2019), Si adalah jumlah terbobot (WSM) yang bersifat kompensatoris, sedangkan Pi adalah pangkat terbobot (WPM) yang menghukum alternatif yang buruk pada kriteria kunci. Ketiga strategi menggabungkan Si dan Pi secara rata-rata aritmatika (kia), relatif terhadap nilai minimum (kib), dan kompromi seimbang λ=0,5 (kic) menjadi skor Ki. Saat digabung dengan Borda di Sheet 1, A4, A7, dan A3 sama-sama meraih 10 Poin Borda; seri ini dipecahkan secara presisi menggunakan rata-rata skor kompromi K̄i (3,1604 > 2,7272 > 2,1305).</div>
             </div>
             <div class="qa-pair">
                 <div class="qa-q">❓ Pertanyaan 2: Mengapa pada metode pembanding TOPSIS peringkat 1 adalah A8 BMW i4, sedangkan pada CoCoSo dan SAW peringkat 1 adalah A1 Tesla Model 3?</div>
-                <div class="qa-a">✅ <strong>Jawaban Lugas:</strong> Karena TOPSIS menggunakan jarak Euclidean yang bersifat kompensatoris penuh: keunggulan ekstrem jarak tempuh BMW i4 (515 km, skor penuh di DM2) menutupi nilai nolnya pada kriteria Harga C1 dan Purnajual C6 di mata CFO. Sebaliknya, CoCoSo memiliki komponen eksponensial WPM (Pi) yang memberikan penalti tegas ketika suatu mobil bernilai nol pada kriteria berbobat besar, sehingga A1 Tesla Model 3 yang seimbang di semua divisi menang mutlak dan terbukti stabil di 14 dari 14 skenario sensitivitas.</div>
+                <div class="qa-a">✅ <strong>Jawaban Lugas:</strong> Karena TOPSIS menggunakan jarak Euclidean yang bersifat kompensatoris penuh: keunggulan ekstrem jarak tempuh BMW i4 (515 km, skor penuh di DM2) menutupi nilai nolnya pada kriteria Harga C1 dan Purnajual C6 di mata CFO. Sebaliknya, CoCoSo memiliki komponen eksponensial WPM (Pi) yang memberikan penalti tegas ketika suatu mobil bernilai nol pada kriteria berbobot besar, sehingga A1 Tesla Model 3 yang seimbang di semua divisi menang mutlak dan terbukti stabil di 14 dari 14 skenario sensitivitas.</div>
             </div>
         </div>
         
         <div class="qa-card">
-            <h3>🛡️ 5. Koyo, Irmando (Pengembang Prototype Sistem — Bab 7, Bab 8, Sheet 0D, upro.web.id/dssclass)</h3>
+            <h3>🛡️ 5. Koyo, Irmando (Pengembang Prototype Sistem — Bab 7, Bab 8, Sheet 0D, Slide 12–14, upro.web.id/dssclass)</h3>
             <div class="qa-pair">
                 <div class="qa-q">❓ Pertanyaan 1: Bagaimana cara kerja solver Linear BWM dan sinkronisasi multi-DM di dalam prototype web tanpa backend Python?</div>
                 <div class="qa-a">✅ <strong>Jawaban Lugas:</strong> Di dalam file engine.js, kami membangun solver Two-Phase Simplex Linear Programming murni dalam JavaScript ES6 yang otomatis menyusun matriks kendala |wB - aBj·wj| ≤ ξL dan |wj - ajW·wW| ≤ ξL untuk jumlah kriteria n berapa pun secara dinamis di browser. Untuk kolaborasi multi-DM, storage.js menghubungkan aplikasi secara real-time ke Google Firebase Cloud Firestore (sixt-ev-gdss) dengan fallback otomatis ke LocalStorage dan BroadcastChannel.</div>
@@ -782,7 +910,7 @@
         function filterSpeaker(spk, btn) {
             document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
             if (btn) btn.classList.add('active');
-            document.querySelectorAll('.slide-card').forEach(card => {
+            document.querySelectorAll('.slide-card[data-speaker]').forEach(card => {
                 if (spk === 'all' || card.getAttribute('data-speaker') === spk) {
                     card.style.display = 'block';
                 } else {

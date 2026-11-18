@@ -1,0 +1,410 @@
+
+
+
+LAPORAN AKHIR · FINAL PROJECT SISTEM PENDUKUNG KEPUTUSAN
+Laporan Final Project Group Decision Support System
+Pengadaan Armada Kendaraan Listrik (EV) Korporat Sixt SE Pullach, Jerman · Metode Linear BWM (2016) dan CoCoSo (2019)
+Judul	Sistem Pendukung Keputusan Kelompok (GDSS) Pengadaan Armada Kendaraan Listrik (EV) Operasional Korporat pada Sixt SE Pullach, Jerman Menggunakan Metode Linear BWM (2016), CoCoSo (2019), dan Borda Count
+Kelompok	Kelompok Konoha
+Anggota	Manopo, Rivan · Koyo, Irmando · Arya Richard · Sijadi, Marcello · Noya, Clifford
+Organisasi studi kasus	Sixt SE — Divisi Manajemen & Elektrifikasi Armada Korporat (Corporate Fleet Procurement), Pullach, Munich, Jerman
+Metode pembobotan (A)	Linear Best-Worst Method (Linear BWM), Jafar Rezaei (2016) — Omega (Elsevier), dilengkapi Input-Based Consistency Ratio (CR^I), Liang et al. (2020)
+Metode perankingan (B)	Combined Compromise Solution (CoCoSo), Morteza Yazdani, Pascale Zarate, Edmundas K. Zavadskas, & Darjan Karabasevic (2019) — Management Decision (Emerald)
+Mata kuliah	Sistem Pendukung Keputusan (SIDI438)
+Dosen	George M. W. Tangka, S.Kom., MBA
+Tanggal pengumpulan	18 November 2026
+
+
+
+ Daftar Isi
+Ringkasan Eksekutif	3
+1. Pendahuluan	5
+2. Tinjauan Pustaka	8
+3. Kriteria dan Matriks Keputusan	10
+4. Normalisasi dan Pembobotan Kriteria	14
+5. Perankingan Alternatif dan Keputusan Grup	17
+6. Implementasi Excel	21
+7. Prototype Sistem	23
+8. Kesimpulan dan Saran	25
+Kontribusi Anggota	26
+Daftar Pustaka	26
+Lampiran	27
+
+Nomor halaman muncul setelah daftar isi diperbarui: klik kanan pada daftar isi lalu pilih Update Field.
+
+ Ringkasan Eksekutif
+Sixt SE (bermarkas di Pullach, Munich, Jerman) tengah menjalankan transformasi strategis elektrifikasi armada sewa korporat B2B guna memenuhi target dekarbonisasi Uni Eropa sekaligus menjaga profitabilitas operasional. Keputusan pengadaan kendaraan listrik (Electric Vehicle / EV) ini melibatkan 3 pengambil keputusan (Decision Makers / DM) lintas divisi—yaitu DM1 Direktur Keuangan & Pengadaan (CFO), DM2 Direktur Operasional Armada (Fleet Operations), dan DM3 Manajer Keselamatan Kerja (K3/HSE) & Keberlanjutan ESG—yang mengevaluasi 8 kandidat mobil listrik komersial (A1–A8, disaring dari 360 kendaraan pada Kaggle EV Cars Dataset) berdasarkan 6 kriteria evaluasi (C1–C6). Untuk menjembatani perbedaan prioritas antar-divisi secara objektif dan bebas bias, sistem pendukung keputusan kelompok (GDSS) ini mengintegrasikan Metode A Linear Best-Worst Method (Linear BWM — Rezaei, 2016) dengan uji konsistensi Input-Based Consistency Ratio (Liang et al., 2020) untuk pembobotan kriteria, Metode B Combined Compromise Solution (CoCoSo — Yazdani et al., 2019) untuk perankingan alternatif tiap DM, serta agregasi grup Borda Count dengan tie-breaker rata-rata skor kompromi (K̄i) dan verifikasi turnamen berpasangan Copeland.
+Rekomendasi keputusan grup: A1 — Tesla Model 3 sebagai armada utama (alokasi 60% kuota pengadaan), didampingi A6 — Volkswagen ID.7 Pro (alokasi komplemen 30%) dan A8 — BMW i4 eDrive40 (alokasi segmen eksekutif 10%) — karena meraih konsensus tertinggi 18 Poin Borda (dari maksimal 21), rata-rata skor kompromi K̄1 = 3,5976, serta skor bersih Copeland +7 (menang mutlak 7–0 melawan seluruh kandidat lain).
+Peringkat	Alternatif Armada EV	Skor Grup (Borda | K̄i | Copeland)	Catatan & Rekomendasi Alokasi Pengadaan
+1	A1 — Tesla Model 3	18 Poin Borda | K̄ = 3,5976 | Copeland +7	Prioritas Utama (Kuota 60%): Rank #1 pada DM1 (CFO) & DM3 (HSE/ESG); efisiensi energi terbaik (137 Wh/km) & harga kompetitif (€46.220).
+2	A6 — Volkswagen ID.7 Pro	15 Poin Borda | K̄ = 3,5226 | Copeland +5	Komplemen Armada (Kuota 30%): Rank #2 pada DM2 & DM3; keseimbangan jarak tempuh (470 km) & jaringan servis Jerman (skor 5).
+3	A8 — BMW i4 eDrive40	12 Poin Borda | K̄ = 3,5357 | Copeland +3	Alokasi Terbatas (Kuota 10%): Rank #1 pada DM2 (Fleet Ops) dengan jarak tempuh tertinggi (515 km), namun harga tertinggi (€59.200).
+4	A4 — Hyundai IONIQ 6 Long Range AWD	10 Poin Borda | K̄ = 3,1604 | Copeland -3	Cadangan Cepat-Cas: Kecepatan pengisian DC tertinggi (1.150 km/jam), unggul tie-breaker K̄i di atas A7 dan A3.
+5	A7 — Volvo EX30 Single Motor ER	10 Poin Borda | K̄ = 2,7272 | Copeland -1	Cadangan Compact: Rank #2 pada DM1 (CFO) berkat harga hemat (€41.790), namun akselerasi 5,3 detik kurang disukai DM3 (K3).
+6	A3 — MG MG4 Electric 64 kWh	10 Poin Borda | K̄ = 2,1305 | Copeland -1	Cadangan Ekonomis: Akselerasi 7,9 detik paling aman bagi DM3 (Rank #4), namun jaringan purnajual masih terbatas.
+7	A5 — Kia EV6 Long Range 2WD	8 Poin Borda | K̄ = 2,6495 | Copeland -3	Tidak Diprioritaskan: Konsumsi energi tinggi (177 Wh/km) dan harga pengadaan relatif mahal (€56.990).
+8	A2 — BYD DOLPHIN 60.4 kWh	1 Poin Borda | K̄ = 1,2996 | Copeland -7	Dieliminasi (0%): Jarak tempuh (340 km), fast charging (340 km/jam), dan kesiapan purnajual korporat paling rendah.
+
+Kriteria paling berpengaruh: Secara konsensus grup (rata-rata aritmatika bobot Linear BWM 3 DM), kriteria paling menentukan adalah C3 — Konsumsi Energi Listrik (bobot grup 0,2214 atau 22,14%; menjadi prioritas #1 DM3 sebesar 0,3441), disusul C2 — Jarak Tempuh Sekali Cas (bobot grup 0,2178 atau 21,78%; menjadi prioritas #1 DM2 sebesar 0,3848), serta C1 — Harga Pengadaan Unit (bobot grup 0,1758 atau 17,58%; menjadi prioritas #1 DM1 sebesar 0,3839).
+Tingkat kesepakatan DM & ketahanan model: Sebanyak 2 dari 3 pengambil keputusan (DM1 CFO dan DM3 HSE & ESG) sepakat menempatkan A1 — Tesla Model 3 di peringkat 1, menghasilkan Koefisien Konkordansi Kendall W = 0,4656 (kesepakatan komite kategori Sedang–Kuat). Korelasi peringkat Spearman antara CoCoSo dan TOPSIS mencapai ρ = 0,8333 (sangat kuat), serta peringkat 1 (A1 — Tesla Model 3) terbukti 100% stabil tanpa tergoyahkan pada seluruh 14 skenario analisis sensitivitas (14/14 skenario).
+
+ 1. Pendahuluan
+1.1 Latar belakang dan konteks kasus
+Sixt SE adalah korporasi layanan mobilitas dan penyewaan kendaraan multinasional terkemuka yang berkantor pusat di Pullach, distrik Munich, Jerman (Zugspitzstraße 1). Didirikan pada tahun 1912 dan tercatat di bursa Frankfurt (SDAX), Sixt SE mengoperasikan lebih dari 150.000 unit kendaraan di lebih dari 100 negara dengan pendapatan tahunan melampaui €3,6 miliar. Di pasar domestik Jerman dan Eropa Barat, segmen penyewaan korporat (Corporate & Business Fleet) menyumbang porsi pendapatan berulang yang sangat krusial bagi perusahaan.
+Seiring diberlakukannya regulasi emisi armada korporat Uni Eropa dan tuntutan pelaporan ESG dari klien multinasional, Komite Pengadaan Armada Sixt SE harus menentukan model kendaraan listrik baterai (Battery Electric Vehicle / BEV) yang akan diakuisisi untuk peremajaan armada tahun operasional 2026–2027. Kesalahan dalam memilih model armada EV berdampak langsung dan fatal: (1) memilih unit dengan harga beli (CAPEX) dan konsumsi listrik terlalu tinggi akan menggerus margin laba per unit; (2) memilih unit dengan jarak tempuh pendek dan pengisian daya lambat akan memicu keluhan pelanggan bisnis di jalan bebas hambatan (Autobahn) serta menurunkan utilisasi harian armada; sedangkan (3) memilih unit dengan torsi akselerasi terlalu agresif atau jaringan bengkel resmi yang sempit akan meningkatkan risiko insiden tabrakan penyewa serta memperpanjang waktu henti (downtime) perbaikan.
+1.2 Mengapa kasus ini membutuhkan Group DSS
+Keputusan pengadaan armada korporat pada Sixt SE tidak dapat diputuskan secara sepihak oleh satu pejabat saja karena adanya pertentangan kepentingan struktural (conflicting objectives) antar-departemen, banyaknya kriteria teknis-ekonomis yang saling berlawanan (trade-off), serta adanya fenomena dualitas orientasi kriteria. Direktur Keuangan (DM1) mengutamakan penghematan modal pembelian unit (C1) dan biaya listrik (C3); Direktur Operasional Armada (DM2) menuntut jarak tempuh maksimum (C2) dan kecepatan pengisian DC (C4) tanpa memedulikan mahalnya harga akuisisi; sementara Manajer K3 & ESG (DM3) memprioritaskan jejak karbon/efisiensi energi (C3) serta keselamatan berkendara penyewa. Lebih jauh lagi, pada kriteria C5 (Akselerasi 0–100 km/jam), DM1 dan DM2 memandangnya sebagai kriteria Cost (makin sedikit detik makin responsif di Autobahn), sedangkan DM3 memandangnya sebagai kriteria Benefit (akselerasi yang lebih tenang/moderat di atas 7 detik mencegah hilangnya kendali oleh pengemudi sewaan). Oleh karena itu, dibutuhkan arsitektur Group Decision Support System (GDSS) yang memfasilitasi struktur preferensi masing-masing DM secara adil dan menyatukannya ke dalam konsensus komite yang dapat dipertanggungjawabkan.
+1.3 Tujuan keputusan
+Tujuan: Menentukan peringkat prioritas dan alokasi kuota pengadaan 8 kandidat kendaraan listrik (EV) komersial untuk armada operasional korporat Sixt SE Jerman periode 2026–2027 secara konsensus dari 3 pengambil keputusan lintas divisi.
+1.4 Pengambil keputusan (DM)
+Kode	Nama / Jabatan Eksplisit pada Sixt SE	Kepentingan atau Sudut Pandang Utama	Bobot DM
+DM1	Direktur Keuangan & Pengadaan Armada (Chief Financial Officer / CFO & Head of Fleet Procurement)	Efisiensi biaya modal akuisisi unit (C1 Cost), penghematan konsumsi energi operasional (C3 Cost), dan kepastian nilai sisa/garansi purnajual (C6 Benefit). Kriteria Terbaik: C1; Terlemah: C5.	1/3 (0,3333)
+DM2	Direktur Operasional Armada & Layanan Pelanggan (Director of Fleet Operations & rental Experience)	Keandalan jarak tempuh lintas kota Autobahn (C2 Benefit), kecepatan rotasi pengisian cepat DC (C4 Benefit), dan performa akselerasi responsif (C5 Cost). Kriteria Terbaik: C2; Terlemah: C1.	1/3 (0,3333)
+DM3	Manajer Keselamatan Kerja (K3/HSE) & Keberlanjutan Korporat (Head of HSE & ESG Sustainability)	Minimisasi jejak karbon via efisiensi energi (C3 Cost), keselamatan penyewa melalui akselerasi moderat yang tidak agresif (C5 Benefit), serta kesiapan bengkel resmi (C6 Benefit). Kriteria Terbaik: C3; Terlemah: C4.	1/3 (0,3333)
+
+Pada skenario dasar (baseline), ketiga kepala divisi memiliki bobot otoritas setara (α1 = α2 = α3 = 1/3 ≈ 0,3333) karena dalam komite pengadaan eksekutif Sixt SE, aspek kelayakan finansial (CFO), kelangsungan operasi (Fleet Ops), dan kepatuhan keselamatan/ESG (HSE) merupakan tiga pilar setara yang memiliki hak suara seimbang. Variasi bobot otoritas tidak setara (misalnya dominasi CFO 50% atau dominasi Ops 50%) diuji secara khusus pada Analisis Sensitivitas Bab 5.4.
+1.5 Alternatif
+Kode	Alternatif Kendaraan Listrik (EV)	Keterangan Singkat & Spesifikasi Empiris Pasar Jerman
+A1	Tesla Model 3	Sedan Eksekutif Efisien · Harga €46.220 · Range 420 km · Konsumsi 137 Wh/km · Fast Charge 700 km/jam · 0–100 km/jam dalam 6,1 detik.
+A2	BYD DOLPHIN 60.4 kWh	Compact Hatchback Ekonomis · Harga €35.990 · Range 340 km · Konsumsi 178 Wh/km · Fast Charge 340 km/jam · 0–100 km/jam dalam 7,0 detik.
+A3	MG MG4 Electric 64 kWh	Compact Hatchback Menengah · Harga €39.990 · Range 360 km · Konsumsi 171 Wh/km · Fast Charge 630 km/jam · 0–100 km/jam dalam 7,9 detik.
+A4	Hyundai IONIQ 6 Long Range AWD	Streamliner Sedan Aero · Harga €61.100 · Range 440 km · Konsumsi 168 Wh/km · Fast Charge 1.150 km/jam · 0–100 km/jam dalam 5,1 detik.
+A5	Kia EV6 Long Range 2WD	Crossover SUV Korporat · Harga €56.990 · Range 445 km · Konsumsi 177 Wh/km · Fast Charge 1.030 km/jam · 0–100 km/jam dalam 7,3 detik.
+A6	Volkswagen ID.7 Pro	Fastback Saloon Bisnis Jerman · Harga €56.995 · Range 470 km · Konsumsi 164 Wh/km · Fast Charge 790 km/jam · 0–100 km/jam dalam 6,5 detik.
+A7	Volvo EX30 Single Motor ER	Compact Corporate SUV · Harga €41.790 · Range 360 km · Konsumsi 178 Wh/km · Fast Charge 610 km/jam · 0–100 km/jam dalam 5,3 detik.
+A8	BMW i4 eDrive40	Gran Coupe Eksekutif Premium · Harga €59.200 · Range 515 km · Konsumsi 163 Wh/km · Fast Charge 710 km/jam · 0–100 km/jam dalam 5,6 detik.
+
+1.6 Metode pengumpulan data
+Teknik Pengumpulan	Dengan Siapa / Sumber Data	Waktu Pelaksanaan	Bukti (Lampiran)
+Data Sekunder Empiris	Dataset Kaggle 'Electric Vehicle Specifications Dataset' (EV_cars.csv — 360 mobil listrik komersial dari EV-Database.org pasar Jerman), disaring menjadi 8 kandidat unggulan (A1–A8) untuk kriteria C1–C5.	1–5 November 2026	Lampiran B & Sheet 5_Raw_Kaggle_EV
+Kuesioner Pembobotan BWM & Aturan Ambang Interval	3 Pengambil Keputusan: DM1 (CFO), DM2 (Fleet Ops), dan DM3 (HSE & ESG) mengisi pilihan kriteria Best/Worst, vektor perbandingan berpasangan skala Saaty 1–9 (AB & AW), serta batas interval konversi skor 1–5.	6–10 November 2026	Lampiran A, Sheet 2 & Sheet 3
+Wawancara & Audit Kualitatif Purnajual	Komite Pengadaan Sixt SE & data cakupan bengkel resmi/garansi armada di Jerman untuk menyusun matriks penilaian kualitatif kriteria C6 (Skala Likert 1–5 per DM).	11–14 November 2026	Lampiran A & Sheet 2 (Sel H6:J13)
+
+
+ 2. Tinjauan Pustaka
+2.1 Penerapan GDSS pada domain serupa
+Pemilihan armada kendaraan listrik (EV) merupakan persoalan pengambilan keputusan multikriteria (MCDM/GDSS) yang kompleks karena melibatkan parameter ekonomi, teknis baterai, infrastruktur pengisian, dan keselamatan. Tabel berikut merangkum 5 penelitian jurnal internasional bereputasi Q1 yang menjadi landasan pemilihan kriteria dan arsitektur model:
+Penulis (Tahun) & Jurnal Q1	Kasus & Domain Penelitian	Metode MCDM / GDSS	Temuan yang Relevan bagi Proyek Sixt SE
+Ecer (2021) — Renewable and Sustainable Energy Reviews (Elsevier, Q1)	Evaluasi komprehensif 10 kendaraan listrik baterai komersial untuk mobilitas perkotaan dan korporat.	SECA, MARCOS, MAIRCA, CoCoSo, ARAS, & COPRAS	Menetapkan harga perolehan (C1), jarak tempuh sekali cas (C2), konsumsi energi Wh/km (C3), pengisian cepat (C4), dan akselerasi (C5) sebagai determinan utama pemilihan EV.
+Deveci, Pamucar, & Gokasar (2021) — Sustainable Cities and Society (Elsevier, Q1)	Pengambilan keputusan kelompok untuk elektrifikasi armada transportasi dan kendaraan otonom ramah lingkungan.	Fuzzy LMAW & Multi-Criteria Group Decision Making	Membuktikan pentingnya memisahkan perspektif pengambil keputusan finansial, operasional, dan keselamatan/lingkungan (HSE/ESG) dalam komite pengadaan armada.
+Pamucar, Ecer, & Deveci (2021) — Applied Soft Computing (Elsevier, Q1)	Penilaian keberlanjutan dan seleksi kendaraan energi alternatif untuk armada logistik dan layanan sewa.	LBWA & CoCoSo berbasis konsensus kelompok	Mengonfirmasi bahwa metode CoCoSo memberikan stabilitas peringkat yang sangat tinggi ketika dikombinasikan dengan pembobotan berbasis komparasi kriteria.
+Ziemba (2020) — Energies (MDPI, Q1)	Seleksi multikriteria kendaraan listrik untuk armada instansi dan perusahaan di pasar Eropa.	PROSA-C & Monte Carlo Sensitivity Analysis	Menunjukkan bahwa jaringan purnajual/garansi (C6) dan kecepatan fast charging (C4) sangat menentukan utilisasi armada komersial di Eropa.
+Liang, Brunelli, & Rezaei (2020) — Omega (Elsevier, Q1)	Penentuan ambang batas rasio konsistensi berbasis input untuk kuesioner Best-Worst Method dalam keputusan grup.	Input-Based & Output-Based BWM Consistency Ratio (CR^I)	Menyediakan rumus dan tabel ambang batas resmi CR^I untuk memvalidasi kelayakan kuesioner BWM tiap DM secara langsung sebelum agregasi grup.
+
+2.2 Metode pembobotan kriteria (metode A)
+Atribut Metode A	Rincian Akademik & Metodologis
+Nama metode	Linear Best-Worst Method (Linear BWM)
+Paper asli	Rezaei, J. (2016). Best-worst multi-criteria decision-making method: Some properties and a linear model. Omega, 64, 126–130. https://doi.org/10.1016/j.omega.2015.12.001 (diperkuat uji konsistensi Liang, F., Brunelli, M., & Rezaei, J., 2020, Omega, 96, 102075, https://doi.org/10.1016/j.omega.2019.06.001).
+Jenis	Subjektif terstruktur berbasis pemrograman linear (Linear Programming / LP) dari perbandingan berpasangan terarah.
+Alasan memilih	Dibandingkan AHP yang membutuhkan n(n-1)/2 = 15 perbandingan untuk 6 kriteria (rawan inkonsistensi), Linear BWM hanya membutuhkan 2n-3 = 9 perbandingan terhadap kriteria Terbaik (Best) dan Terburuk (Worst). Formulasi Linear BWM (Rezaei, 2016) menjamin solusi bobot optimal (w1*..w6*) yang unik/tunggal (unique global optimum) untuk setiap DM serta menyediakan indikator deviasi konsistensi ξL* secara langsung.
+
+2.3 Metode perankingan alternatif (metode B)
+Atribut Metode B	Rincian Akademik & Metodologis
+Nama metode	Combined Compromise Solution (CoCoSo)
+Paper asli	Yazdani, M., Zarate, P., Zavadskas, E. K., & Karabasevic, D. (2019). A combined compromise solution (CoCoSo) method for multi-criteria decision-making problems. Management Decision, 57(9), 2501–2519. https://doi.org/10.1108/MD-05-2017-0458
+Alasan memilih	CoCoSo mengintegrasikan model penjumlahan terbobot (Weighted Sum Model / Si) yang bersifat kompensatoris dengan model pemangkatan terbobot (Exponentially Weighted Product / Pi) yang menghukum alternatif berkinerja buruk pada kriteria kunci. Melalui tiga strategi penilaian kompromi (kia aritmatika, kib relatif terhadap nilai minimum, dan kic kompromi seimbang λ = 0,5) yang digabung secara geometrik dan aritmatika menjadi skor Ki, CoCoSo menghasilkan peringkat yang jauh lebih tahan terhadap distorsi nilai ekstrem dibandingkan SAW maupun TOPSIS tunggal.
+
+2.4 Metode agregasi keputusan grup
+Untuk menggabungkan hasil perankingan dari ketiga pengambil keputusan (DM1, DM2, dan DM3) menjadi satu keputusan komite yang sah, penelitian ini menerapkan strategi Agregasi di Akhir (Late Aggregation) menggunakan tiga mekanisme yang saling memverifikasi: (1) Metode Borda Count (de Borda, 1781; Hwang & Lin, 1987) sebagai metode utama yang memberikan poin (m - Rank_i^(k)) untuk setiap alternatif (0 sampai 7 poin untuk m = 8 alternatif, maksimal 21 poin dari 3 DM); (2) Rata-Rata Skor Kompromi Grup (K̄i = (K_i^(1) + K_i^(2) + K_i^(3))/3) sebagai pemecah seri (tie-breaker) presisi tinggi apabila terdapat alternatif dengan total Poin Borda yang sama (seperti yang terjadi pada A4, A7, dan A3 yang sama-sama memperoleh 10 Poin Borda); serta (3) Metode Turnamen Berpasangan Copeland (Copeland, 1951) yang menghitung selisih kemenangan mayoritas head-to-head (Menang dikurangi Kalah) antar-pasangan alternatif untuk memastikan pemenang konsensus merupakan Condorcet Winner.
+
+ 3. Kriteria dan Matriks Keputusan
+3.1 Kriteria keputusan
+Enam kriteria evaluasi (C1–C6) ditetapkan berdasarkan sintesis literatur Q1 (Ecer, 2021; Ziemba, 2020) dan kebutuhan komite pengadaan Sixt SE. Seluruh kriteria bersifat independen (tidak tumpang tindih) dan terukur secara jelas:
+Kode	Kriteria	Definisi Operasional	Satuan / Skala	Jenis (Orientasi per DM)	Sumber
+C1	Harga Pengadaan Unit	Harga beli ritel resmi (on-the-road Jerman) per unit kendaraan listrik komersial sebelum insentif.	Euro (€) → Skala 1–5	Cost (DM1, DM2, DM3)	EV-Database, Ecer (2021), DM1
+C2	Jarak Tempuh Sekali Cas	Jarak jelajah operasional nyata (real-world range) dari baterai 100% penuh hingga habis.	Kilometer (km) → Skala 1–5	Benefit (DM1, DM2, DM3)	EV-Database, Ecer (2021), DM2
+C3	Konsumsi Energi Listrik	Rata-rata energi listrik yang dibutuhkan kendaraan untuk menempuh jarak 1 kilometer.	Wh/km → Skala 1–5	Cost (DM1, DM2, DM3)	EV-Database, Pamucar et al. (2021), DM1 & DM3
+C4	Kecepatan Pengisian Cepat DC	Kecepatan penambahan jarak tempuh per jam saat dicas pada stasiun DC ultra-fast charging.	km/jam → Skala 1–5	Benefit (DM1, DM2, DM3)	EV-Database, Ziemba (2020), DM2
+C5	Akselerasi (0–100 km/jam)	Waktu yang dibutuhkan kendaraan untuk berakselerasi dari posisi diam ke 100 km/jam.	Detik (s) → Skala 1–5	Cost (DM1 & DM2) / Benefit (DM3 K3)	EV-Database, Deveci et al. (2021), DM2 & DM3
+C6	Jaringan Purnajual & Garansi	Ketersediaan bengkel resmi, pasokan suku cadang, nilai jual kembali, & garansi korporat di Jerman.	Skala Likert (1–5)	Benefit (DM1, DM2, DM3)	Wawancara Komite Sixt SE & Ziemba (2020)
+
+3.2 Konversi data kualitatif dan aturan kategorisasi interval per DM
+Agar parameter kuantitatif yang berbeda satuan (€, km, Wh/km, km/jam, detik) dan parameter kualitatif (C6) dapat dievaluasi sesuai standar toleransi masing-masing kepala divisi, seluruh nilai spesifikasi dikonversi ke Skala Penilaian 1 sampai 5. Tabel pertama menyajikan pedoman konversi kualitatif C6, sedangkan tabel kedua menyajikan batas interval konversi kuantitatif C1–C5 untuk masing-masing DM (yang diimplementasikan otomatis dengan rumus =IF(...) di Sheet 2):
+Nilai Linguistik	Angka	Keterangan Operasional (Kriteria C6 Purnajual & Kategorisasi Interval C1–C5)
+Sangat Buruk / Sangat Rendah	1	Jaringan bengkel resmi sangat terbatas di Jerman; suku cadang impor lambat; atau nilai spesifikasi berada pada kuartil paling ekstrem bawah.
+Buruk / Rendah	2	Jaringan servis terbatas di kota besar saja atau biaya perawatan/suku cadang korporat mahal (misal BMW di mata CFO = 2).
+Cukup / Menengah	3	Jaringan servis regional memadai dengan garansi baterai standar industri (8 tahun / 160.000 km).
+Baik / Tinggi	4	Jaringan servis resmi tersebar luas di seluruh negara bagian Jerman dengan dukungan teknisi EV tersertifikasi.
+Sangat Baik / Sangat Tinggi	5	Jaringan bengkel dan layanan darurat korporat 24/7 sangat mapan di seluruh Jerman & Eropa disertai nilai jual kembali tinggi.
+
+Kriteria	Perspektif DM	Skor 1	Skor 2	Skor 3	Skor 4	Skor 5
+C1: Harga (€)	DM1 (CFO — Ketat)	≤ 38.000	38.001–42.000	42.001–46.000	46.001–54.000	> 54.000
+C1: Harga (€)	DM2 (Fleet Ops)	≤ 40.000	40.001–45.000	45.001–50.000	50.001–58.000	> 58.000
+C1: Harga (€)	DM3 (HSE & ESG)	≤ 39.000	39.001–44.000	44.001–52.000	52.001–58.000	> 58.000
+C2: Range (km)	DM1 (CFO)	< 350	350–390	391–430	431–470	> 470
+C2: Range (km)	DM2 (Ops — Ketat)	< 370	370–410	411–450	451–490	> 490
+C2: Range (km)	DM3 (HSE & ESG)	< 350	350–380	381–430	431–460	> 460
+C3: Energi (Wh/km)	DM1 & DM3	≤ 145	146–160	161–170	171–176	> 176
+C3: Energi (Wh/km)	DM2 (Fleet Ops)	≤ 150	151–165	166–173	174–177	> 177
+C4: FastChg (km/j)	DM1 / DM2 / DM3	< 450 / 500 / 400	450–649 / 500–680 / 400–600	650–800 / 681–850 / 601–750	801–1000 / 851–1050 / 751–950	> 1000 / 1050 / 950
+C5: Aksel 0–100 (s)	DM1 / DM2 / DM3	≤ 5,4 / ≤ 5,2 / ≤ 5,5	5,5–6,0 / 5,3–5,8 / 5,6–6,2	6,1–6,8 / 5,9–6,6 / 6,3–6,8	6,9–7,5 / 6,7–7,4 / 6,9–7,5	> 7,5 / > 7,4 / > 7,5
+
+3.3 Matriks keputusan setiap DM
+Berikut adalah matriks keputusan terpisah untuk masing-masing pengambil keputusan (DM1, DM2, dan DM3) pada 8 alternatif (A1–A8) dan 6 kriteria (C1–C6) sesuai Sheet 2_Data_Prep_3_Responden:
+Matriks keputusan DM1 — Direktur Keuangan & Pengadaan Armada (CFO)
+Alternatif	C1 (Harga)	C2 (Range)	C3 (Konsumsi)	C4 (FastChg)	C5 (Aksel)	C6 (Purnajual)
+A1 — Tesla Model 3	4	3	1	3	3	4
+A2 — BYD DOLPHIN 60.4 kWh	1	1	5	1	4	3
+A3 — MG MG4 Electric 64 kWh	2	2	4	2	5	3
+A4 — Hyundai IONIQ 6 LR AWD	5	4	3	5	1	4
+A5 — Kia EV6 Long Range 2WD	5	4	5	5	4	4
+A6 — Volkswagen ID.7 Pro	5	4	3	3	3	3
+A7 — Volvo EX30 Single Motor ER	2	2	5	2	1	3
+A8 — BMW i4 eDrive40	5	5	3	3	2	2
+Jenis (Orientasi DM1)	Cost	Benefit	Cost	Benefit	Cost	Benefit
+
+Matriks keputusan DM2 — Direktur Operasional Armada (Fleet Operations)
+Alternatif	C1 (Harga)	C2 (Range)	C3 (Konsumsi)	C4 (FastChg)	C5 (Aksel)	C6 (Purnajual)
+A1 — Tesla Model 3	2	3	1	3	3	3
+A2 — BYD DOLPHIN 60.4 kWh	1	1	5	1	4	2
+A3 — MG MG4 Electric 64 kWh	1	1	3	2	5	2
+A4 — Hyundai IONIQ 6 LR AWD	5	3	3	5	1	5
+A5 — Kia EV6 Long Range 2WD	3	3	4	4	4	5
+A6 — Volkswagen ID.7 Pro	4	4	2	3	3	5
+A7 — Volvo EX30 Single Motor ER	2	1	5	2	2	4
+A8 — BMW i4 eDrive40	5	5	2	3	2	5
+Jenis (Orientasi DM2)	Cost	Benefit	Cost	Benefit	Cost	Benefit
+
+Matriks keputusan DM3 — Manajer K3 (HSE) & Keberlanjutan ESG
+Alternatif	C1 (Harga)	C2 (Range)	C3 (Konsumsi)	C4 (FastChg)	C5 (Aksel)	C6 (Purnajual)
+A1 — Tesla Model 3	2	3	1	3	3	4
+A2 — BYD DOLPHIN 60.4 kWh	1	1	3	1	4	3
+A3 — MG MG4 Electric 64 kWh	1	2	3	3	5	3
+A4 — Hyundai IONIQ 6 LR AWD	5	3	2	5	1	4
+A5 — Kia EV6 Long Range 2WD	3	2	4	5	4	3
+A6 — Volkswagen ID.7 Pro	4	4	1	3	3	4
+A7 — Volvo EX30 Single Motor ER	1	2	3	2	1	4
+A8 — BMW i4 eDrive40	5	5	1	4	2	5
+Jenis (Orientasi DM3)	Cost	Benefit	Cost	Benefit	Benefit (K3!)	Benefit
+
+3.4 Strategi agregasi grup
+Pilih	Strategi Agregasi	Arti & Mekanisme
+☐	Agregasi di awal (Early Aggregation / AIJ)	Matriks semua DM digabung lebih dulu (misal rata-rata geometrik GEOMEAN), lalu dihitung sekali. (Disertakan pula sebagai bukti pelengkap Butir 5.6 di Sheet 2 baris 73–94).
+☑	Agregasi di akhir (Late Aggregation / AIP)	Setiap DM dihitung terpisah dari normalisasi, bobot Linear BWM, hingga ranking CoCoSo masing-masing, lalu ranking dan skornya digabung dengan Borda Count, Tie-Breaker K̄i, dan Copeland.
+
+Alasan pemilihan strategi: Strategi Agregasi di Akhir (☑) dipilih sebagai arsitektur utama karena dua alasan ilmiah yang fundamental: (1) Terdapat dualitas orientasi pada kriteria C5 (Akselerasi 0–100 km/jam), di mana DM1 dan DM2 memperlakukan C5 sebagai Cost (makin cepat makin baik), sedangkan DM3 (Manajer K3/HSE) memperlakukan C5 sebagai Benefit (akselerasi moderat lebih aman bagi pengemudi sewaan). Jika matriks digabung di awal, orientasi yang saling bertolak belakang tersebut akan saling meniadakan dan mendistorsi makna fisik kriteria. (2) Setiap kepala divisi memiliki struktur bobot Linear BWM yang sangat spesifik terhadap mandat jabatannya, sehingga mengevaluasi skor CoCoSo per individu terlebih dahulu menjaga transparansi konflik antar-divisi (seperti debat tajam pada A8 BMW i4) sebelum disatukan melalui konsensus Borda.
+Rumus agregasi keputusan grup (Borda Count, Rata-Rata Skor Kompromi K̄i sebagai Tie-Breaker, dan Skor Copeland):
+B_i  = ∑_(k=1)^K▒〖(m - 〖Rank_i〗^((k)))〗    ;   〖K̄〗_i  =  1/K ∑_(k=1)^K▒〖K_i〗^((k))    (Persamaan 1–2: Agregasi Borda & Tie-Breaker K̄i)
+
+ 4. Normalisasi dan Pembobotan Kriteria
+4.1 Normalisasi
+Teknik normalisasi: Normalisasi Kompromi Min-Max (Compromise Min-Max Normalization) sesuai syarat resmi Metode B CoCoSo (Yazdani et al., 2019, Persamaan 2 dan Persamaan 3). Catatan: Metode A (Linear BWM) merupakan metode pembobotan subjektif murni berbasis perbandingan berpasangan 1–9 sehingga tidak melakukan normalisasi atas matriks alternatif.
+Rumus normalisasi untuk kriteria Benefit (makin besar makin baik):
+r_ij  =  (x_ij  - min_i 〖 x〗_ij)/(max_i 〖 x〗_ij  - min_i 〖 x〗_ij )   (Persamaan 3: Normalisasi Kriteria Benefit)
+Rumus normalisasi untuk kriteria Cost (makin kecil makin baik):
+r_ij  =  (max_i 〖 x〗_ij  - x_ij)/(max_i 〖 x〗_ij  - min_i 〖 x〗_ij )   (Persamaan 4: Normalisasi Kriteria Cost)
+Contoh hitungan manual: (1) Contoh Kriteria Benefit — Sel D8 Sheet 4 (DM1, A1 Tesla Model 3, Kriteria C2 Range): nilai skor x12 = 3, nilai minimum kolom min(C2) = 1 (A2 BYD), dan nilai maksimum kolom max(C2) = 5 (A8 BMW). Maka r12 = (3 − 1) / (5 − 1) = 2 / 4 = 0,5000 (terbukti berada pada rentang [0, 1]). (2) Contoh Kriteria Cost — Sel C8 Sheet 4 (DM1, A1 Tesla Model 3, Kriteria C1 Harga): nilai skor x11 = 4, min(C1) = 1, dan max(C1) = 5. Maka r11 = (5 − 4) / (5 − 1) = 1 / 4 = 0,2500. (3) Bukti Dualitas Kriteria C5 pada A7 Volvo EX30: pada DM2 (C5 = Cost, x75 = 2) diperoleh r75 = (5 − 2)/(5 − 1) = 0,7500; sedangkan pada DM3 (C5 = Benefit, x75 = 1) diperoleh r75 = (1 − 1)/(5 − 1) = 0,0000.
+Tabel Matriks Keputusan Ternormalisasi R = [rij] untuk DM1, DM2, dan DM3 (Seluruh nilai berada tepat pada rentang [0,0000 ; 1,0000]):
+Alternatif	DM1: C1..C6 (r_ij)	DM2: C1..C6 (r_ij)	DM3: C1..C6 (r_ij)
+A1 — Tesla Model 3	0,25 | 0,50 | 1,00 | 0,50 | 0,50 | 1,00	0,75 | 0,50 | 1,00 | 0,50 | 0,50 | 0,3333	0,75 | 0,50 | 1,00 | 0,50 | 0,50 | 0,50
+A2 — BYD DOLPHIN	1,00 | 0,00 | 0,00 | 0,00 | 0,25 | 0,50	1,00 | 0,00 | 0,00 | 0,00 | 0,25 | 0,0000	1,00 | 0,00 | 0,3333 | 0,00 | 0,75 | 0,00
+A3 — MG MG4 Electric	0,75 | 0,25 | 0,25 | 0,25 | 0,00 | 0,50	1,00 | 0,00 | 0,50 | 0,25 | 0,00 | 0,0000	1,00 | 0,25 | 0,3333 | 0,50 | 1,00 | 0,00
+A4 — Hyundai IONIQ 6	0,00 | 0,75 | 0,50 | 1,00 | 1,00 | 1,00	0,00 | 0,50 | 0,50 | 1,00 | 1,00 | 1,0000	0,00 | 0,50 | 0,6667 | 1,00 | 0,00 | 0,50
+A5 — Kia EV6 LR 2WD	0,00 | 0,75 | 0,00 | 1,00 | 0,25 | 1,00	0,50 | 0,50 | 0,25 | 0,75 | 0,25 | 1,0000	0,50 | 0,25 | 0,0000 | 1,00 | 0,75 | 0,00
+A6 — VW ID.7 Pro	0,00 | 0,75 | 0,50 | 0,50 | 0,50 | 0,50	0,25 | 0,75 | 0,75 | 0,50 | 0,50 | 1,0000	0,25 | 0,75 | 1,0000 | 0,50 | 0,50 | 0,50
+A7 — Volvo EX30 ER	0,75 | 0,25 | 0,00 | 0,25 | 1,00 | 0,50	0,75 | 0,00 | 0,00 | 0,25 | 0,75 | 0,6667	1,00 | 0,25 | 0,3333 | 0,25 | 0,00 | 0,50
+A8 — BMW i4 eDrive40	0,00 | 1,00 | 0,50 | 0,50 | 0,75 | 0,00	0,00 | 1,00 | 0,75 | 0,50 | 0,75 | 1,0000	0,00 | 1,00 | 1,0000 | 0,75 | 0,25 | 1,00
+
+4.2 Langkah-langkah metode A (Linear BWM — Rezaei, 2016)
+Metode A (Linear BWM) dijalankan secara berurutan melalui 5 langkah resmi menurut Rezaei (2016):
+Langkah 1 — Penetapan Himpunan Kriteria Keputusan: Menetapkan n = 6 kriteria evaluasi {C1, C2, C3, C4, C5, C6}.
+Langkah 2 — Pemilihan Kriteria Terbaik (Best, CB) dan Terburuk (Worst, CW) oleh Tiap DM: DM1 (CFO) memilih CB = C1 (Harga) dan CW = C5 (Akselerasi); DM2 (Fleet Ops) memilih CB = C2 (Range) dan CW = C1 (Harga); sedangkan DM3 (HSE & ESG) memilih CB = C3 (Konsumsi Energi) dan CW = C4 (Fast Charging).
+Langkah 3 — Penyusunan Vektor Perbandingan Best-to-Others (AB): Setiap DM menilai tingkat preferensi kriteria Terbaik CB terhadap seluruh kriteria j menggunakan skala bulat 1–9: AB = (aB1, aB2, ..., aB6) dengan syarat wajib aBB = 1.
+Langkah 4 — Penyusunan Vektor Perbandingan Others-to-Worst (AW): Setiap DM menilai tingkat kepentingan seluruh kriteria j terhadap kriteria Terburuk CW menggunakan skala bulat 1–9: AW = (a1W, a2W, ..., a6W)^T dengan syarat wajib aWW = 1.
+Langkah 5 — Optimasi Bobot Optimal (w1*..w6*) dan Indeks Deviasi Konsistensi (ξL*): Menyelesaikan model Pemrograman Linear (Linear Programming) Rezaei (2016) untuk meminimalkan deviasi absolut maksimum ξL:
+min ξ_L    s.t.   |w_B  - a_Bj w_j | ≤ ξ_L  ,   |w_j  - a_jW w_W | ≤ ξ_L  ,   ∑ w_j  = 1 ,   w_j  ≥ 0   (Persamaan 5: Model LP Linear BWM Rezaei (2016))
+Responden DM	Best (CB) & Worst (CW)	Vektor Best-to-Others AB = (C1..C6)	Vektor Others-to-Worst AW = (C1..C6)^T
+DM1 (CFO)	Best = C1 | Worst = C5	(1,  3,  2,  5,  8,  3)	(8,  3,  5,  2,  1,  3)^T
+DM2 (Fleet Ops)	Best = C2 | Worst = C1	(9,  1,  4,  2,  5,  3)	(1,  9,  3,  5,  2,  4)^T
+DM3 (HSE & ESG)	Best = C3 | Worst = C4	(4,  3,  1,  9,  2,  2)	(2,  3,  9,  1,  5,  5)^T
+
+4.3 Hasil bobot kriteria
+Kriteria Evaluasi	DM1 (CFO)	DM2 (Fleet Ops)	DM3 (HSE & ESG)	Bobot Grup (Aritmatika)	Bobot Grup (Geometrik)	Peringkat Grup
+C1 — Harga Pengadaan Unit (€)	0,3839	0,0466	0,0968	0,1758	0,1408	3
+C2 — Jarak Tempuh Sekali Cas (km)	0,1396	0,3848	0,1290	0,2178	0,2236	2
+C3 — Konsumsi Energi Listrik (Wh/km)	0,2094	0,1108	0,3441	0,2214	0,2343	1
+C4 — Kecepatan Fast Charging DC (km/j)	0,0838	0,2215	0,0430	0,1161	0,1088	5
+C5 — Akselerasi 0–100 km/jam (detik)	0,0436	0,0886	0,1935	0,1086	0,1065	6
+C6 — Jaringan Purnajual & Garansi (1–5)	0,1396	0,1477	0,1935	0,1603	0,1860	4
+Total	1,0000	1,0000	1,0000	1,0000	1,0000	—
+
+ 
+Gambar 4.1 — Peringkat Bobot Kriteria Konsensus Grup dan Perbandingan Bobot Optimal Linear BWM (2016) Antar-DM.
+4.4 Uji konsistensi dan interpretasi
+Uji konsistensi: Dua tingkat uji konsistensi diterapkan pada Sheet 3: (1) Indeks deviasi konsistensi Output-Based ξL* dari solusi LP Rezaei (2016), yaitu ξL*(DM1) = 0,0349, ξL*(DM2) = 0,0583, dan ξL*(DM3) = 0,0430 (seluruhnya mendekati 0); serta (2) Rasio Konsistensi Berbasis Input (Input-Based Consistency Ratio / CR^I) menurut Liang, Brunelli, & Rezaei (2020) dengan rumus CR^I = max_j |aBj × ajW − aBW| / (aBW × aBW − aBW):
+Responden DM	aBW	Indeks LP ξL* (Rezaei, 2016)	CR^I Maksimum (Liang et al., 2020)	Ambang Batas Resmi (n = 6)	Status Konsistensi
+DM1 — Direktur Keuangan (CFO)	8	0,0349	0,0938	≤ 0,3333	KONSISTEN (LOLOS)
+DM2 — Direktur Operasional (Fleet Ops)	9	0,0583	0,1806	≤ 0,3333	KONSISTEN (LOLOS)
+DM3 — Manajer K3 & ESG (HSE)	9	0,0430	0,1364	≤ 0,3516	KONSISTEN (LOLOS)
+
+Interpretasi: Secara individu, setiap DM menaruh bobot tertinggi pada indikator inti departemennya: CFO pada C1 Harga (38,39%), Fleet Ops pada C2 Jarak Tempuh (38,48%), dan Manajer K3/ESG pada C3 Konsumsi Energi (34,41%). Namun ketika ketiganya diagregasikan pada tingkat grup, C3 — Konsumsi Energi Listrik (22,14%) dan C2 — Jarak Tempuh Sekali Cas (21,78%) muncul sebagai dua kriteria paling berpengaruh karena mendapat dukungan lintas divisi (CFO dan ESG sama-sama mengutamakan hemat energi C3, sementara Ops dan CFO sama-sama membutuhkan daya jelajah C2 yang memadai).
+
+ 5. Perankingan Alternatif dan Keputusan Grup
+5.1 Langkah-langkah metode B (CoCoSo — Yazdani et al., 2019)
+Dengan menggunakan matriks ternormalisasi rij (Bagian 4.1) dan bobot optimal Linear BWM wj* (Bagian 4.3) sebagai input, metode CoCoSo dijalankan untuk setiap DM melalui tahapan dan rumus berikut:
+Langkah 1 — Jumlah Terbobot Sekuensial (Weighted Sum Measure / Si) dan Pangkat Terbobot Eksponensial (Weighted Product Measure / Pi): 
+S_i  = ∑_(j=1)^n▒〖w_j r_ij 〗    ;   P_i  = ∑_(j=1)^n▒〖(r_ij)〗^(w_j )    (Persamaan 6–7: Ukuran WSM (Si) & WPM (Pi))
+Langkah 2 — Tiga Strategi Penilaian Skor Kompromi Relatif (kia, kib, dan kic dengan λ = 0,5): 
+k_ia  =  (S_i  + P_i)/(∑(S_i  + P_i))   ;  k_ib  =  S_i/(min S_i )  +  P_i/(min P_i )   ;  k_ic  =  (λS_i  + (1-λ)P_i)/(λ max S_i  + (1-λ) max P_i )   (Persamaan 8–10: Tiga Strategi Kompromi CoCoSo)
+Langkah 3 — Indeks Kompromi Terpadu (Ki) dan Perankingan Alternatif: 
+K_i  = 〖(k_ia  · k_ib  · k_ic)〗^(1/3)  +  (k_ia  + k_ib  + k_ic)/3   (Persamaan 11: Skor Akhir CoCoSo (Ki))
+Tabel Hasil Antara CoCoSo Lengkap (Si, Pi, kia, kib, kic, Ki, dan Rank) untuk DM1, DM2, dan DM3 (Sesuai Sheet 4_CoCoSo_Per_Responden):
+A. Tabel Hasil Antara CoCoSo — DM1: Direktur Keuangan & Pengadaan (CFO)
+Alternatif	Si (WSM)	Pi (WPM)	kia	kib	kic (λ=0,5)	Skor Ki	Rank DM1
+A1 — Tesla Model 3	0,4855	5,2666	0,1439	2,7494	0,9906	2,0290	1
+A2 — BYD DOLPHIN	0,5403	3,6343	0,1044	2,4524	0,7189	1,6613	7
+A3 — MG MG4 Electric	0,5160	4,3857	0,1226	2,5938	0,8441	1,8325	3
+A4 — Hyundai IONIQ 6	0,4299	4,7705	0,1301	2,4683	0,8956	1,8252	4
+A5 — Kia EV6 LR 2WD	0,4001	4,4363	0,1210	2,2962	0,8329	1,6978	6
+A6 — Volkswagen ID.7 Pro	0,3720	4,6738	0,1262	2,2862	0,8689	1,7248	5
+A7 — Volvo EX30 ER	0,4754	5,2032	0,1420	2,7049	0,9779	1,9992	2
+A8 — BMW i4 eDrive40	0,3922	3,9052	0,1075	2,1289	0,7401	1,5459	8
+
+B. Tabel Hasil Antara CoCoSo — DM2: Direktur Operasional Armada (Fleet Ops)
+Alternatif	Si (WSM)	Pi (WPM)	kia	kib	kic (λ=0,5)	Skor Ki	Rank DM2
+A1 — Tesla Model 3	0,5917	5,4925	0,1598	11,5154	0,9551	5,4168	4
+A2 — BYD DOLPHIN	0,0688	1,8844	0,0513	2,0000	0,3066	1,1016	8
+A3 — MG MG4 Electric	0,1389	2,6210	0,0725	3,4107	0,4333	1,7804	7
+A4 — Hyundai IONIQ 6	0,6871	4,6513	0,1402	12,4572	0,8380	5,6138	3
+A5 — Kia EV6 LR 2WD	0,4063	4,3193	0,1241	8,1979	0,7418	3,9317	5
+A6 — Volkswagen ID.7 Pro	0,6768	5,5868	0,1645	12,8034	0,9833	5,9251	2
+A7 — Volvo EX30 ER	0,3508	5,0327	0,1414	7,7703	0,8451	3,8945	6
+A8 — BMW i4 eDrive40	0,7835	4,7886	0,1463	13,9311	0,8747	6,1966	1
+
+C. Tabel Hasil Antara CoCoSo — DM3: Manajer K3 (HSE) & Keberlanjutan ESG
+Alternatif	Si (WSM)	Pi (WPM)	kia	kib	kic (λ=0,5)	Skor Ki	Rank DM3
+A1 — Tesla Model 3	0,7285	5,6566	0,1623	5,9182	1,0000	3,3469	1
+A2 — BYD DOLPHIN	0,2419	1,9458	0,0556	2,0000	0,3426	1,1360	8
+A3 — MG MG4 Electric	0,4946	5,2359	0,1457	4,7353	0,8975	2,7785	4
+A4 — Hyundai IONIQ 6	0,4086	3,6268	0,1026	3,5528	0,6320	2,0421	7
+A5 — Kia EV6 LR 2WD	0,3656	4,6039	0,1263	3,8771	0,7783	2,3190	5
+A6 — Volkswagen ID.7 Pro	0,5403	5,3954	0,1509	5,0061	0,9296	2,9178	2
+A7 — Volvo EX30 ER	0,3952	4,3715	0,1212	3,8799	0,7465	2,2880	6
+A8 — BMW i4 eDrive40	0,6613	4,6581	0,1352	5,1273	0,8331	2,8647	3
+
+5.2 Hasil setiap DM dan ranking grup
+Alternatif Armada EV	Rank DM1 (Ki)	Rank DM2 (Ki)	Rank DM3 (Ki)	Rata-rata K̄i	Skor Grup (Borda | Copeland)	Rank Grup
+A1 — Tesla Model 3	1 (2,0290)	4 (5,4168)	1 (3,3469)	3,5976	18 Poin | +7	1
+A6 — Volkswagen ID.7 Pro	5 (1,7248)	2 (5,9251)	2 (2,9178)	3,5226	15 Poin | +5	2
+A8 — BMW i4 eDrive40	8 (1,5459)	1 (6,1966)	3 (2,8647)	3,5357	12 Poin | +3	3
+A4 — Hyundai IONIQ 6 LR AWD	4 (1,8252)	3 (5,6138)	7 (2,0421)	3,1604	10 Poin | -3	4
+A7 — Volvo EX30 Single Motor ER	2 (1,9992)	6 (3,8945)	6 (2,2880)	2,7272	10 Poin | -1	5
+A3 — MG MG4 Electric 64 kWh	3 (1,8325)	7 (1,7804)	4 (2,7785)	2,1305	10 Poin | -1	6
+A5 — Kia EV6 Long Range 2WD	6 (1,6978)	5 (3,9317)	5 (2,3190)	2,6495	8 Poin | -3	7
+A2 — BYD DOLPHIN 60.4 kWh	7 (1,6613)	8 (1,1016)	8 (1,1360)	1,2996	1 Poin | -7	8
+
+5.3 Perbandingan dengan metode lain (SAW & TOPSIS)
+Alternatif Armada EV	Rank Metode B (CoCoSo Borda)	Rank SAW (Borda | Skor)	Rank TOPSIS (Borda | Skor)	Selisih |d| (vs SAW / vs TOPSIS)
+A1 — Tesla Model 3	1 (18 pt | K̄=3,5976)	1 (17 pt | 0,6500)	2 (15 pt | 0,5756)	0 / 1
+A6 — Volkswagen ID.7 Pro	2 (15 pt | K̄=3,5226)	4 (10 pt | 0,5552)	3 (13 pt | 0,5232)	2 / 1
+A8 — BMW i4 eDrive40	3 (12 pt | K̄=3,5357)	2 (17 pt | 0,6220)	1 (16 pt | 0,5920)	1 / 2
+A4 — Hyundai IONIQ 6 LR AWD	4 (10 pt | K̄=3,1604)	3 (13 pt | 0,5601)	5 (9 pt | 0,4514)	1 / 1
+A7 — Volvo EX30 Single Motor ER	5 (10 pt | K̄=2,7272)	8 (3 pt | 0,4446)	6 (8 pt | 0,3877)	3 / 1
+A3 — MG MG4 Electric 64 kWh	6 (10 pt | K̄=2,1305)	5 (9 pt | 0,4521)	4 (11 pt | 0,4025)	1 / 2
+A5 — Kia EV6 Long Range 2WD	7 (8 pt | K̄=2,6495)	6 (8 pt | 0,4877)	8 (5 pt | 0,3551)	1 / 1
+A2 — BYD DOLPHIN 60.4 kWh	8 (1 pt | K̄=1,2996)	7 (7 pt | 0,4376)	7 (7 pt | 0,3389)	1 / 1
+
+Korelasi Spearman: ρ = 0,8333 terhadap TOPSIS (Σd² = 14) dan ρ = 0,7857 terhadap SAW (Σd² = 18) pada agregasi Borda (serta ρ = 0,8333 terhadap TOPSIS dan ρ = 0,8095 terhadap SAW pada agregasi rata-rata skor grup) — menunjukkan korelasi positif yang sangat kuat dan konsisten lintas keluarga metode MCDM. Baik CoCoSo maupun SAW sama-sama menetapkan A1 — Tesla Model 3 sebagai Juara #1, sedangkan TOPSIS menempatkan A8 — BMW i4 di #1 dan A1 — Tesla Model 3 di #2 karena jarak Euclidean TOPSIS bersifat kompensatoris penuh (keunggulan ekstrem range 515 km BMW menutupi penalti harganya di DM1), sementara komponen eksponensial WPM (Pi) pada CoCoSo secara tepat menghukum nilai nol BMW pada kriteria harga C1 dan purnajual C6 di perspektif CFO.
+5.4 Analisis sensitivitas
+Melampaui syarat minimal 3 skenario, kami menguji 14 skenario sensitivitas di Sheet 7_Analisis_Sensitivitas: 6 skenario perubahan bobot otoritas DM (S0–S5) dan 8 skenario perubahan bobot kriteria +30% serta bobot setara 1/6 (W0–W7):
+Skenario	Perubahan Parameter yang Diuji	Alternatif Peringkat 1 & Runner-Up	Ranking #1 Berubah?
+S0 (Baseline)	Bobot DM Setara (1/3 : 1/3 : 1/3) & Bobot Kriteria Linear BWM Asli	A1 — Tesla Model 3 (#1) | A6 — VW ID.7 (#2)	Tidak (Tetap A1)
+S1 (Dominasi CFO)	Bobot Otoritas DM1 CFO dinaikkan menjadi 50% (0,50 : 0,25 : 0,25)	A1 — Tesla Model 3 (#1, K̄w=3,2055) | A4 (#2)	Tidak (Tetap A1)
+S2 (Dominasi Ops)	Bobot Otoritas DM2 Fleet Ops dinaikkan menjadi 50% (0,25 : 0,50 : 0,25)	A1 — Tesla Model 3 (#1, 18 Borda) | A8 (#2)	Tidak (Tetap A1)
+S3 (Dominasi K3/ESG)	Bobot Otoritas DM3 HSE & ESG dinaikkan menjadi 50% (0,25 : 0,25 : 0,50)	A1 — Tesla Model 3 (#1, K̄w=3,5242) | A6 (#2)	Tidak (Tetap A1)
+S4 (Fokus Finansial–Ops)	Komite Finansial & Operasional (0,40 : 0,40 : 0,20)	A1 — Tesla Model 3 (#1, K̄w=3,6478) | A6 (#2)	Tidak (Tetap A1)
+S5 (Otoritas Ekstrem CFO)	Dominasi Penuh CFO (0,60 : 0,20 : 0,20)	A1 — Tesla Model 3 (#1, K̄w=2,9702) | A4 (#2)	Tidak (Tetap A1)
+W1 s/d W6 (Kriteria +30%)	Bobot masing-masing kriteria C1, C2, C3, C4, C5, atau C6 dinaikkan +30% (renormalisasi Σwj=1)	A1 — Tesla Model 3 (#1 pada seluruh W1–W6, 18 Borda)	Tidak (Stabil 6/6)
+W7 (Equal Weights 1/6)	Seluruh 6 kriteria diberi bobot seragam wj = 1/6 ≈ 0,1667 pada ketiga DM	A1 — Tesla Model 3 (#1, 16 Borda | K̄=2,9067)	Tidak (Tetap A1)
+
+5.5 Kesepakatan antar-DM
+Tingkat kesepakatan antar-pengambil keputusan diukur menggunakan korelasi peringkat Spearman berpasangan dan Koefisien Konkordansi Kendall (W). Pasangan DM2 (Fleet Ops) dan DM3 (HSE & ESG) memiliki keselarasan positif cukup kuat (ρ = +0,5476, Σd² = 38), pasangan DM1 (CFO) dan DM3 memiliki korelasi positif moderat (ρ = +0,2619, Σd² = 62), sedangkan pasangan DM1 (CFO) dan DM2 (Fleet Ops) berkorelasi negatif (ρ = −0,2143, Σd² = 102) akibat tarik-menarik antara penghematan anggaran vs kemewahan spesifikasi teknis. Secara simultan, Koefisien Konkordansi Kendall mencapai W = 0,4656 (S = 195,50; R̄ = 13,50), yang menandakan konvergensi komite kategori Sedang–Kuat. Alternatif yang paling disepakati di papan atas adalah A1 — Tesla Model 3 (Rank #1 di DM1, Rank #4 di DM2, Rank #1 di DM3; rentang ΔRank = 3) dan di papan bawah adalah A2 — BYD DOLPHIN (Rank #7, #8, #8; ΔRank = 1). Sebaliknya, alternatif yang paling tajam diperdebatkan adalah A8 — BMW i4 eDrive40 (ΔRank = 7, simpangan baku peringkat s = 3,61), karena ditempatkan di Peringkat #1 oleh DM2 (jarak tempuh 515 km terbaik), namun dihukum ke Peringkat #8 oleh DM1 (harga €59.200 termahal). Temuan ini menegaskan pentingnya kompromi kuota berjenjang (60% Tesla Model 3, 30% VW ID.7 Pro, dan 10% BMW i4 eDrive40).
+
+ 6. Implementasi Excel
+Seluruh pemodelan matematis diimplementasikan secara dinamis menggunakan 4.347 rumus Excel aktif (tanpa angka hasil ketikan manual dan bebas macro/VBA) di dalam buku kerja 12 sheet berikut:
+Sheet (Urutan Tab)	Isi & Peran dalam Alur GDSS	Rumus atau Fungsi Utama Excel (Total 4.347 Rumus)
+00_Petunjuk_&_Penilaian_5	Panduan pemakaian, legenda warna sel, 3 skenario uji ubah input, & tabel verifikasi otomatis 12 angka laporan.	=IF(ABS(...)<0.0001, "COCOK 100%", "CEK") (25 rumus)
+0A_Profil_Jurnal_&_Penilaian2	Dokumentasi profil kasus Sixt SE, 7 rujukan jurnal Q1, & pemenuhan rubrik Penilaian 2.	Tabel dokumentasi terstruktur
+0B_Rubrik_Penilaian_3	Bukti hitungan manual normalisasi Min-Max (Sel C8 & D8) & 5 langkah Linear BWM Rezaei (2016).	Tabel dokumentasi & bukti manual
+0C_Rubrik_Penilaian_4	Dokumentasi langkah CoCoSo (2019), komparasi Spearman, sensitivitas, & konsensus grup.	Tabel dokumentasi terstruktur
+0D_Rubrik_Penilaian_6	Peta pemenuhan rubrik Prototype Web (Butir 6.1–6.12) & pembagian peran 5 anggota.	=SUM(F6:F17) (Total skor 24/24)
+5_Raw_Kaggle_EV	Dataset mentah empiris 360 mobil listrik komersial dari Kaggle (EV_cars.csv).	Sumber acuan lintas-sheet ke Sheet 2
+2_Data_Prep_3_Responden	Penarikan spesifikasi 8 EV, aturan ambang interval, matriks skor 1–5 (DM1–DM3), & agregasi awal GEOMEAN/AVERAGE.	=IF(...) bertingkat, =GEOMEAN(...), =AVERAGE(...), =MIN(...), =MAX(...) (369 rumus)
+3_Linear_BWM_2016	Input vektor AB & AW (1–9), rumus analitik LP bobot optimal wj* & ξL*, CR^I Liang (2020), & bobot grup.	Rumus analitik LP tertutup, =ABS(...), =MAX(...), =AVERAGE(...), =GEOMEAN(...) (80 rumus)
+4_CoCoSo_Per_Responden	Normalisasi Min-Max rij, matriks wj·rij & rij^wj, Si, Pi, kia, kib, kic, Ki, & Rank untuk DM1, DM2, DM3.	=IF(...), =MIN(...), =MAX(...), =SUM(...), =RANK(...) (891 rumus)
+1_Executive_Consensus	Tabel eksekutif konsensus Borda, Tie-Breaker K̄i, matriks turnamen Copeland 8×8, Spearman antar-DM, Kendall's W, & 2 Grafik.	=AVERAGE(...), =RANK(...), =COUNTIFS(...), =SUM(...), =DEVSQ(...) (172 rumus)
+6_Komparasi_SAW_TOPSIS_Spearman	Perhitungan penuh metode pembanding SAW & TOPSIS per DM dan grup, korelasi Spearman ρ, & Grafik Komparasi.	=SUMPRODUCT(...), =SQRT(SUMSQ(...)), =RANK(...), =CORREL(...) (699 rumus)
+7_Analisis_Sensitivitas	Simulasi penuh 14 skenario sensitivitas (S0–S5 Bobot DM & W0–W7 Bobot Kriteria +30% / Equal) & Grafik Sensitivitas.	=SUMPRODUCT(...), =IF(...), =RANK(...), =COUNTIF(...), =TEXT(...) (2.111 rumus)
+
+Nama file: Konoha_GDSS_EV_SixtSE_Master.xlsx
+ 
+Gambar 6.1 — Tangkapan Visual Ringkasan Sheet 1_Executive_Consensus beserta Grafik Poin Borda dan Validasi Spearman di Microsoft Excel.
+
+ 7. Prototype Sistem
+7.1 Alur sistem
+Prototype aplikasi web GDSS Pengadaan Armada EV Sixt SE (https://upro.web.id/dssclass) menjalankan seluruh siklus keputusan kelompok dari hulu ke hilir secara utuh pada 6 tahapan utama di Mode Standar (ditambah Tahap 07 Audit Paritas & Sensitivitas serta Tahap 08 Panduan Tim pada Mode Lengkap):
+ 
+Gambar 7.1 — Diagram Alur Lengkap Prototype Sistem GDSS Pengadaan Armada EV Sixt SE (Tahap 01 s/d Tahap 06).
+7.2 Teknologi
+Komponen Arsitektur	Teknologi yang Digunakan
+Frontend & UI/UX	HTML5 Semantik, CSS3 Custom Design System berbasis Apple Human Interface Guidelines (Light/Dark Appearance), Tipografi Rumus Matematika Asli, & 4 Grafik Vektor SVG Dinamis (charts.js).
+Backend / Mesin Komputasi	JavaScript ES6 Modular (engine.js): Solver Two-Phase Simplex Linear Programming untuk Linear BWM (Rezaei, 2016), Uji CR^I Liang et al. (2020), Mesin CoCoSo (Yazdani et al., 2019), SAW, TOPSIS, Borda, Copeland, Spearman, & Kendall's W.
+Basis data & Sinkronisasi	Dual-Engine Real-Time Storage (storage.js): Google Firebase Cloud Firestore (project: sixt-ev-gdss) untuk kolaborasi multi-perangkat real-time + Fallback otomatis ke LocalStorage & BroadcastChannel multi-tab saat offline.
+Hosting / Cara menjalankan	Cloud Deployment: Vercel Production + Cloudflare Reverse Proxy pada domain https://upro.web.id/dssclass (terhubung otomatis ke GitHub IrmandoKoyo/sixt-ev-gdss). Mendukung pula eksekusi lokal via npx serve public atau python -m http.server.
+
+7.3 Fitur dan pengguna
+Fitur Utama Prototype	Pengguna	Keterangan Fungsional & Pemenuhan Rubrik Penilaian 6
+Kelola alternatif & kriteria (Tahap 01)	Komite Eksekutif (Admin)	Tambah, ubah, dan hapus alternatif EV (m dinamis) maupun kriteria evaluasi (n dinamis) serta tambah responden baru (DM4) tanpa hardcode, dilengkapi tombol Demo 1-Klik (+A9 Audi Q4 e-tron & +C7 Baterai kWh). (Butir 6.1 & 6.3)
+Pilih peran & isi penilaian mandiri (Tahap 02)	DM1 (CFO), DM2 (Ops), DM3 (HSE/ESG)	Setiap DM memiliki lembar kerja mandiri untuk mengatur orientasi Benefit/Cost, mengisi perbandingan BWM 1–9 (AB & AW), dan matriks skor 1–5. Saat masuk sebagai DM tertentu, formulir DM lain otomatis terkunci. (Butir 6.2)
+Validasi input berlapis & anti-error (Tahap 02 & Modal)	Admin, DM1–DM3	Menolak otomatis sel kosong, angka desimal/huruf, skor matriks di luar 1–5, BWM di luar 1–9, pemilihan CB = CW, atau aBB ≠ 1 / aWW ≠ 1 sebelum tersimpan ke Cloud Firestore, dilengkapi tombol Uji Validasi Input. (Butir 6.7)
+Transparansi tabel hasil antara (Tahap 03–05)	Komite Eksekutif, DM1–DM3	Menampilkan matriks ternormalisasi rij beserta min/max kolom (Tahap 03), bobot optimal wj* & CR^I (Tahap 04), serta Si, Pi, kia, kib, kic, Ki, dan Inspektur Bedah Substitusi Rumus per baris (Tahap 05). (Butir 6.5)
+Konsensus grup, grafik SVG, & kolaborasi (Tahap 06)	Komite Eksekutif, DM1–DM3	Menampilkan tabel konsensus Borda + Tie-Breaker K̄i + Copeland, 4 Kartu Rekomendasi Kuota (60%:30%:10%), 4 Grafik Vektor SVG interaktif, Status Pengisian DM Live, Forum Diskusi Komite Real-Time, & Riwayat Snapshot Keputusan. (Butir 6.6 & 6.9)
+Simulator sensitivitas & audit paritas Excel (Tahap 07)	Komite Eksekutif, Penguji	Menampilkan Simulator Sensitivitas Interaktif, 14 skenario uji ketahanan, serta Tabel Bukti Otomatis Paritas Prototype vs Microsoft Excel dengan selisih maksimum |Δ| = 0,0000. (Butir 6.4 & 6.10)
+
+7.4 Tangkapan layar
+ 
+Gambar 7.2 — Tampilan Antarmuka Utama Prototype Web GDSS Pengadaan Armada EV Sixt SE (https://upro.web.id/dssclass) pada Tahap 01 hingga Tahap 06.
+7.5 Validasi hasil prototype terhadap Excel
+Tabel berikut menyandingkan hasil perhitungan buku kerja Microsoft Excel (Konoha_GDSS_EV_SixtSE_Master.xlsx) dengan hasil perhitungan mesin JavaScript prototype (engine.js & tests/verify-engine.js) untuk seluruh 8 alternatif pada data yang sama:
+Alternatif Armada EV	Skor Excel (Poin Borda | Rata-rata K̄i)	Skor Prototype (Poin Borda | Rata-rata K̄i)	Selisih Mutlak |Δ|
+A1 — Tesla Model 3	18 Poin Borda | K̄1 = 3,597591	18 Poin Borda | K̄1 = 3,597591	0,000000 (IDENTIK)
+A2 — BYD DOLPHIN 60.4 kWh	1 Poin Borda | K̄2 = 1,299617	1 Poin Borda | K̄2 = 1,299617	0,000000 (IDENTIK)
+A3 — MG MG4 Electric 64 kWh	10 Poin Borda | K̄3 = 2,130455	10 Poin Borda | K̄3 = 2,130455	0,000000 (IDENTIK)
+A4 — Hyundai IONIQ 6 LR AWD	10 Poin Borda | K̄4 = 3,160383	10 Poin Borda | K̄4 = 3,160383	0,000000 (IDENTIK)
+A5 — Kia EV6 Long Range 2WD	8 Poin Borda | K̄5 = 2,649522	8 Poin Borda | K̄5 = 2,649522	0,000000 (IDENTIK)
+A6 — Volkswagen ID.7 Pro	15 Poin Borda | K̄6 = 3,522577	15 Poin Borda | K̄6 = 3,522577	0,000000 (IDENTIK)
+A7 — Volvo EX30 Single Motor ER	10 Poin Borda | K̄7 = 2,727228	10 Poin Borda | K̄7 = 2,727228	0,000000 (IDENTIK)
+A8 — BMW i4 eDrive40	12 Poin Borda | K̄8 = 3,535749	12 Poin Borda | K̄8 = 3,535749	0,000000 (IDENTIK)
+
+7.6 Repository dan panduan instalasi
+Repository GitHub: https://github.com/IrmandoKoyo/sixt-ev-gdss
+Aplikasi Live & Demo: https://upro.web.id/dssclass (Cadangan Vercel: https://sixt-ev-gdss.vercel.app/dssclass & Panduan: https://upro.web.id/dssclass/panduan.html)
+1. Langkah Instalasi & Menjalankan Secara Lokal: Clone repositori dengan perintah `git clone https://github.com/IrmandoKoyo/sixt-ev-gdss.git`, masuk ke direktori `cd sixt-ev-gdss`, lalu jalankan server statis `npx serve public -l 8080` (atau `python -m http.server 8080 --directory public`) dan buka `http://localhost:8080/dssclass/` di browser.
+2. Langkah Verifikasi Otomatis Paritas Matematika via Terminal: Jalankan perintah `node tests/verify-engine.js` untuk mengeksekusi pengujian otomatis paritas 100% terhadap Microsoft Excel (toleransi 10^-9), pengujian CRUD dinamis (+A9), dan pengujian penolakan validasi input.
+3. Panduan Peran Pengguna (Admin / Komite Eksekutif & DM1–DM3): Di bar kontrol atas aplikasi, klik tombol peran `Komite Eksekutif` untuk akses penuh fasilitator/admin (memantau seluruh DM, CRUD alternatif/kriteria, & reset data awal), atau klik `DM1 (CFO)`, `DM2 (Fleet Ops)`, maupun `DM3 (HSE & ESG)` untuk masuk sebagai responden spesifik di mana formulir DM lain dikunci secara otomatis. Klik tombol `Mode Lengkap` di kanan atas untuk menampilkan indikator Cloud Firestore Live, Tahap 07, dan Tahap 08.
+8. Kesimpulan dan Saran
+Keputusan yang direkomendasikan: Komite Pengadaan Armada Sixt SE direkomendasikan menetapkan A1 — Tesla Model 3 sebagai armada utama dengan alokasi 60% kuota pengadaan (Peringkat #1 konsensus grup; 18 Poin Borda; K̄1 = 3,5976; Copeland +7), didampingi oleh A6 — Volkswagen ID.7 Pro sebesar 30% kuota untuk segmen perjalanan bisnis jarak jauh (Peringkat #2; 15 Poin Borda; K̄6 = 3,5226; Copeland +5) dan A8 — BMW i4 eDrive40 sebesar 10% kuota khusus penyewa eksekutif VIP Autobahn (Peringkat #3; 12 Poin Borda; K̄8 = 3,5357; Copeland +3), serta mengeliminasi A2 — BYD DOLPHIN 60.4 kWh (Peringkat #8; 1 Poin Borda). Kombinasi portofolio ini memenuhi efisiensi modal CFO, daya jelajah operasional Fleet Ops, serta standar keselamatan dan emisi Manajer K3/ESG secara simultan.
+Keterbatasan: (1) Data harga pengadaan (C1) menggunakan harga ritel katalog pasar Jerman sebelum diskon kontrak pembelian volume besar (bulk fleet rebate) spesifik B2B; (2) Penilaian preferensi diwakili oleh 3 kepala divisi inti (CFO, Fleet Ops, dan HSE/ESG) serta menggunakan angka tegas (crisp numbers) pada skala 1–9 dan 1–5; serta (3) Biaya depresiasi nilai jual kembali (residual value) pasca-masa pakai 36 bulan masih digabungkan ke dalam kriteria kualitatif C6.
+Saran pengembangan: (1) Mengintegrasikan model Total Cost of Ownership (TCO) dinamis berbasis telematika real-time (tarif listrik per kWh stasiun pengisian Jerman dan proyeksi depresiasi lelang); (2) Memperluas metode pembobotan ke Bayesian BWM atau Fuzzy BWM untuk mengakomodasi ketidakpastian linguistik apabila jumlah anggota komite diperluas ke kepala cabang regional; serta (3) Menambahkan fitur ekspor berita acara keputusan berformat PDF bertanda tangan digital langsung dari prototype web.
+Kontribusi Anggota
+Tabel berikut merinci pembagian tugas dan kontribusi nyata kelima anggota Kelompok Konoha beserta bukti artefak pada laporan, buku kerja Excel, dan repositori prototype:
+Nama Anggota	Peran & Bagian yang Dikerjakan	Bukti Spesifik (Bab Laporan, Sheet Excel, & Prototype)	Paraf
+Manopo, Rivan	Koordinator dan Analis Kasus: Menyusun konteks bisnis Sixt SE Pullach Jerman, perumusan masalah GDSS, profil & konflik 3 DM, serta sintesis 7 jurnal Q1.	Ringkasan Eksekutif, Bab 1 (1.1–1.6), Bab 2 (2.1–2.4), Sheet 0A_Profil_Jurnal_&_Penilaian2, & Slide 1–4.	
+Koyo, Irmando	Pengembang Prototype Sistem & Deployment: Membangun aplikasi web GDSS 6+2 tahap, solver Simplex JS, sinkronisasi Cloud Firestore, validasi input, & paritas Excel.	Bab 7 (7.1–7.6), Bab 8, Repo GitHub IrmandoKoyo/sixt-ev-gdss, Live App upro.web.id/dssclass, Sheet 0D, & Slide 12–14.	
+Arya Richard	Kriteria dan Pengumpulan Data: Menyaring dataset Kaggle 360→8 EV, merumuskan kriteria C1–C6, aturan konversi interval 1–5, matriks 3 DM, & dualitas C5.	Bab 3 (3.1–3.4), Lampiran A & B, Sheet 5_Raw_Kaggle_EV, Sheet 2_Data_Prep_3_Responden, & Slide 5–6.	
+Sijadi, Marcello	Perhitungan Metode A (Linear BWM): Menyusun normalisasi Min-Max, 5 langkah optimasi LP Linear BWM Rezaei (2016), bobot grup, & uji konsistensi CR^I Liang (2020).	Bab 4 (4.1–4.4), Bukti Hitungan Manual Normalisasi & BWM, Sheet 0B_Rubrik_Penilaian_3, Sheet 3_Linear_BWM_2016, & Slide 7–8.	
+Noya, Clifford	Perhitungan Metode B (CoCoSo), Agregasi Grup, & Validasi Excel: Menyusun perhitungan CoCoSo per DM, Borda, Copeland, Spearman, 14 skenario sensitivitas, & 4.347 rumus Excel.	Bab 5 (5.1–5.5), Bab 6, Lampiran C, Sheet 4, Sheet 1, Sheet 6, Sheet 7, Sheet 00, Sheet 0C, & Slide 9–11.	
+
+Daftar Pustaka
+Deveci, M., Pamucar, D., & Gokasar, I. (2021). Fuzzy Power Heronian function based LMAW and RAFSI model for prioritizing autonomous electric vehicles in sustainable urban mobility. Sustainable Cities and Society, 74, 103242. https://doi.org/10.1016/j.scs.2021.103242
+Ecer, F. (2021). A consolidated MCDM framework for performance assessment of battery electric vehicles based on ranking strategies. Renewable and Sustainable Energy Reviews, 143, 110916. https://doi.org/10.1016/j.rser.2021.110916
+Liang, F., Brunelli, M., & Rezaei, J. (2020). Consistency issues in the best worst method: Measurements and thresholds. Omega, 96, 102075. https://doi.org/10.1016/j.omega.2019.06.001
+Pamucar, D., Ecer, F., & Deveci, M. (2021). Assessment of alternative fuel vehicles for sustainable road transportation of United States using integrated fuzzy FUCOM and neutrosophic CODAS. Applied Soft Computing, 108, 107487. https://doi.org/10.1016/j.asoc.2021.107487
+Rezaei, J. (2016). Best-worst multi-criteria decision-making method: Some properties and a linear model. Omega, 64, 126–130. https://doi.org/10.1016/j.omega.2015.12.001
+Yazdani, M., Zarate, P., Zavadskas, E. K., & Karabasevic, D. (2019). A combined compromise solution (CoCoSo) method for multi-criteria decision-making problems. Management Decision, 57(9), 2501–2519. https://doi.org/10.1108/MD-05-2017-0458
+Ziemba, P. (2020). Multi-criteria stochastic selection of electric vehicles for the sustainable development of local government and state administration units in Poland. Energies, 13(23), 6299. https://doi.org/10.3390/en13236299
+Lampiran
+Lampiran A — Kuesioner dan Catatan Wawancara dengan Setiap DM: Rekapitulasi kuesioner perbandingan berpasangan Linear BWM skala 1–9 (vektor AB dan AW), pemilihan kriteria Best & Worst, orientasi Benefit/Cost tiap kriteria (termasuk dualitas C5), serta penilaian kualitatif C6 untuk DM1 (CFO), DM2 (Fleet Ops), dan DM3 (HSE & ESG) tersedia lengkap pada Bab 3.2–3.3, Bab 4.2, serta di dalam file Excel Sheet 2_Data_Prep_3_Responden dan Sheet 3_Linear_BWM_2016.
+Lampiran B — Rekap Data Mentah (Kaggle EV Cars Dataset): Dataset mentah 360 kendaraan listrik komersial pasar Jerman (EV_cars.csv dari EV-Database.org) beserta rumus penarikan otomatis 8 kandidat armada (A1–A8) tersedia utuh pada Sheet 5_Raw_Kaggle_EV dan Sheet 2_Data_Prep_3_Responden (Baris 5–13).
+Lampiran C — File Excel Perhitungan Lengkap (12 Sheet, 4.347 Rumus Aktif): Disertakan dalam berkas `Konoha_GDSS_EV_SixtSE_Master.xlsx` (juga tersimpan di folder `docs/Konoha_GDSS_EV_SixtSE_Master.xlsx` pada repositori proyek).
+Lampiran D — Tautan Repository, Aplikasi Live, dan Panduan Presentasi: Repository GitHub: https://github.com/IrmandoKoyo/sixt-ev-gdss | Aplikasi Web Live: https://upro.web.id/dssclass | Buku Panduan Interaktif 18 Bab: https://upro.web.id/dssclass/panduan.html.
