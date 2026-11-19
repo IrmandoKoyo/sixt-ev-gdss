@@ -60,9 +60,6 @@ finalproject/
 ├── deploy-configs/
 │   ├── upro-hub-vercel.json              # Siap salin ke D:\Antigrafity\upro.web.id\vercel.json
 │   └── upro-hub-card-snippet.tsx         # Siap salin ke D:\Antigrafity\upro.web.id\src\App.tsx
-├── docs/
-│   ├── Konoha_GDSS_EV_SixtSE_Master.xlsx          # Buku Kerja Master Excel (12 Sheet, 4.347+ Rumus)
-│   └── Panduan_Master_GDSS_SixtSE_Lengkap.html    # Buku Induk & Naskah Presentasi (18 Bab)
 ├── vercel.json                           # Konfigurasi routing Vercel
 ├── package.json                          # Skrip npm (start, sync, test)
 ├── PANDUAN_DEPLOY_STEP_BY_STEP.md        # Panduan klik demi klik Firebase, GitHub, Cloudflare/Vercel
