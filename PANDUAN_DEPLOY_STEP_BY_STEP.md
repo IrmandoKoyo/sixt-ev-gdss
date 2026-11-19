@@ -1,7 +1,7 @@
 # 🚀 Panduan Lengkap Langkah demi Langkah: Online (`upro.web.id/dssclass`) & Lokal
 ### (Klik Apa, Buka Apa, dan Apa yang Perlu Diambil dari Firebase / GitHub / Vercel / Cloudflare)
 
-Panduan ini disusun khusus agar Anda dapat meng-online-kan **Prototype Web GDSS Sixt SE** ke subpath **`https://upro.web.id/dssclass`** dengan database *real-time* **Google Firebase Cloud Firestore** yang **100% gratis (Spark Plan, tanpa kartu kredit)** dan **tidak mengganggu aplikasi `jalinsava` maupun proyek lain yang sudah ada**.
+Panduan ini disusun khusus agar Anda dapat meng-online-kan **Prototype Web GDSS Sixt SE** ke subpath **`https://upro.web.id/dssclass`** dengan database *real-time* **Google Firebase Cloud Firestore** yang **100% gratis (Spark Plan, tanpa kartu kredit)**.
 
 ---
 
@@ -106,7 +106,7 @@ Karena domain utama Anda **`upro.web.id`** saat ini dikelola oleh proyek **`upro
 5. Dalam $\pm 20$ detik, Anda akan mendapatkan URL live: **`https://sixt-ev-gdss.vercel.app`** (dan **`https://sixt-ev-gdss.vercel.app/dssclass`**).
 
 ### Opsi B — Deploy di Cloudflare Pages (Gratis Tanpa Kartu Kredit)
-1. Buka **[https://dash.cloudflare.com/](https://dash.cloudflare.com/)** (boleh di akun Cloudflare yang sudah ada—**100% aman tidak akan menyentuh DNS `jalinsava`** karena Pages berdiri terpisah).
+1. Buka **[https://dash.cloudflare.com/](https://dash.cloudflare.com/)** (boleh di akun Cloudflare yang sudah ada.
 2. Di menu kiri klik **"Compute (Workers)"** $\rightarrow$ **"Workers & Pages"** $\rightarrow$ klik tombol **"Create"** $\rightarrow$ pilih tab **"Pages"** $\rightarrow$ **"Connect to Git"**.
 3. Pilih repositori **`sixt-ev-gdss`** $\rightarrow$ klik **"Begin setup"**.
 4. Isi pengaturan:
